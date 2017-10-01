@@ -7,8 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
-    <link rel="javascript" type="text/js" href="../js/main.js">
-    <link rel="javascript" type="text/js" href="../js/animateMain.js">
     <link rel="stylesheet" type="text/css" href="../css/SemanticUI/semantic.min.css">
     <style>
     body {
@@ -34,7 +32,9 @@
         margin-top: 2.0rem;
         transition: 0.3s;
     }
-
+    .text-black{
+        color: black;
+    }
     .flex-center {
         align-items: center;
         height: 20vh;
@@ -81,33 +81,35 @@
             </div>
         </div>
     </div>
+
     <!-- Modals -->
     <div class="ui modal">
         <i class="close icon"></i>
         <div class="header">
-            Profile Picture
+            Better Run Instruccions
         </div>
         <div class="image content">
             <div class="ui medium image">
-                <img src="/images/avatar/large/chris.jpg">
+                <img src="../assets/images/flame.png">
             </div>
             <div class="description">
-                <div class="ui header">We've auto-chosen a profile image for you.</div>
-                <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-                <p>Is it okay to use this photo?</p>
+                <div class="ui header">Asi es como funciona el juego.</div>
+                <p class="text-black">Existen dos modalidades de juego, en las que se encuentran Falling Blocks y Bomb Tag.</p>
+                <p class="text-black">Muevete con las flechas de tu teclado  y salta con barra espaciadora. En ambos juegos la mecanica es basicamente la misma, mejor corre y asi sobreviviras.</p>
+                <h4 class="text-black">Bomb Tag</h4>
+                <p class="text-black"> Escapa de tus enemigos lo mas lejos que puedas, uno de ellos tiene una bomba encima y te la quiere pasar.
+                En este modo de juego, debes huir del jugador que posee la bomba</p>
             </div>
         </div>
         <div class="actions">
-            <div class="ui black deny button">
-                Nope
-            </div>
             <div class="ui positive right labeled icon button">
-                Yep, that's me
+                Ok, I understand.
                 <i class="checkmark icon"></i>
             </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="../js/main.js"></script>
     <script src="../css/SemanticUI/semantic.min.js"></script>
 </body>
 
