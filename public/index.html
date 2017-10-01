@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BetterRun</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="javascript" type="text/js" href="../js/main.js">
+    <link rel="javascript" type="text/js" href="../js/animateMain.js">
+    <link rel="stylesheet" type="text/css" href="../css/SemanticUI/semantic.min.css">
+    <style>
+    body {
+        width: 100%;
+        align-content: center;
+        align-items: center;
+        padding-top: 5.0rem;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+        background-image: linear-gradient(141deg, rgb(178, 34, 34) 0%, rgb(165, 42, 42) 51%, rgb(128,0,0) 75%);
+        background-position-x: initial;
+        background-position-y: initial;
+        background-size: initial;
+        background-repeat-x: initial;
+        background-repeat-y: initial;
+        background-attachment: initial;
+        background-origin: initial;
+        background-clip: initial;
+        background-color: initial;
+        color: white;
+        min-height: 30rem;
+        padding-bottom: 2.0rem;
+        margin-top: 2.0rem;
+        transition: 0.3s;
+    }
+
+    .flex-center {
+        align-items: center;
+        height: 20vh;
+        display: flex;
+        justify-content: center;
+    }
+
+    .button-center {
+        display: flex;
+        height: 80vh;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .links>a {
+        padding: 0 25px;
+        font-size: 12px;
+        display: flex;
+        font-weight: 600;
+        letter-spacing: .1rem;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+    </style>
+</head>
+
+<body id="body-content">
+    <div class="center-logo ui container">
+        <div class="two column row">
+            <div class="column">
+                <p>Better Run!</p>
+                <img class="ui centered button-center small image inline" src="../assets/images/meteorites.png" alt="">
+            </div>
+        </div>
+    </div>
+    </p>
+    <div class="ui equal width container grid ">
+        <div class="column">
+            <div class="row">
+                <div class="flex-center">
+                    <a href="#" class="ui huge inverted button">Play<i class="separated play icon"></i></a>
+                    <button onclick="showModal()" href="#" class="ui huge inverted button">Instruccions</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modals -->
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Profile Picture
+        </div>
+        <div class="image content">
+            <div class="ui medium image">
+                <img src="/images/avatar/large/chris.jpg">
+            </div>
+            <div class="description">
+                <div class="ui header">We've auto-chosen a profile image for you.</div>
+                <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+                <p>Is it okay to use this photo?</p>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">
+                Nope
+            </div>
+            <div class="ui positive right labeled icon button">
+                Yep, that's me
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="../css/SemanticUI/semantic.min.js"></script>
+</body>
+
+</html>

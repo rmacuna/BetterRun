@@ -1,0 +1,23 @@
+body {
+  font-family: "Chivo", sans-serif;
+  overflow-y: hidden; }
+
+.center-logo {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  font-size: 5rem; }
+
+.flex-center {
+  align-items: center;
+  height: 50vh;
+  display: flex;
+  justify-content: center; }
+
+.separated {
+  padding-left: 2rem; }
+
+.inline {
+  display: inline-block; }
+
+/*# sourceMappingURL=main.css.map */
