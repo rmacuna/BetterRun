@@ -12,5 +12,10 @@ io.sockets.on('connection', newConnection);
 
 function newConnection(socket){
 	console.log("newConneection" + socket.id);
+	socket.on('moving', move);
 
+	function move(data){
+		console.log(data);
+		socket.broadcast.emit('moving', data);
+	}
 }

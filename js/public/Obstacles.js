@@ -63,24 +63,24 @@ function Box(x,y,w,h){
 	this.body.label = "player";
 	//Matter.Body.setInertia(this.body, 1);
 	World.add(world, this.body);
-	var pos = this.body.position;
+	this.pos = this.body.position;
 	this.jump = function(){
-		Matter.Body.applyForce(this.body, { x: pos.x, y: pos.y }, {x: 0, y: -20});
-		console.log("Jump");
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -20});
+//		console.log("Jump");
 	}
 	this.left = function(){
-		Matter.Body.applyForce(this.body, { x: pos.x, y: pos.y }, {x: -2, y: 0});
-		console.log("left");
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -2, y: 0});
+//		console.log("left");
 	}
 	this.right = function(){
-		Matter.Body.applyForce(this.body, { x: pos.x, y: pos.y }, {x: 2, y: 0});
-		console.log("right");
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 2, y: 0});
+//		console.log("right");
 	}
 
 	this.show = function(){
 
 		push();
-		translate(pos.x,pos.y);
+		translate(this.pos.x,this.pos.y);
 		strokeWeight(1);
 		stroke(255);
 		fill(0);
