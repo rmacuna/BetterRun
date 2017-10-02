@@ -26,13 +26,14 @@ function Box(x,y,w,h){
 
  }
 
- function Bound(x,y,w,h){
+ function Bound(x,y,w,h,label){
  	var options = {
 		friction: 0.1,
 		isStatic: true 
 
 	}
 	this.body = Bodies.rectangle(x, y, w, h, options);
+	this.body.label = label;
 	this.w = w;
 	this.h = h;
 	World.add(world, this.body);
@@ -48,5 +49,42 @@ function Box(x,y,w,h){
 		rect(pos.x,pos.y,this.w,this.h);
 		pop();
 	}
+}
 
+	function Circle(x,y,r){
+		this.r = r;
+		var options = {
+		friction: 0.1,
+		restitution: 0, 
+		density: 1.5
+
+	}
+	this.body = Bodies.circle(x, y, r, options);
+	this.body.label = "player";
+	//Matter.Body.setInertia(this.body, 1);
+	World.add(world, this.body);
+	var pos = this.body.position;
+	this.jump = function(){
+		Matter.Body.applyForce(this.body, { x: pos.x, y: pos.y }, {x: 0, y: -20});
+		console.log("Jump");
+	}
+	this.left = function(){
+		Matter.Body.applyForce(this.body, { x: pos.x, y: pos.y }, {x: -2, y: 0});
+		console.log("left");
+	}
+	this.right = function(){
+		Matter.Body.applyForce(this.body, { x: pos.x, y: pos.y }, {x: 2, y: 0});
+		console.log("right");
+	}
+
+	this.show = function(){
+
+		push();
+		translate(pos.x,pos.y);
+		strokeWeight(1);
+		stroke(255);
+		fill(0);
+		ellipse(0,0,this.r*2);
+		pop();
+	}
  }
