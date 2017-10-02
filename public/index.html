@@ -75,14 +75,15 @@
         <div class="column">
             <div class="row">
                 <div class="flex-center">
-                    <a href="#" class="ui huge inverted button">Play<i class="separated play icon"></i></a>
+                    <audio id="audioPlay" src="../assets/sounds/click.mp3"></audio>
+                    <a href="#" onclick="playClickSound()" class="ui huge inverted button">Play<i class="separated play icon"></i></a>
                     <button onclick="showModal()" href="#" class="ui huge inverted button">Instruccions</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modals -->
+    <!-- Modal instruction -->
     <div class="ui modal">
         <i class="close icon"></i>
         <div class="header">
@@ -108,6 +109,7 @@
             </div>
         </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="../js/main.js"></script>
     <script src="../css/SemanticUI/semantic.min.js"></script>
