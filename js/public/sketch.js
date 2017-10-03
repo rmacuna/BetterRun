@@ -2,7 +2,7 @@ var Engine = Matter.Engine,
     Events = Matter.Events,
     World = Matter.World,
     Bodies = Matter.Bodies;
-var socket;
+//var socket;
 var engine;
 var obstacles = [];
 var bounds = [];
@@ -14,10 +14,11 @@ var right;
 var circle;
 var cooldown = 0;
 var data;
-function setup () {
+function setup () {	
 createCanvas(500,500);
-socket = io.connect('http://localhost:3000');
-socket.on('moving', move);
+
+//socket = io.connect('http://localhost:3000');
+//socket.on('moving', move);
 	engine = Engine.create();
 	world = engine.world;
 	world.gravity.y = 2;
@@ -52,23 +53,23 @@ socket.on('moving', move);
 
 }
 
-function move(data){
+/*function move(data){
 	background(51);
 	fill(255);
 	ellipse(data.x,data.y, 40,40);
-}
+}*/
 /*function mouseDragged(){
 obstacles.push(new Box(mouseX,mouseY,20,20));
 
 }*/
 
 function draw () {
-
+background(51);
 	var data = {
 		x: circle.pos.x,
 		y: circle.pos.y
 	}
-	socket.emit('moving', data);
+//	socket.emit('moving', data);
 	Engine.update(engine, [delta=16.6666], [correction=1])
 	if (keyIsDown(UP_ARROW) && cooldown < 5) {
 		circle.jump();
