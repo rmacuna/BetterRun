@@ -83,7 +83,7 @@ function Box(x,y,w,h){
 		translate(this.pos.x,this.pos.y);
 		strokeWeight(1);
 		stroke(255);
-		fill(0);
+		fill(150);
 		ellipse(0,0,this.r*2);
 		pop();
 	}

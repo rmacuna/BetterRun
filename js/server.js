@@ -1,4 +1,4 @@
-var express = require('express');
+/*var express = require('express');
 var app = express();
 var server = app.listen(3000);
 
@@ -18,4 +18,4 @@ function newConnection(socket){
 		console.log(data);
 		socket.broadcast.emit('moving', data);
 	}
-}
+}*/
