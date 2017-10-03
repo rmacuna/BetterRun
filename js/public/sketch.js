@@ -13,12 +13,27 @@ var left;
 var right;
 var circle;
 var cooldown = 0;
-var data;
+var database;
+var submitButton;
+var playerId = "PlayerOne";
+var background;
 function setup () {	
-createCanvas(500,500);
+createCanvas(1000,600);
+background = loadImage("forest_level.png");
+//frameRate(10);
+var config = {
+    apiKey: "AIzaSyCh5orrfctZcJMyiD9pArlUmTdxS5SjSr0",
+    authDomain: "betterrun-fce44.firebaseapp.com",
+    databaseURL: "https://betterrun-fce44.firebaseio.com",
+    projectId: "betterrun-fce44",
+    storageBucket: "betterrun-fce44.appspot.com",
+    messagingSenderId: "105353570635"
+  };
 
-//socket = io.connect('http://localhost:3000');
-//socket.on('moving', move);
+  firebase.initializeApp(config);
+  database = firebase.database();
+  //submitButton = createButton("Submit");
+  //submitButton.mousePressed(playerData);
 	engine = Engine.create();
 	world = engine.world;
 	world.gravity.y = 2;
@@ -52,24 +67,18 @@ createCanvas(500,500);
 	}
 
 }
-
-/*function move(data){
-	background(51);
-	fill(255);
-	ellipse(data.x,data.y, 40,40);
-}*/
-/*function mouseDragged(){
-obstacles.push(new Box(mouseX,mouseY,20,20));
-
-}*/
-
-function draw () {
-background(51);
+function playerData(){
 	var data = {
 		x: circle.pos.x,
 		y: circle.pos.y
 	}
-//	socket.emit('moving', data);
+//	database.ref(playerId).set(data);
+}
+
+function draw () {
+//background(51);
+image(background, 0,0,width,height);
+playerData();
 	Engine.update(engine, [delta=16.6666], [correction=1])
 	if (keyIsDown(UP_ARROW) && cooldown < 5) {
 		circle.jump();

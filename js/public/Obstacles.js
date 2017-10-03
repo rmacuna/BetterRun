@@ -44,8 +44,9 @@ function Box(x,y,w,h){
 		push();
 		rectMode(CENTER);
 		strokeWeight(1);
-		stroke(255);
-		fill(0);
+		stroke(0);
+		var c = color('#00B300');
+		fill(c);
 		rect(pos.x,pos.y,this.w,this.h);
 		pop();
 	}
@@ -69,11 +70,11 @@ function Box(x,y,w,h){
 //		console.log("Jump");
 	}
 	this.left = function(){
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -2, y: 0});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -1, y: 0});
 //		console.log("left");
 	}
 	this.right = function(){
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 2, y: 0});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 1, y: 0});
 //		console.log("right");
 	}
 
@@ -83,7 +84,8 @@ function Box(x,y,w,h){
 		translate(this.pos.x,this.pos.y);
 		strokeWeight(1);
 		stroke(255);
-		fill(150);
+		var c = color('#00B300');
+		fill(c);
 		ellipse(0,0,this.r*2);
 		pop();
 	}
