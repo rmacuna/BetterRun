@@ -6,7 +6,19 @@ function showModal() {
 function playClickSound() {
     var audio = document.getElementById('audioPlay');
     audio.play();
-    $("#body-content").load('../public/mainmenu.html');
+    var millisecondsToWait = 800;  
+      
+    setTimeout(function() {
+       $("#body-content").load('../public/mainmenu.html');
+       $(document).ready(function() {
+   			 setTimeout(function(){
+   				 $('body').addClass('loaded')
+   			 },3000);
+   		});
+    }, millisecondsToWait);
+      
+  
+    
 }
 
 $(".hoverableSound").mouseenter(function() {
