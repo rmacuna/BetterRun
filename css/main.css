@@ -2,6 +2,16 @@ body {
   font-family: "Chivo", sans-serif;
   overflow-y: hidden; }
 
+.text-white {
+  color: #fff; }
+
+.text-black {
+  color: #000; }
+
+#menuContent {
+  font-family: "Chivo", sans-serif;
+  font-size: 1.2rem; }
+
 .center-logo {
   margin: auto;
   width: 50%;
@@ -62,7 +72,7 @@ body {
   border-radius: 50%;
   border: 3px solid transparent;
   border-top-color: #e74c3c;
-  -webkit-animation: spin 3s linear infinite;
+  -webkit-animation: spin 2s linear infinite;
   animation: spin 3s linear infinite; }
 
 #loader::after {
@@ -76,14 +86,14 @@ body {
   border: 3px solid transparent;
   border-top-color: #f9c922;
   -webkit-animation: spin 1.5s linear infinite;
-  animation: spin 1.5s linear infinite; }
+  animation: spin 1s linear infinite; }
 
 #loader-wrapper .loader-section {
   position: fixed;
   top: 0;
   width: 51%;
   height: 100%;
-  background: #222;
+  background: #212121;
   z-index: 1000; }
 
 #loader-wrapper .loader-section.section-left {
