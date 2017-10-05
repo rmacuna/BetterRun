@@ -9,15 +9,19 @@ var bounds = [];
 var obstacles = [];
 
 //Player vars
+var id = null;
+var lobby = 1;
+var LOGEDIN = false;
 var circle;
 var cooldown = 0;
 
 //firebase vars
 var database;
-var playerId = "PlayerOne";
 
 //looks vars
 var background;
+var input;
+var button;
 
 function setup () {	
 createCanvas(1000,600);
@@ -37,6 +41,13 @@ var config = {
 	engine = Engine.create();
 	world = engine.world;
 	world.gravity.y = 2;
+
+	input = createInput();
+	input.position(20, 560);
+
+	button = createButton('submit');
+	button.position(input.x + input.width, 560);
+	button.mousePressed(logPlayer);
 
 	//Set World Bounds
 	setWorldBounds();
@@ -61,7 +72,7 @@ var config = {
 		}
 	}
 
-	createPlatforms();
+	//createPlatforms();
 
 }
 
@@ -70,6 +81,8 @@ var config = {
 
 //Renders the world
 function draw () {
+	if (LOGEDIN) {
+
 	image(background, 0,0,width,height);
 
 	playerData();
@@ -99,6 +112,7 @@ function draw () {
 		bounds[i].show();
 	}
 }
+}
 
 //Sends the player pos to the database
 function playerData(){
@@ -106,8 +120,31 @@ function playerData(){
 		x: circle.pos.x,
 		y: circle.pos.y
 	}
-//	database.ref(playerId).set(data);
+	
+	database.ref(lobby+'/' + id).set(data);
 }
+
+function logPlayer(){
+	if(input.value() != ""){
+	id = input.value();
+}
+firebase.database().ref(lobby+'/').once('value', 
+	function(snapshot) { 
+		playerLobby(snapshot.numChildren());
+	}
+);
+
+console.log("The user " + id + " is loged in");
+	input.value("");
+}
+
+function playerLobby(childs){
+	console.log(childs);
+	if (childs > 3) {
+		lobby++; 
+	}
+	LOGEDIN = true;
+}	
 
 //Sets world bounds
 function setWorldBounds(){
@@ -120,5 +157,5 @@ function setWorldBounds(){
 }
 
 function createPlatforms(){
-
+		console.log("♛");
 }
