@@ -73,7 +73,7 @@ function Box(x,y,w,h){
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -1, y: 0});
 		}else{
-			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -5, y: 0});
+			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -10, y: 0});
 //		console.log("left");
 	}
 	}
@@ -81,7 +81,7 @@ function Box(x,y,w,h){
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 1, y: 0});
 		}else{
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 5, y: 0});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 10, y: 0});
 	}
 //		console.log("right");
 	}
