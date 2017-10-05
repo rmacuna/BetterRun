@@ -25,6 +25,8 @@ var socket;
 var background;
 var input;
 var button;
+var moving;
+var lastpos = {x:0, y:0};
 
 function setup () {	
 createCanvas(600,600);
@@ -99,15 +101,12 @@ function move(data){
 //Renders the world
 function draw () {
 	if (LOGEDIN) {
-
 		var data = {
 		x: Math.floor(circle.pos.x),
 		y: Math.floor(circle.pos.y)
-	}
+		}
+		socket.emit('moving',data);
 
-	socket.emit('moving',data);
-
-	image(background, 0,0,width,height);
 
 	//playerData();
 
