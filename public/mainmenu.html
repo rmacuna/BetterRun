@@ -1,50 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>MainMenu</title>
-	<link rel="stylesheet" href="../css/main.css">
-	<style>
-		body{
-			      width: 100%;
-		        align-content: center;
-		        align-items: center;
-		        padding-top: 5.0rem;
-		        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-		        background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
-		        background-image: linear-gradient(141deg, rgb(192,192,192) 0%, rgb(128,128,128) 51%, rgb(128,128,128) 75%);
-		         background-image: linear-gradient(141deg, rgb(178, 34, 34) 0%, rgb(165, 42, 42) 51%, rgb(128,0,0) 75%);
-		        background-position-x: initial;
-		        background-position-y: initial;
-		        background-size: initial;
-		        background-repeat-x: initial;
-		        background-repeat-y: initial;
-		        background-attachment: initial;
-		        background-origin: initial;
-		        background-clip: initial;
-		        background-color: initial;
-		        min-height: 30rem;
-		        padding-bottom: 2.0rem;
-		        margin-top: 2.0rem;
-		        transition: 0.3s;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <title>MainMenu</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/SemanticUI/semantic.min.css">
+    <style>
+    body {
+        width: 100%;
+        align-content: center;
+        align-items: center;
+        padding-top: 5.0rem;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+        background-image: linear-gradient(141deg, rgb(192, 192, 192) 0%, rgb(128, 128, 128) 51%, rgb(128, 128, 128) 75%);
+        background-image: linear-gradient(141deg, rgb(178, 34, 34) 0%, rgb(165, 42, 42) 51%, rgb(128, 0, 0) 75%);
+        background-position-x: initial;
+        background-position-y: initial;
+        background-size: initial;
+        background-repeat-x: initial;
+        background-repeat-y: initial;
+        background-attachment: initial;
+        background-origin: initial;
+        background-clip: initial;
+        background-color: initial;
+        min-height: 30rem;
+        padding-bottom: 2.0rem;
+        margin-top: 2.0rem;
+        transition: 0.3s;
+    }
+    </style>
 </head>
+
 <body id="body-content">
-	
-	<div id="loader-wrapper">
-			<div id="loader"></div>
-			<div class="loader-section section-left"></div>
-			<div class="loader-section section-right"></div>
-	</div>
-			
-			<div class="content">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam molestiae ullam quidem eveniet debitis repellendus provident aperiam! Reprehenderit quisquam ex, asperiores, amet cum, similique quam dolorem enim illo voluptates officia.</p>
-			</div>
-			
-	<script src="../js/public/main.js"></script>
-	<script>
-		
-	</script>
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <div class="content">
+        <div id="menuContent">
+            <div class="ui equal widht grid container">
+                <div class="eight wide column">
+                    <div class="row">
+                        <a href="#" class="ui huge button inverted hoverableSound">Play this Game</a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="ui huge button inverted hoverableSound">Settings</a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="ui huge button inverted hoverableSound">Select the Game Mode</a>
+                    </div>
+                </div>
+                <div class="six wide column">
+                    <p class="text-white">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/public/main.js"></script>
+    <script src="../css/SemanticUI/semantic.js"></script>
 </body>
+
 </html>

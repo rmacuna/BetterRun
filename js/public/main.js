@@ -3,7 +3,7 @@ function showModal() {
         .modal('show');
 }
 
-function playClickSound() {
+function playGame() {
     var audio = document.getElementById('audioPlay');
     audio.play();
     var millisecondsToWait = 800;  
@@ -17,8 +17,6 @@ function playClickSound() {
    		});
     }, millisecondsToWait);
       
-  
-    
 }
 
 $(".hoverableSound").mouseenter(function() {
@@ -28,3 +26,4 @@ $(".hoverableSound").mouseenter(function() {
         'autoplay': 'autoplay'
     }).appendTo("body");
 });
+
