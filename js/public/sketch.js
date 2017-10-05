@@ -3,7 +3,7 @@ var Engine = Matter.Engine,
     World = Matter.World,
     Bodies = Matter.Bodies;
 //World engine vars
-// 192.168.99.1
+// 192.168.0.15
 var engine;
 var world;
 var bounds = [];
@@ -32,9 +32,9 @@ function setup () {
 createCanvas(600,600);
 background = loadImage("forest_level.png");
 
-socket = io.connect('http://localhost:3000');
+socket = io.connect('http://192.168.0.15:4000');
 socket.on('moving', move);
-
+/*
 var config = {
     apiKey: "AIzaSyAQOE_XWSAn7XhLo5eSyCY0LXXVsni_7PQ",
     authDomain: "betterrun-de5ad.firebaseapp.com",
@@ -46,6 +46,7 @@ var config = {
 
   firebase.initializeApp(config);
   database = firebase.database();
+ */
 	engine = Engine.create();
 	world = engine.world;
 	world.gravity.y = 2;
