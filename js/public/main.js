@@ -18,6 +18,8 @@ function playGame() {
     }, millisecondsToWait);
       
 }
+var hello = "helloWord";
+console.log(hello);
 
 $(".hoverableSound").mouseenter(function() {
     $("<audio></audio>").attr({
