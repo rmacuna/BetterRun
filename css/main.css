@@ -8,10 +8,6 @@ body {
 .text-black {
   color: #000; }
 
-#menuContent {
-  font-family: "Chivo", sans-serif;
-  font-size: 1.2rem; }
-
 .center-logo {
   margin: auto;
   width: 50%;
@@ -26,6 +22,30 @@ body {
 
 .separated {
   padding-left: 2rem; }
+
+#menuContent {
+  padding-top: 5rem;
+  border: 1px solid #fff;
+  font-family: "Chivo", sans-serif;
+  font-size: 1.2rem; }
+
+.menuitem {
+  padding-bottom: 1.2rem; }
+
+.btnmenu {
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  padding-right: 1rem; }
+
+.outline-section {
+  border: 1px solid #fff;
+  font-family: "Chivo", sans-serif;
+  padding-top: 5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 1rem;
+  align-content: center; }
 
 @keyframes float {
   0% {
