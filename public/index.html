@@ -9,44 +9,46 @@
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <link rel="stylesheet" type="text/css" href="../css/SemanticUI/semantic.min.css">
     <style>
-    body {
-         width: 100%;
-         background: url('../assets/images/Danger.jpg') no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+        body {
+            width: 100%;
+            background: url('../assets/images/Danger.jpg') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
         }
-    .text-black{
-        color: black;
-    }
-    .text-white{
-        color: #FFF;
-    }
 
-    .flex-center {
-        align-items: center;
-        height: 35vh;
-        display: flex;
-        justify-content: center;
-    }
+        .text-black {
+            color: black;
+        }
 
-    .button-center {
-        display: flex;
-        height: 20vh;
-        justify-content: center;
-        align-items: center;
-    }
+        .text-white {
+            color: #FFF;
+        }
 
-    .links>a {
-        padding: 0 25px;
-        font-size: 12px;
-        display: flex;
-        font-weight: 600;
-        letter-spacing: .1rem;
-        text-decoration: none;
-        text-transform: uppercase;
-    }
+        .flex-center {
+            align-items: center;
+            height: 35vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .button-center {
+            display: flex;
+            height: 20vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .links>a {
+            padding: 0 25px;
+            font-size: 12px;
+            display: flex;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 
@@ -68,7 +70,9 @@
             <div class="row">
                 <div class="button-center center-pos">
                     <audio id="audioPlay" src="../assets/sounds/click.mp3"></audio>
-                    <a href="#" onclick="playGame()" class="ui huge inverted button hoverableSound">Play<i class="separated play icon"></i></a>
+                    <a onclick="playGame()" class="ui huge inverted button hoverableSound">Play
+                        <i class="separated play icon"></i>
+                    </a>
                     <button onclick="showModal()" href="#" class="ui huge inverted button hoverableSound">Instruccions</button>
 
                 </div>
@@ -85,20 +89,21 @@
         <div class="image content">
             <div class="ui medium image">
                 <div class="floating-image">
-                    <img  src="../assets/images/flame.png">
+                    <img src="../assets/images/flame.png">
                 </div>
             </div>
             <div class="description">
                 <div class="ui header text-black">Asi es como funciona el juego.</div>
                 <p class="text-black">Existen dos modalidades de juego, en las que se encuentran Falling Blocks y Bomb Tag.</p>
-                <p class="text-black">Muevete con las flechas de tu teclado  y salta con barra espaciadora. En ambos juegos la mecanica es basicamente la misma, mejor corre y asi sobreviviras.</p>
+                <p class="text-black">Muevete con las flechas de tu teclado y salta con barra espaciadora. En ambos juegos la mecanica es basicamente
+                    la misma, mejor corre y asi sobreviviras.</p>
                 <h4 class="text-black">Bomb Tag</h4>
                 <p class="text-black"> Escapa de tus enemigos lo mas lejos que puedas, uno de ellos tiene una bomba encima y te la quiere pasar.
-                En este modo de juego, debes huir del jugador que posee la bomba</p>
+                    En este modo de juego, debes huir del jugador que posee la bomba</p>
                 <h4 class="text-black">Falling Blocks</h4>
-                <p class="text-black">En esta modalidad debes esquivar unos bloques que caeran del cielo, si te tocan moriras. El ultimo jugador en pie, ganara la partida.
-
-                Depende de la modalidad de juego que selecciones y el nivel escogido así sera la dificultad del mismo. Explora entre los diferentes niveles y diviertete con tus amigos. </p>
+                <p class="text-black">En esta modalidad debes esquivar unos bloques que caeran del cielo, si te tocan moriras. El ultimo jugador
+                    en pie, ganara la partida. Depende de la modalidad de juego que selecciones y el nivel escogido así sera
+                    la dificultad del mismo. Explora entre los diferentes niveles y diviertete con tus amigos. </p>
 
             </div>
         </div>
@@ -113,6 +118,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../js/public/main.js"></script>
     <script src="../css/SemanticUI/semantic.min.js"></script>
+
 </body>
 
 </html>

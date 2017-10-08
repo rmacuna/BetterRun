@@ -3,10 +3,24 @@ body {
   overflow-y: hidden; }
 
 .text-white {
-  color: #fff; }
+  color: #FFF; }
 
 .text-black {
   color: #000; }
+
+.typing-area {
+  padding-top: 12rem;
+  display: flex;
+  align-items: center;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  width: 90%;
+  height: 3rem; }
+
+.typing-area span {
+  align-content: center;
+  font-size: 1.2rem;
+  color: #FFF; }
 
 .center-logo {
   margin: auto;
@@ -25,12 +39,14 @@ body {
 
 #menuContent {
   padding-top: 5rem;
-  border: 1px solid #fff;
   font-family: "Chivo", sans-serif;
   font-size: 1.2rem; }
 
 .menuitem {
-  padding-bottom: 1.2rem; }
+  padding-bottom: 1.2rem;
+  text-align: center; }
+  .menuitem #gamelogo {
+    font-size: 3rem; }
 
 .btnmenu {
   align-content: center;
@@ -38,14 +54,27 @@ body {
   text-align: center;
   padding-right: 1rem; }
 
+.menu-container {
+  width: 10rem;
+  border: 1px solid #FFF; }
+
+.menu-container {
+  width: 5rem;
+  border: 1px solid #fff; }
+
 .outline-section {
   border: 1px solid #fff;
   font-family: "Chivo", sans-serif;
   padding-top: 5rem;
-  padding-left: 2rem;
+  padding-left: 1rem;
   padding-right: 2rem;
   padding-bottom: 1rem;
+  margin-left: 1rem;
   align-content: center; }
+
+.visiblePage {
+  visibility: visible;
+  background: #212121; }
 
 @keyframes float {
   0% {
@@ -172,5 +201,11 @@ body {
   transform: translateY(-100%);
   -webkit-transition: all 0.3s 1s ease-out;
   transition: all 0.3s 1s ease-out; }
+
+.vanish {
+  visibility: hidden;
+  opacity: 0;
+  transition: background 1s ease-out, visibility 0s 1s, opacity 1s ease-out;
+  background: #000; }
 
 /*# sourceMappingURL=main.css.map */
