@@ -22,6 +22,10 @@ body {
   font-size: 1.2rem;
   color: #FFF; }
 
+.settings span {
+  color: #FFF;
+  font-size: 1.2rem; }
+
 .center-logo {
   margin: auto;
   width: 50%;
