@@ -1,3 +1,12 @@
+
+
+
+var lastMap = 1;
+var maps = ["../assets/levels/forest_level_blur.jpg", "../assets/levels/Desert_level_blur.jpg", "../assets/levels/Cementery_level2_blur.jpg"];
+var maps_min = ["../assets/levels/forest_level.png", "../assets/levels/Desert_level.png", "../assets/levels/Cementery_level2.jpg"];
+
+
+
 function showModal() {
     $('.ui.modal')
         .modal('show');
@@ -5,6 +14,28 @@ function showModal() {
 
 function play() {
     $('#body-content').load('../public/mapselect.html');
+}
+
+function next(){
+    console.log(lastMap)
+    var url = maps[lastMap]
+    var miniatura = maps_min[lastMap]
+    document.body.style.width = "100%";
+    document.body.style.background = "url( " + url + ") no-repeat center center fixed";
+    document.getElementById("mapimg").src = miniatura;
+    document.body.style.backgroundSize = "cover";
+
+    nextMap(lastMap);
+    lastMap = lastMap + 1;
+    if (lastMap == maps.length) {
+        lastMap = 0;
+    }
+}
+
+function nextMap(lastMap){
+    for (var i = lastMap; i <= maps.length-1; i++) {
+        console.log(maps[i]);
+    }
 }
 
 function playGame() {

@@ -14,21 +14,16 @@
         align-content: center;
         align-items: center;
         padding-top: 5.0rem;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
-        background-image: linear-gradient(141deg, rgb(192, 192, 192) 0%, rgb(128, 128, 128) 51%, rgb(128, 128, 128) 75%);
-        background-image: linear-gradient(141deg, rgb(178, 34, 34) 0%, rgb(165, 42, 42) 51%, rgb(128, 0, 0) 75%);
-        background-position-x: initial;
-        background-position-y: initial;
-        background-size: initial;
-        background-attachment: initial;
-        background-origin: initial;
-        background-clip: initial;
-        background-color: initial;
         min-height: 30rem;
         padding-bottom: 2.0rem;
         margin-top: 2.0rem;
         transition: 0.3s;
+        width: 100%;
+        background: url('../assets/levels/forest_level_blur.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
     }
     </style>
 </head>
@@ -36,59 +31,74 @@
 <body id="body-content">
     <div class="ui grid container">
         <div class="center-logo">
-            <h2 class="text-white">Select your map</h2>
+            <h1 class="text-white">Selecciona un mapa</h1>
         </div>
     </div>
-    <div class="ui four column grid ">
+    <div class="divider"></div>
+    <!-- Esta es la opcion 1 para seleccion de niveles -->
+    <!--     <div class="ui four column grid ">
         <div class="row center-logo">
             <div class="column">
-            	<div id="forest" onclick="selectedMap("#forest')"  class="map-shape">
-            		<img class="ui fluid image hoverableSound" src="../assets/levels/forest_level.png">
-            	</div>
+                <div id="forest" onclick="selectedMap("#forest')"  class="map-shape">
+                    <img class="ui fluid image hoverableSound" src="../assets/levels/forest_level.png">
+                </div>
             </div>
             <div class="column">
-            	<div class="map-shape">
-            		<img class="ui fluid image hoverableSound" src="../assets/levels/Cementery_level2.jpg">
-            	</div>
+                <div class="map-shape">
+                    <img class="ui fluid image hoverableSound" src="../assets/levels/Cementery_level2.jpg">
+                </div>
             </div>
             <div class="column">
-            	<div class="map-shape">
-            		<img class="ui fluid image hoverableSound" src="../assets/levels/Cementery_level3.jpg">
-            	</div>
+                <div class="map-shape">
+                    <img class="ui fluid image hoverableSound" src="../assets/levels/Cementery_level3.jpg">
+                </div>
             </div>
             <div class="column">
-            	<div class="map-shape">
-            		<img class="ui fluid image hoverableSound" src="../assets/levels/Desert_Level.png">
-            	</div>
+                <div class="map-shape">
+                    <img class="ui fluid image hoverableSound" src="../assets/levels/Desert_Level.png">
+                </div>
             </div>
         </div>
     </div>
     <div class="ui four column grid">
-    	 <div class="row center-logo">
+         <div class="row center-logo">
             <div class="column">
-            	<div class="map-shape">
-            		<img class="ui fluid image hoverableSound" src="../assets/levels/hounted_level.png">
-            	</div>
+                <div class="map-shape">
+                    <img class="ui fluid image hoverableSound" src="../assets/levels/hounted_level.png">
+                </div>
             </div>
             <div class="column">
-            	<div class="map-shape">
-            		<img class="ui fluid image hoverableSound" src="../assets/levels/ice_level.jpg">
-            	</div>
+                <div class="map-shape">
+                    <img class="ui fluid image hoverableSound" src="../assets/levels/ice_level.jpg">
+                </div>
             </div>
             <div class="column">
-            	<div class="map-shape">
-            		<img class="ui fluid image hoverableSound" src="../assets/levels/rockstone_level.jpg">
-            	</div>
+                <div class="map-shape">
+                    <img class="ui fluid image hoverableSound" src="../assets/levels/rockstone_level.jpg">
+                </div>
             </div>
             <div class="column">
-            	<div class="map-shape clickableMap">
-            		<img class="ui fluid image hoverableSound" src="../assets/levels/Cementery_level.png">
-            	</div>
+                <div class="map-shape clickableMap">
+                    <img class="ui fluid image hoverableSound" src="../assets/levels/Cementery_level.png">
+                </div>
             </div>
     </div>
-
+ -->
+    <!-- Opcion 2 para la seleccion de niveles -->
+    <div class="ui equal width container flex-center">
+        <div class="map-shape floating-image">
+            <img id="mapimg" class="ui fluid image hoverableSound" src="../assets/levels/forest_level.png">
+        </div>
+    </div>
     <div class="center-logo separated-min">
-    	<div class="ui button huge inverted hoverableSound">Continuar</div>
+        <div class="ui equal widht grid">
+            <div class="column">
+                <div class="row ">
+                    <button class="ui button huge inverted hoverableSound">Continuar</button>
+                    <button onclick="next()" class="ui button huge inverted hoverableSound">Siguiente</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../js/public/main.js"></script>
