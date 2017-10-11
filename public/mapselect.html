@@ -1,10 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>BetterRun</title>
+    <meta charset="UTF-8">
+    <title>BetterRun</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/SemanticUI/semantic.min.css">
+    <style>
+    body {
+        width: 100%;
+        align-content: center;
+        align-items: center;
+        padding-top: 5.0rem;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+        background-image: linear-gradient(141deg, rgb(192, 192, 192) 0%, rgb(128, 128, 128) 51%, rgb(128, 128, 128) 75%);
+        background-image: linear-gradient(141deg, rgb(178, 34, 34) 0%, rgb(165, 42, 42) 51%, rgb(128, 0, 0) 75%);
+        background-position-x: initial;
+        background-position-y: initial;
+        background-size: initial;
+        background-attachment: initial;
+        background-origin: initial;
+        background-clip: initial;
+        background-color: initial;
+        min-height: 30rem;
+        padding-bottom: 2.0rem;
+        margin-top: 2.0rem;
+        transition: 0.3s;
+    }
+    </style>
 </head>
-<body>
-	
+
+<body id="body-content">
+    <div class="ui grid container">
+        <div class="center-logo">
+            <h2 class="text-white">Select your map</h2>
+        </div>
+    </div>
+    <div class="ui four column grid ">
+        <div class="row center-logo">
+            <div class="column">
+            	<div id="forest" onclick="selectedMap("#forest')"  class="map-shape">
+            		<img class="ui fluid image hoverableSound" src="../assets/levels/forest_level.png">
+            	</div>
+            </div>
+            <div class="column">
+            	<div class="map-shape">
+            		<img class="ui fluid image hoverableSound" src="../assets/levels/Cementery_level2.jpg">
+            	</div>
+            </div>
+            <div class="column">
+            	<div class="map-shape">
+            		<img class="ui fluid image hoverableSound" src="../assets/levels/Cementery_level3.jpg">
+            	</div>
+            </div>
+            <div class="column">
+            	<div class="map-shape">
+            		<img class="ui fluid image hoverableSound" src="../assets/levels/Desert_Level.png">
+            	</div>
+            </div>
+        </div>
+    </div>
+    <div class="ui four column grid">
+    	 <div class="row center-logo">
+            <div class="column">
+            	<div class="map-shape">
+            		<img class="ui fluid image hoverableSound" src="../assets/levels/hounted_level.png">
+            	</div>
+            </div>
+            <div class="column">
+            	<div class="map-shape">
+            		<img class="ui fluid image hoverableSound" src="../assets/levels/ice_level.jpg">
+            	</div>
+            </div>
+            <div class="column">
+            	<div class="map-shape">
+            		<img class="ui fluid image hoverableSound" src="../assets/levels/rockstone_level.jpg">
+            	</div>
+            </div>
+            <div class="column">
+            	<div class="map-shape clickableMap">
+            		<img class="ui fluid image hoverableSound" src="../assets/levels/Cementery_level.png">
+            	</div>
+            </div>
+    </div>
+
+    <div class="center-logo separated-min">
+    	<div class="ui button huge inverted hoverableSound">Continuar</div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../js/public/main.js"></script>
+    <script src="../css/SemanticUI/semantic.min.js"></script>
 </body>
+
 </html>

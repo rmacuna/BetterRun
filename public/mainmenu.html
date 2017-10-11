@@ -46,10 +46,10 @@
                     <h2 id="gamelogo" class="text-white">Better Run</h2>
                 </div>
                 <div class="row menuitem">
-                    <a href="../js/public/index.html" class="ui fluid huge button btnmenu inverted hoverableSound">Play this Game</a>
+                    <a onclick="play()" href="#" class="ui fluid huge button btnmenu inverted hoverableSound">Play this Game</a>
                 </div>
                 <div class="row menuitem">
-                    <button onclick="showModal()" href="#" class="ui fluid huge button btnmenu inverted hoverableSound">Settings</button>
+                    <button id="btn-settings" onclick="showModal()" class="ui fluid huge button btnmenu inverted hoverableSound">Settings</button>
                 </div>
                 <div class="row menuitem">
                     <a href="#" class="ui fluid huge button btnmenu inverted hoverableSound">Select the Game Mode</a>
@@ -69,7 +69,7 @@
         <span id="type"></span>
     </div>
 
-    <div class="ui modal">
+    <!-- <div class="ui modal">
         <i class="close icon"></i>
         <div class="header">
             Settings
@@ -93,8 +93,40 @@
                 <i class="checkmark icon"></i>
             </div>
         </div>
-    </div>
+    </div> -->
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Better Run Instruccions
+        </div>
+        <div class="image content">
+            <div class="ui medium image">
+                <div class="floating-image">
+                    <img src="../assets/images/flame.png">
+                </div>
+            </div>
+            <div class="description">
+                <div class="ui header text-black">Asi es como funciona el juego.</div>
+                <p class="text-black">Existen dos modalidades de juego, en las que se encuentran Falling Blocks y Bomb Tag.</p>
+                <p class="text-black">Muevete con las flechas de tu teclado y salta con barra espaciadora. En ambos juegos la mecanica es basicamente
+                    la misma, mejor corre y asi sobreviviras.</p>
+                <h4 class="text-black">Bomb Tag</h4>
+                <p class="text-black"> Escapa de tus enemigos lo mas lejos que puedas, uno de ellos tiene una bomba encima y te la quiere pasar.
+                    En este modo de juego, debes huir del jugador que posee la bomba</p>
+                <h4 class="text-black">Falling Blocks</h4>
+                <p class="text-black">En esta modalidad debes esquivar unos bloques que caeran del cielo, si te tocan moriras. El ultimo jugador
+                    en pie, ganara la partida. Depende de la modalidad de juego que selecciones y el nivel escogido así sera
+                    la dificultad del mismo. Explora entre los diferentes niveles y diviertete con tus amigos. </p>
 
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui positive right labeled icon button">
+                Ok
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../js/public/main.js"></script>
     <script src="../js/typed.js"></script>
@@ -110,7 +142,7 @@
                     'En BombTag, si otro jugador te toca, trata de pasarle la bomba a el jugador mas cercano o moriras',
                     'En FallingBlocks, elude a los enemigos que caen del cielo o moriras',
                     'Diviertete... :D',
-                    'Utiliza las plataformas para saltar de un lado a otro y hacer mas dificil que te toquen',
+                    'Utiliza las plataformas para saltar de un lado a otro y hacer mas difícil que te toquen',
                     'Dile a los demas jugadores que mori',
                     'Dile a los demas jugadores que se divertiran jeje..'],
                 typeSpeed: 60,

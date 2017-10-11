@@ -66,6 +66,9 @@ body {
   width: 5rem;
   border: 1px solid #fff; }
 
+.separated-min {
+  padding-top: 8rem; }
+
 .outline-section {
   border: 1px solid #fff;
   font-family: "Chivo", sans-serif;
@@ -79,6 +82,22 @@ body {
 .visiblePage {
   visibility: visible;
   background: #212121; }
+
+.map-shape {
+  width: 20rem;
+  height: auto;
+  border: 2px solid #FFF;
+  margin: auto; }
+
+.map-shape:hover {
+  border: 5px solid #FFF;
+  display: block; }
+
+.selectedMap {
+  width: 20rem;
+  height: auto;
+  border: 2px solid #76FF03;
+  margin: auto; }
 
 @keyframes float {
   0% {
