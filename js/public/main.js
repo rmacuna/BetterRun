@@ -39,6 +39,29 @@ function next(){
     }
 }
 
+function prev() {
+    if (lastMap == 1) {
+        console.log('inicio vamonos a devolvernos al final')
+        lastMap = maps.length-1;
+        var url = maps[lastMap];
+        var miniatura = maps_min[lastMap];
+        document.body.style.width = "100%";
+        document.body.style.background = "url( " + url + ") no-repeat center center fixed";
+        document.getElementById("mapimg").src = miniatura;
+        document.body.style.backgroundSize = "cover";
+    }else{
+        lastMap = lastMap-1;
+        console.log('entre pbto' + lastMap)
+        var url = maps[lastMap]
+        var miniatura = maps_min[lastMap]
+        document.body.style.width = "100%";
+        document.body.style.background = "url( " + url + ") no-repeat center center fixed";
+        document.getElementById("mapimg").src = miniatura;
+        document.body.style.backgroundSize = "cover";        
+    }
+    
+}
+
 function nextMap(lastMap){
     for (var i = lastMap; i <= maps.length-1; i++) {
         console.log(maps[i]);

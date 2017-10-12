@@ -29,26 +29,30 @@
 </head>
 
 <body id="body-content">
-    <div class="ui grid container">
+  <!--   <div class="ui grid container">
         <div class="center-logo">
             <h1 class="text-white">Selecciona un mapa</h1>
         </div>
-    </div>
-    <div class="ui equal width container center-logo">
+    </div> -->
+    <div onclick="prev()" class="move-arrow-left hoverableSound"></div>
+    <div onclick="next()" class="move-arrow-right hoverableSound"></div>
+    <div class="ui equal width">
         <div class="map-shape floating-image">
             <img id="mapimg" class="ui fluid image hoverableSound" src="../assets/levels/forest_level.png">
         </div>
     </div>
-    <div class="center-logo separated-min">
+
+   <!--  <div class="center-logo separated-min">
         <div class="ui equal widht grid">
             <div class="column">
-                <div class="row block">
-                    <button class="ui button huge inverted hoverableSound ">Continuar</button>
+                <div class="row">
+                    <button class="ui button huge inverted hoverableSound">Anterior</button>
                     <button onclick="next()" class="ui button huge inverted hoverableSound">Siguiente</button>
+                    <button class="ui button huge inverted hoverableSound ">Continuar</button>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../js/public/main.js"></script>
     <script src="../css/SemanticUI/semantic.min.js"></script>

@@ -26,6 +26,40 @@ body {
   color: #FFF;
   font-size: 1.2rem; }
 
+.move-arrow-left {
+  position: absolute;
+  left: 10%;
+  top: 40%;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 2px solid #FFF;
+  color: #FFF;
+  line-height: 5rem;
+  text-align: center;
+  background: transparent; }
+
+.move-arrow-left:hover {
+  background: #FFF;
+  color: #000; }
+
+.move-arrow-right {
+  position: absolute;
+  right: 10%;
+  top: 40%;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 2px solid #FFF;
+  color: #FFF;
+  line-height: 5rem;
+  text-align: center;
+  background: transparent; }
+
+.move-arrow-right:hover {
+  background: #FFF;
+  color: #000; }
+
 .center-logo {
   margin: auto;
   width: 50%;
