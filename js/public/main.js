@@ -2,15 +2,23 @@
 
 
 var lastMap = 1;
-var maps = ["../assets/levels/forest_level_blur.jpg", "../assets/levels/Desert_level_blur.jpg", "../assets/levels/Cementery_level2_blur.jpg"];
-var maps_min = ["../assets/levels/forest_level.png", "../assets/levels/Desert_level.png", "../assets/levels/Cementery_level2.jpg"];
 
+var maps = ["../assets/images/forest_level_blur.jpg",
+            "../assets/images/Desert_level_blur.jpg",
+            "../assets/images/Cementery_level2_blur.jpg",
+            "../assets/images/hounted_level_blur.jpg",
+            "../assets/images/ice_level_blur.jpg",
+            "../assets/images/libertalia_level-blur.jpg",
+            "../assets/images/space_level_blur.jpg"];
 
+var maps_min = ["../assets/levels/forest_level.png", 
+                "../assets/levels/Desert_level.png", 
+                "../assets/levels/Cementery_level2.jpg",
+                "../assets/levels/hounted_level.png",
+                "../assets/levels/ice_level.jpg",
+                "../assets/levels/libertalia_level.jpg",
+                "../assets/levels/space_level.jpg"];
 
-function showModal() {
-    $('.ui.modal')
-        .modal('show');
-}
 
 function play() {
     $('#body-content').load('../public/mapselect.html');
@@ -24,7 +32,6 @@ function next(){
     document.body.style.background = "url( " + url + ") no-repeat center center fixed";
     document.getElementById("mapimg").src = miniatura;
     document.body.style.backgroundSize = "cover";
-
     nextMap(lastMap);
     lastMap = lastMap + 1;
     if (lastMap == maps.length) {
@@ -68,6 +75,10 @@ function selectMap(id) {
     });
 }
 
+function showModal() {
+    $('.ui.modal')
+        .modal('show');
+}
 
 $(".hoverableSound").mouseenter(function() {
     $("<audio></audio>").attr({
