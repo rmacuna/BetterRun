@@ -1,6 +1,3 @@
-
-
-
 var lastMap = 1;
 
 var maps = ["../assets/images/forest_level_blur.jpg",
@@ -25,6 +22,7 @@ function play() {
 }
 
 function next(){
+    
     console.log(lastMap)
     var url = maps[lastMap]
     var miniatura = maps_min[lastMap]
@@ -40,7 +38,7 @@ function next(){
 }
 
 function prev() {
-    if (lastMap == 1) {
+    if (lastMap == 0) {
         console.log('inicio vamonos a devolvernos al final')
         lastMap = maps.length-1;
         var url = maps[lastMap];
