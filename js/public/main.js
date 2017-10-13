@@ -22,7 +22,8 @@ function play() {
 }
 
 function next(){
-    
+    var linkedlist = linkedList();
+    linkedlist.add('selector/elements/html');
     console.log(lastMap)
     var url = maps[lastMap]
     var miniatura = maps_min[lastMap]

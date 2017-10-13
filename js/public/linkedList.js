@@ -11,7 +11,10 @@ function linkedList() {
     this.create = create;
     this.add = add;
     this.getPtr = getPtr;
+    this.show = show;
+    this.hola = hola;
     this.size = size;
+    this.linkedList = linkedList;
 
     function create(images) {
         images.forEach(function(element, index) {
@@ -19,6 +22,9 @@ function linkedList() {
         });
     }
 
+    function hola(){
+        console.log('Hola');
+    }
     function show () {
     	aux = ptr;
     	while (aux) {
@@ -121,5 +127,17 @@ function linkedList() {
         return listSize;
     }
 
+
+}
+
+class linkedList{
+
+    constructor(ptr){
+        this.ptr = ptr;
+    }
+
+    getPtr(){
+        return this.ptr;
+    }
 
 }
