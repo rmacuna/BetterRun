@@ -1,143 +1,109 @@
-function linkedList() {
-    var Node = function(route) {
-        this.route = route;
-        this.linkDer = null;
-        this.linkIzq = null;
+function Node(value) {
+    this.data = value;
+    this.previous = null;
+    this.next = null;
+}
+ 
+function DoublyList() {
+    this._length = 0;
+    this.head = null;
+    this.tail = null;
+}
+
+DoublyList.prototype.show = function(value){
+    var node = this.head;
+    var count = 0;
+    while (count < this._length) {
+        console.log(node.data);
+        count++;
     }
+}
 
-    var ptr = null
-    var listsize = 0;
-
-    this.create = create;
-    this.add = add;
-    this.getPtr = getPtr;
-    this.show = show;
-    this.hola = hola;
-    this.size = size;
-    this.linkedList = linkedList;
-
-    function create(images) {
-        images.forEach(function(element, index) {
-            add(element);
-        });
+DoublyList.prototype.add = function(value) {
+    var node = new Node(value);
+ 
+    if (this._length) {
+        this.tail.next = node;
+        node.previous = this.tail;
+        this.tail = node;
+    } else {
+        this.head = node;
+        this.tail = node;
     }
-
-    function hola(){
-        console.log('Hola');
+ 
+    this._length++;
+ 
+    return node;
+};
+ 
+DoublyList.prototype.searchNodeAt = function(position) {
+    var currentNode = this.head,
+        length = this._length,
+        count = 1,
+        message = {failure: 'Failure: non-existent node in this list.'};
+ 
+    // 1st use-case: an invalid position
+    if (length === 0 || position < 1 || position > length) {
+        throw new Error(message.failure);
     }
-    function show () {
-    	aux = ptr;
-    	while (aux) {
-    		console.log(aux.route);
-    		aux = aux.linkDer
-    	}
+ 
+    // 2nd use-case: a valid position
+    while (count < position) {
+        currentNode = currentNode.next;
+        count++;
     }
-
-    function add(element) {
-
-        var node = new Node(element);
-        var aux;
-
-        // Verificamos si es el primer nodo en la lista
-        if (!ptr) {
-            ptr = node;
+ 
+    return currentNode;
+};
+ 
+DoublyList.prototype.remove = function(position) {
+    var currentNode = this.head,
+        length = this._length,
+        count = 1,
+        message = {failure: 'Failure: non-existent node in this list.'},
+        beforeNodeToDelete = null,
+        nodeToDelete = null,
+        deletedNode = null;
+ 
+    // 1st use-case: an invalid position
+    if (length === 0 || position < 1 || position > length) {
+        throw new Error(message.failure);
+    }
+ 
+    // 2nd use-case: the first node is removed
+    if (position === 1) {
+        this.head = currentNode.next;
+ 
+        // 2nd use-case: there is a second node
+        if (!this.head) {
+            this.head.previous = null;
+        // 2nd use-case: there is no second node
         } else {
-            aux = ptr;
-
-            // Este ciclo se ejecuta hasta que llegue al último elemento
-            while (aux.getDer != null) {
-                aux = aux.getDer;
-            }
-
-            // Obtenemos el último elemento y lo asigamos a next para crear el enlace
-            aux.linkDer = node;
-            node.linkIzq = aux;
+            this.tail = null;
         }
-
-        // Incrementamos el tamaño de la lista
-        listSize++;
-    }
-
-    function indexOf(element) {
-        var aux = ptr;
-        var index = 0;
-
-        while (aux) {
-            if (aux.element === element) {
-                return index;
-            }
-
-            index++;
-            aux = aux.getDer;
+ 
+    // 3rd use-case: the last node is removed
+    } else if (position === this._length) {
+        this.tail = this.tail.previous;
+        this.tail.next = null;
+    // 4th use-case: a middle node is removed
+    } else {
+        while (count < position) {
+            currentNode = currentNode.next;
+            count++;
         }
-
-        return -1;
+ 
+        beforeNodeToDelete = currentNode.previous;
+        nodeToDelete = currentNode;
+        afterNodeToDelete = currentNode.next;
+ 
+        beforeNodeToDelete.next = afterNodeToDelete;
+        afterNodeToDelete.previous = beforeNodeToDelete;
+        deletedNode = nodeToDelete;
+        nodeToDelete = null;
     }
-
-    function hasElements() {
-        return listSize > 0;
-    }
-
-    function remove(element) {
-        var index = this.indexOf(element);
-
-        return this.removeFrom(index);
-    }
-
-    function removeFrom(pos) {
-        // Verificamos que la posición exista
-        if (pos > -1 && pos < listSize) {
-            var currentNode = headNode;
-            var previousNode;
-            var index = 0;
-
-            // Si pos 0, entonces eliminaremos el primer elemento.
-            if (pos === 0) {
-                headNode = currentNode.next;
-            } else {
-                while (index++ < pos) {
-                    // Mandamos el nodo actual a previous
-                    previousNode = currentNode;
-
-                    // Ahora el actual será el next
-                    currentNode = currentNode.next;
-                }
-
-                // Enlazamos el next de previous con el next del nodo actual (lo saltamos para eliminarlo)
-                previousNode.next = currentNode.next;
-            }
-
-            // Restamos el elemento eliminado de la lista
-            listSize--;
-
-            // Retornamos el valor del elemento eliminado
-            return currentNode.element;
-        }
-
-        // Si la posición esta fuera de rangos regresamos null
-        return null;
-    }
-
-    function getPtr() {
-        return ptr;
-    }
-
-
-    function size(argument) {
-        return listSize;
-    }
-
-
-}
-
-class linkedList{
-
-    constructor(ptr){
-        this.ptr = ptr;
-    }
-
-    getPtr(){
-        return this.ptr;
-    }
-
-}
+ 
+    this._length--;
+ 
+    return message.success;
+};

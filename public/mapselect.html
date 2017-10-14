@@ -29,33 +29,47 @@
 </head>
 
 <body id="body-content">
-  <!--   <div class="ui grid container">
-        <div class="center-logo">
-            <h1 class="text-white">Selecciona un mapa</h1>
-        </div>
-    </div> -->
-    <div onclick="prev()" class="move-arrow-left hoverableSound"></div>
-    <div onclick="next()" class="move-arrow-right hoverableSound"></div>
+    <div id="btnPrev" onclick="prev()" class="move-arrow-left hoverableSound"><i class="arrow left icon"></i></div>
+    <div id="btnNext" onclick="next()" class="move-arrow-right hoverableSound"><i class="arrow right icon"></i></div>
     <div class="ui equal width">
-        <div class="map-shape floating-image">
-            <img id="mapimg" class="ui fluid image hoverableSound" src="../assets/levels/forest_level.png">
-        </div>
-    </div>
-
-   <!--  <div class="center-logo separated-min">
-        <div class="ui equal widht grid">
-            <div class="column">
-                <div class="row">
-                    <button class="ui button huge inverted hoverableSound">Anterior</button>
-                    <button onclick="next()" class="ui button huge inverted hoverableSound">Siguiente</button>
-                    <button class="ui button huge inverted hoverableSound ">Continuar</button>
-                </div>
+        <div class="row">
+            <div class="map-shape floating-image">
+                <img onclick="selectMap()" id="mapimg" class="ui fluid image" src="../assets/levels/forest_level.png">
             </div>
         </div>
-    </div> -->
+    </div>
+    <div class="ui equal width grid container centered bottom">
+        <div class="five wide column"></div>
+        <div class="eight wide column ">
+            <div class="row text-white medium-font bottom">
+                Selecciona el mapa donde quieres jugar.
+            </div>
+        </div>
+    </div>
+    <!-- Modals -->
+    <div class="ui basic modal">
+        <div class="ui icon header">
+            <img src="../assets/chars/ghost.png" class="ui fluid image"></img>
+        </div>
+        
+        <div class="ui icon header">
+            ¿Quieres jugar aquí?
+        </div>
+        <div class="content center-logo">
+            <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+        </div>
+        <div class="actions center-logo">
+            <div class="ui red basic cancel inverted button">
+                <i class="remove icon"></i> No
+            </div>
+            <div class="ui green ok inverted button">
+                <i class="checkmark icon"></i> Yes
+            </div>
+        </div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../js/public/main.js"></script>
-    <script src="../js/public/linkedList.js"></script>
+    <script src="../js/typed.js"></script>
     <script src="../css/SemanticUI/semantic.min.js"></script>
 </body>
 

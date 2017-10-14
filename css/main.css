@@ -35,8 +35,12 @@ body {
   border-radius: 50%;
   border: 2px solid #FFF;
   color: #FFF;
+  align-content: center;
+  align-items: center;
+  vertical-align: middle;
   line-height: 5rem;
   text-align: center;
+  font-size: 1.5rem;
   background: transparent; }
 
 .move-arrow-left:hover {
@@ -49,9 +53,13 @@ body {
   top: 40%;
   width: 5rem;
   height: 5rem;
+  font-size: 1.5rem;
   border-radius: 50%;
   border: 2px solid #FFF;
   color: #FFF;
+  align-content: center;
+  align-items: center;
+  vertical-align: middle;
   line-height: 5rem;
   text-align: center;
   background: transparent; }
@@ -97,6 +105,14 @@ body {
   text-align: center;
   padding-right: 1rem; }
 
+.bottom {
+  position: absolute;
+  bottom: 10%;
+  left: 0%; }
+
+.medium-font {
+  font-size: 1.5rem; }
+
 .menu-container {
   width: 10rem;
   border: 1px solid #FFF; }
@@ -125,19 +141,15 @@ body {
 .map-shape {
   width: 60rem;
   height: auto;
-  border: 2px solid #FFF;
+  border: 1px solid #FFF;
   border-radius: 2px;
   margin: auto; }
+  .map-shape img {
+    user-select: none; }
 
 .map-shape:hover {
-  border: 5px solid #FFF;
+  border: 3px solid #FFF;
   display: block; }
-
-.selectedMap {
-  width: 20rem;
-  height: auto;
-  border: 2px solid #76FF03;
-  margin: auto; }
 
 .block {
   position: absolute;

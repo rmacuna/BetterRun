@@ -38,6 +38,13 @@
 	text-align: center
 	padding-right: 1rem
 
+.bottom
+	position: absolute
+	bottom: 10%
+	left: 0%
+
+.medium-font
+	font-size: 1.5rem
 
 .menu-container
 	width: 10.0rem
@@ -69,21 +76,16 @@
 .map-shape
 	width: 60.0rem
 	height: auto
-	border: 2px solid $white
+	border: 1px solid $white
 	border-radius: 2px
 	margin: auto
-	
+	img
+		user-select: none
 
 .map-shape
 	&:hover
-		border: 5px solid $white
+		border: 3px solid $white
 		display: block
-
-.selectedMap
-	width: 20.0rem
-	height: auto
-	border: 2px solid $green
-	margin: auto
 
 .block
 	position: absolute
