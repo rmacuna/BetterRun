@@ -26,13 +26,14 @@ var background;
 var input;
 var button;
 var moving;
+var canvas;
 var lastpos = {x:0, y:0};
 
 function setup () {	
-createCanvas(600,600);
+canvas = createCanvas(1300, 650);
 background = loadImage("forest_level.png");
 
-socket = io.connect('http://192.168.0.15:4000');
+socket = io.connect('http://10.20.57.116:4000');
 socket.on('moving', move);
 /*
 var config = {
@@ -62,7 +63,7 @@ var config = {
 	setWorldBounds();
 	
 	//Create a player
-	circle = new Circle(width/2,500,20);
+	circle = new Circle(width/2,height/2,20);
 	obstacles.push(circle);
 
 	//Checks for collison betewen the player and the floor
@@ -93,7 +94,7 @@ var config = {
 }
 
 function move(data){
-	image(background, 50,50,width-100,height-100);
+	//image(background, 50,50,width-100,height-100);
 	fill(255);
 	ellipse(data.x,data.y,40);
 }
@@ -101,6 +102,7 @@ function move(data){
 
 //Renders the world
 function draw () {
+	image(background, 50,50,width-100,height-100);
 	if (LOGEDIN) {
 		var data = {
 		x: Math.floor(circle.pos.x),
