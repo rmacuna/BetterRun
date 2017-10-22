@@ -18,7 +18,6 @@
         padding-bottom: 2.0rem;
         margin-top: 2.0rem;
         transition: 0.3s;
-        width: 100%;
         background: url('../assets/images/forest_level_blur.jpg') no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -34,24 +33,17 @@
     <div class="ui equal width">
         <div class="row">
             <div class="map-shape floating-image">
-                <img onclick="selectMap()" id="mapimg" class="ui fluid image" src="../assets/levels/forest_level.png">
+                <img onclick="selectMap()" id="mapimg" src="../assets/levels/forest_level.png">
             </div>
         </div>
     </div>
-    <div class="ui equal width grid container centered bottom">
-        <div class="five wide column"></div>
-        <div class="eight wide column ">
-            <div class="row text-white medium-font bottom">
-                Selecciona el mapa donde quieres jugar.
-            </div>
-        </div>
-    </div>
+
+    <div class="bottom-center"><button onclick="selectMap()" class="ui button huge inverted">Seleccionar</button></div>
     <!-- Modals -->
     <div class="ui basic modal">
         <div class="ui icon header">
             <img src="../assets/chars/ghost.png" class="ui fluid image"></img>
         </div>
-        
         <div class="ui icon header">
             ¿Quieres jugar aquí?
         </div>
@@ -71,6 +63,16 @@
     <script src="../js/public/main.js"></script>
     <script src="../js/typed.js"></script>
     <script src="../css/SemanticUI/semantic.min.js"></script>
+    <script type="text/javascript">
+    document.addEventListener('keyup', function(event) {
+        if (event.code == 'ArrowLeft') {
+            prev();
+        }
+        if (event.code == 'ArrowRight') {
+            next();
+        }
+    });
+    </script>
 </body>
 
 </html>
