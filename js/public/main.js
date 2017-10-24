@@ -24,8 +24,9 @@ function play() {
 }
  
 
-function SelectMap() {
-       
+function selectMap() {
+    $('.ui.modal')
+        .modal('show');
 }
 
 function next() {
