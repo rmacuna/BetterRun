@@ -19,6 +19,15 @@ var maps_min = ["../assets/levels/forest_level.png",
         "../assets/levels/libertalia_level.jpg",
     ];
 
+var map_desc = [
+    "El bosque encantado es una locacion bastante sencilla, no hubo nunca un lugar tan calmado como este",
+    "El desierto es aterrador para muchos, pero la verdad es que este parece un oasis tropical. No confíes en el agua que llueve aquí...",
+    "El cementerio es un lugar aterrador, quien sabe cuantos fantasmas salen por aquí",
+    "En la luna hay que tener mucho cuidado, la gravedad es diferente y ultimamente caen rocas espaciales",
+    "HACE DEMASIADO FRÍO AQUÍ, sin mencionar que de la cueva caen bloques de hielo mortales",
+    "La ciudad perdida es un lugar perdido, visitandolo depronto descubras donde esta y te vuelvas famoso"
+];
+
 function play() {
     $('#body-content').load('../public/mapselect.html');  
 }
@@ -27,7 +36,18 @@ function play() {
 function selectMap() {
     $('.ui.modal')
         .modal('show');
+        
+    renderHTML(map_desc)
 }
+
+function renderHTML(data) {
+    document.getElementById('mapDescription').innerHTML = "";
+    var mapDescription = document.getElementById('mapDescription')
+    var htmlString = "";
+    htmlString = "<p>" + data[lastMap] + " </p>"
+    mapDescription.insertAdjacentHTML('beforeend', htmlString);
+}
+
 
 function next() {
     if (lastMap == 0 || lastMap < maps.length - 1) {
@@ -104,6 +124,3 @@ $(".hoverableSound").mouseenter(function() {
         'autoplay': 'autoplay'
     }).appendTo("body");
 });
-
-
-// Key events

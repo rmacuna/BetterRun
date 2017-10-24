@@ -33,12 +33,14 @@
     <div class="ui equal width">
         <div class="row">
             <div class="map-shape floating-image">
-                <img onclick="selectMap()" id="mapimg" src="../assets/levels/forest_level.png">
+                <img id="mapimg" src="../assets/levels/forest_level.png">
             </div>
         </div>
     </div>
 
-    <div class="bottom-center"><button onclick="selectMap()" class="ui button huge inverted">Seleccionar</button></div>
+    <div class="bottom-center down"><button onclick="selectMap()" class="ui button huge inverted">Seleccionar</button></div>
+
+
     <!-- Modals -->
     <div class="ui basic modal">
         <div class="ui icon header">
@@ -47,10 +49,12 @@
         <div class="ui icon header">
             ¿Quieres jugar aquí?
         </div>
-        <div class="content center-logo">
-            <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+        
+        <div class="content">
+            <div class="c-container" id="mapDescription"></div>
         </div>
-        <div class="actions center-logo">
+
+        <div class="actions center">
             <div class="ui red basic cancel inverted button">
                 <i class="remove icon"></i> No
             </div>
@@ -59,7 +63,9 @@
             </div>
         </div>
     </div>
+    
     <script src="../js/public/main.js"></script>
+    
     <script type="text/javascript">
     document.addEventListener('keyup', function(event) {
         if (event.code == 'ArrowLeft') {
