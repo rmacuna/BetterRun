@@ -8,7 +8,7 @@ var maps = ["../assets/images/forest_level_blur.jpg",
         "../assets/images/moonland_level_blur.jpg",
         "../assets/images/ice_level_blur.jpg",
         "../assets/images/libertalia_level-blur.jpg",
-        ];;
+        ];
 
 
 var maps_min = ["../assets/levels/forest_level.png",
@@ -23,10 +23,10 @@ function play() {
     $('#body-content').load('../public/mapselect.html');  
 }
  
-function selectMap(){
- 
-}
 
+function SelectMap() {
+       
+}
 
 function next() {
     if (lastMap == 0 || lastMap < maps.length - 1) {
