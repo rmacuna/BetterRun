@@ -42,28 +42,30 @@
 
 
     <!-- Modals -->
-    <div class="ui basic modal">
-        <div class="ui icon header">
-            <img src="../assets/chars/ghost.png" class="ui fluid image"></img>
-        </div>
-        <div class="ui icon header">
-            ¿Quieres jugar aquí?
-        </div>
-        
-        <div class="content">
-            <div class="c-container" id="mapDescription"></div>
-        </div>
-
-        <div class="actions center">
-            <div class="ui red basic cancel inverted button">
-                <i class="remove icon"></i> No
+       <div class="ui modal">
+            <i class="close icon"></i>
+                <div class="header">
+                    <div id="mapName"></div>
+                </div>
+        <div class="image content">
+            <div class="ui medium image">
+                <div class="floating-image">
+                    <div id="mapUrl"></div>
+                </div>
+          </div>
+        <div class="description">
+                <div class="ui header text-black">Asi es como funciona el juego.</div>
+                <div class="c-container" id="mapDescription"></div>
             </div>
-            <div class="ui green ok inverted button">
-                <i class="checkmark icon"></i> Yes
+        </div>
+        <div class="actions">
+            <div class="ui positive right labeled icon button">
+                Ok
+                <i class="checkmark icon"></i>
             </div>
         </div>
     </div>
-    
+
     <script src="../js/public/main.js"></script>
     
     <script type="text/javascript">

@@ -194,6 +194,15 @@ img {
 .down {
   bottom: 30%; }
 
+.top {
+  position: absolute;
+  top: 10%;
+  left: 20%; }
+  .top span {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #FFF; }
+
 @keyframes float {
   0% {
     transform: translatey(0px); }
@@ -325,5 +334,39 @@ img {
   opacity: 0;
   transition: background 1s ease-out, visibility 0s 1s, opacity 1s ease-out;
   background: #000; }
+
+body::after body::before {
+  height: 50vh;
+  width: 100%;
+  position: fixed;
+  left: 0; }
+
+body::before {
+  top: 0;
+  transform: translateY(-100%); }
+
+body::after {
+  bottom: 0;
+  transform: translateY(100%); }
+
+body.page-is-changing::after body.page-is-changing::before {
+  transform: translateY(0); }
+
+.cd-loading-bar {
+  position: fixed;
+  height: 2px;
+  width: 90%; }
+
+.cd-loading-bar::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center; }
+
+.page-is-changing .cd-loading-bar::before {
+  transform: scaleX(1); }
 
 /*# sourceMappingURL=main.css.map */
