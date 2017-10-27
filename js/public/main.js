@@ -1,5 +1,5 @@
+// Remueve la propiedad de que un imagen pueda ser arrastrada de la pantalla
 window.ondragstart = function() { return false; }
-
 var lastMap = 0;
 
 var maps = [
@@ -42,7 +42,8 @@ var maps = [
 ];
 
 function play() {
-    $('#body-content').load('../public/mapselect.html');  
+    var audio = document
+    $('#body-content').load('../public/mapselec.html');  
 }
  
 
@@ -54,6 +55,7 @@ function selectMap() {
 }
 
 function renderHTML(data) {
+
     document.getElementById('mapDescription').innerHTML = "";
     document.getElementById('mapUrl').innerHTML = "";
     document.getElementById('mapName').innerHTML = "";
@@ -65,11 +67,27 @@ function renderHTML(data) {
     var htmlString = "<p>" + data[lastMap].description + " </p>"
     var html_mapname = "<p>" + data[lastMap].name + " </p>"
     var html_mapURL = "<img src=" + data[lastMap].image + ">" + "</img>"
+
     mapDescription.insertAdjacentHTML('beforeend', htmlString);
     mapName.insertAdjacentHTML('beforeend', html_mapname);
     mapURL.insertAdjacentHTML('beforeend', html_mapURL);
 }
 
+
+function showInstructions () {
+     $('#modal-ins')
+        .modal('show');
+}
+
+function showSettings () {
+    $('#modal-sts')
+        .modal('show');
+}
+
+function about (argument) {
+     $('#about')
+        .modal('show');
+}
 
 function next() {
     if (lastMap == 0 || lastMap < maps.length - 1) {
@@ -116,11 +134,12 @@ function playGame() {
     var audio = document.getElementById('audioPlay');
     audio.play();
     var millisecondsToWait = 2000;
+    
     $(document).ready(function() {
-        $('body').addClass('vanish')
+             $('body').addClass('vanish')
     });
     setTimeout(function() {
-        $("#body-content").load('../public/mainmenu.html');
+        $("#body-content").load('../public/mapselect.html');
         $(document).ready(function() {
             $('body').addClass('visiblePage')
             $('body').removeClass('vanish')

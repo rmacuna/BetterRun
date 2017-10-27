@@ -28,6 +28,11 @@
 </head>
 
 <body id="body-content">
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
     <div id="btnPrev" onclick="prev()" class="move-arrow-left hoverableSound"><i class="arrow left icon"></i></div>
     <div id="btnNext" onclick="next()" class="move-arrow-right hoverableSound"><i class="arrow right icon"></i></div>
     <div class="ui equal width">
@@ -37,23 +42,39 @@
             </div>
         </div>
     </div>
+    <div class="bottom-center down">
+        <button onclick="selectMap()" class="ui button huge inverted">Seleccionar</button>
+    </div>
 
-    <div class="bottom-center down"><button onclick="selectMap()" class="ui button huge inverted">Seleccionar</button></div>
-
-
+    <div id="about" class="ui basic modal">
+        <div class="ui icon header">
+            <i class="archive icon"></i> Archive Old Messages
+        </div>
+        <div class="content">
+            <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+        </div>
+        <div class="actions">
+            <div class="ui red basic cancel inverted button">
+                <i class="remove icon"></i> No
+            </div>
+            <div class="ui green ok inverted button">
+                <i class="checkmark icon"></i> Yes
+            </div>
+        </div>
+    </div>
     <!-- Modals -->
-       <div class="ui modal">
-            <i class="close icon"></i>
-                <div class="header">
-                    <div id="mapName"></div>
-                </div>
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            <div id="mapName"></div>
+        </div>
         <div class="image content">
             <div class="ui medium image">
                 <div class="floating-image">
                     <div id="mapUrl"></div>
                 </div>
-          </div>
-        <div class="description">
+            </div>
+            <div class="description">
                 <div class="ui header text-black">Asi es como funciona el juego.</div>
                 <div class="c-container" id="mapDescription"></div>
             </div>
@@ -65,9 +86,7 @@
             </div>
         </div>
     </div>
-
     <script src="../js/public/main.js"></script>
-    
     <script type="text/javascript">
     document.addEventListener('keyup', function(event) {
         if (event.code == 'ArrowLeft') {

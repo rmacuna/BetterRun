@@ -1,5 +1,4 @@
 body {
-  font-family: "Chivo", sans-serif;
   overflow-y: hidden; }
 
 .text-white {
@@ -68,6 +67,40 @@ body {
   background: #FFF;
   color: #000; }
 
+.big-font {
+  font-size: 4.5rem; }
+
+.c-card {
+  width: 30rem;
+  height: 35rem;
+  background-color: #B71C1C;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s; }
+
+.c-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); }
+
+.c-card-container {
+  padding: 50px 50px; }
+
+.card-header {
+  max-width: 100%;
+  height: 100px;
+  align-text: center; }
+  .card-header p {
+    font-size: 4rem;
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); }
+
+.c-blue {
+  background: #B71C1C;
+  color: #FFF; }
+
 .center-logo {
   margin: auto;
   width: 50%;
@@ -122,17 +155,7 @@ body {
   border: 1px solid #fff; }
 
 .separated-min {
-  padding-top: 5rem; }
-
-.outline-section {
-  border: 1px solid #fff;
-  font-family: "Chivo", sans-serif;
-  padding-top: 5rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
-  padding-bottom: 1rem;
-  margin-left: 1rem;
-  align-content: center; }
+  padding-top: 3rem; }
 
 .visiblePage {
   visibility: visible;
@@ -202,6 +225,12 @@ img {
     font-size: 1.3rem;
     font-weight: bold;
     color: #FFF; }
+
+.inline {
+  display: inline-block; }
+
+.separator {
+  padding-bottom: 10px; }
 
 @keyframes float {
   0% {
