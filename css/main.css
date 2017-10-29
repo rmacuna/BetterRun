@@ -369,38 +369,48 @@ img {
   transition: background 1s ease-out, visibility 0s 1s, opacity 1s ease-out;
   background: #000; }
 
-body::after body::before {
-  height: 50vh;
-  width: 100%;
-  position: fixed;
-  left: 0; }
-
-body::before {
-  top: 0;
-  transform: translateY(-100%); }
-
-body::after {
-  bottom: 0;
-  transform: translateY(100%); }
-
-body.page-is-changing::after body.page-is-changing::before {
-  transform: translateY(0); }
-
-.cd-loading-bar {
-  position: fixed;
-  height: 2px;
-  width: 90%; }
-
-.cd-loading-bar::before {
-  position: absolute;
-  left: 0;
-  top: 0;
+#snow {
+  background: none;
+  font-family: none;
+  background-image: url("http://www.wearewebstars.dk/codepen/img/s1.png"), url("http://www.wearewebstars.dk/codepen/img//s2.png"), url("http://www.wearewebstars.dk/codepen/img//s3.png");
   height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
   width: 100%;
-  transform: scaleX(0);
-  transform-origin: left center; }
+  z-index: 0;
+  -webkit-animation: snow 10s linear infinite;
+  -moz-animation: snow 10s linear infinite;
+  -ms-animation: snow 10s linear infinite;
+  animation: snow 10s linear infinite; }
 
-.page-is-changing .cd-loading-bar::before {
-  transform: scaleX(1); }
+@keyframes snow {
+  0% {
+    background-position: 0px 0px, 0px 0px, 0px 0px; }
+  50% {
+    background-position: 500px 500px, 100px 200px, -100px 150px; }
+  100% {
+    background-position: 500px 1000px, 200px 400px, -100px 300px; } }
+@-moz-keyframes snow {
+  0% {
+    background-position: 0px 0px, 0px 0px, 0px 0px; }
+  50% {
+    background-position: 500px 500px, 100px 200px, -100px 150px; }
+  100% {
+    background-position: 400px 1000px, 200px 400px, -100px 300px; } }
+@-webkit-keyframes snow {
+  0% {
+    background-position: 0px 0px, 0px 0px, 0px 0px; }
+  50% {
+    background-position: 500px 500px, 100px 200px, -100px 150px; }
+  100% {
+    background-position: 400px 1000px, 200px 400px, 100px 300px; } }
+@-ms-keyframes snow {
+  0% {
+    background-position: 0px 0px, 0px 0px, 0px 0px; }
+  50% {
+    background-position: 500px 500px, 100px 200px, -100px 150px; }
+  100% {
+    background-position: 500px 1000px, 200px 400px, -100px 300px; } }
 
 /*# sourceMappingURL=main.css.map */

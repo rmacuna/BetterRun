@@ -27,6 +27,7 @@
     </style>
 </head>
 <body id="body-content">
+    <div id="animateScene"></div>
     <div id="loader-wrapper">
         <div id="loader"></div>
         <div class="loader-section section-left"></div>
@@ -58,7 +59,6 @@
                 </div>
             </div>
             <div class="description">
-                <div class="ui header text-black">Asi es como funciona el juego.</div>
                 <div class="c-container" id="mapDescription"></div>
             </div>
         </div>
@@ -69,6 +69,7 @@
             </div>
         </div>
     </div>
+
     <div id="sound"></div>
     <audio id="audioPassLevel" src="../assets/sounds/btnpress.mp3"></audio>
     <script src="../js/public/main.js"></script>
@@ -83,7 +84,6 @@
     });
     </script>
     <script type="text/javascript">
-
         document.getElementById('sound').innerHTML = "";
         var sound = document.getElementById('sound')
 

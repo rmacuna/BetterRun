@@ -30,7 +30,7 @@ var canvas;
 var lastpos = {x:0, y:0};
 
 function setup () {	
-canvas = createCanvas(1300, 650);
+canvas = createCanvas(screen.width, screen.height);
 background = loadImage("forest_level.png");
 
 socket = io.connect('http://10.20.57.116:4000');
@@ -200,10 +200,10 @@ function playerLobby(childs){
 
 //Sets world bounds
 function setWorldBounds(){
-	bounds.push(new Bound(width/2,height  ,width, 100, "bottom"));
-	bounds.push(new Bound(width/2,0       ,width ,100, "top"));
-	bounds.push(new Bound(width  ,height/2,100, height, "right"));
-	bounds.push(new Bound(0      ,height/2,100, height, "left"));
+	bounds.push(new Bound(width/2,height-100,width, 100, "bottom"));
+	bounds.push(new Bound(width/2,0     ,width ,100, "top"));
+	bounds.push(new Bound(width  ,height/2,     100, height, "right"));
+	bounds.push(new Bound(0    ,height/2,       100, height, "left"));
 	World.add(world,bounds);
 
 }
