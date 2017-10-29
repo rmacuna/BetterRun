@@ -26,7 +26,6 @@
     }
     </style>
 </head>
-
 <body id="body-content">
     <div id="loader-wrapper">
         <div id="loader"></div>
@@ -70,18 +69,33 @@
             </div>
         </div>
     </div>
+    <div id="sound"></div>
     <audio id="audioPassLevel" src="../assets/sounds/btnpress.mp3"></audio>
     <script src="../js/public/main.js"></script>
     <script type="text/javascript">
     document.addEventListener('keyup', function(event) {
         if (event.code == 'ArrowLeft') {
             prev();
-
         }
         if (event.code == 'ArrowRight') {
             next();
         }
     });
+    </script>
+    <script type="text/javascript">
+
+        document.getElementById('sound').innerHTML = "";
+        var sound = document.getElementById('sound')
+
+        setTimeout(function () {
+            var src = "../assets/sounds/forest.mp3";
+            htmlString = "<audio " + "id='mapsound'" + " src=" + src + "></audio>";
+            sound.insertAdjacentHTML('beforeend', htmlString);
+            audio = document.getElementById('mapsound');
+            audio.volume = 0.2;
+            audio.play();
+        },3000);
+
     </script>
 </body>
 
