@@ -69,13 +69,24 @@ function Box(x,y,w,h){
 		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -20});
 //		console.log("Jump");
 	}
-	this.left = function(){
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -1, y: 0});
+	this.left = function(cooldown){
+		if (cooldown == 5) {
+			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -1, y: 0});
+		}else{
+			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -10, y: 0});
 //		console.log("left");
 	}
-	this.right = function(){
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 1, y: 0});
+	}
+	this.right = function(cooldown){
+		if (cooldown == 5) {
+			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 1, y: 0});
+		}else{
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 10, y: 0});
+	}
 //		console.log("right");
+	}
+	this.stop = function(){
+		Matter.Body.setVelocity(this.body, { x: 0, y: 0 });
 	}
 
 	this.show = function(){

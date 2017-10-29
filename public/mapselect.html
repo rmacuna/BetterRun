@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BetterRun</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/SemanticUI/semantic.min.css">
+    <style>
+    body {
+        width: 100%;
+        align-content: center;
+        align-items: center;
+        padding-top: 5.0rem;
+        min-height: 30rem;
+        padding-bottom: 2.0rem;
+        margin-top: 2.0rem;
+        transition: 0.3s;
+        background: url('../assets/images/forest_level_blur.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    </style>
+</head>
+<body id="body-content">
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <div id="btnPrev" onclick="prev()" class="move-arrow-left hoverableSound"><i class="arrow left icon"></i></div>
+    <div id="btnNext" onclick="next()" class="move-arrow-right hoverableSound"><i class="arrow right icon"></i></div>
+    <div class="ui equal width">
+        <div class="row">
+            <div class="map-shape floating-image">
+                <img id="mapimg" src="../assets/levels/forest_level.png">
+            </div>
+        </div>
+    </div>
+    <div class="bottom-center down">
+        <button onclick="selectMap()" class="ui button huge inverted">Seleccionar</button>
+    </div>
+
+    <!-- Modals -->
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            <div id="mapName"></div>
+        </div>
+        <div class="image content">
+            <div class="ui medium image">
+                <div class="floating-image">
+                    <div id="mapUrl"></div>
+                </div>
+            </div>
+            <div class="description">
+                <div class="ui header text-black">Asi es como funciona el juego.</div>
+                <div class="c-container" id="mapDescription"></div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui positive right labeled icon button">
+                Ok
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+    <div id="sound"></div>
+    <audio id="audioPassLevel" src="../assets/sounds/btnpress.mp3"></audio>
+    <script src="../js/public/main.js"></script>
+    <script type="text/javascript">
+    document.addEventListener('keyup', function(event) {
+        if (event.code == 'ArrowLeft') {
+            prev();
+        }
+        if (event.code == 'ArrowRight') {
+            next();
+        }
+    });
+    </script>
+    <script type="text/javascript">
+
+        document.getElementById('sound').innerHTML = "";
+        var sound = document.getElementById('sound')
+
+        setTimeout(function () {
+            var src = "../assets/sounds/forest.mp3";
+            htmlString = "<audio " + "id='mapsound'" + " src=" + src + "></audio>";
+            sound.insertAdjacentHTML('beforeend', htmlString);
+            audio = document.getElementById('mapsound');
+            audio.volume = 0.2;
+            audio.play();
+        },3000);
+
+    </script>
+</body>
+
+</html>

@@ -1,6 +1,8 @@
-/*var express = require('express');
+var express = require('express');
 var app = express();
-var server = app.listen(3000);
+var server = app.listen(4000);
+const chalk = require('chalk');
+
 
 app.use(express.static('public'));
 console.log("Socket Server runnig");
@@ -11,11 +13,11 @@ var io = socket(server);
 io.sockets.on('connection', newConnection);
 
 function newConnection(socket){
-	console.log("newConneection" + socket.id);
+	console.log("newConnection" + socket.id);
 	socket.on('moving', move);
 
 	function move(data){
-		console.log(data);
+		console.log("["+chalk.blue(data.x) +"-"+ chalk.blue(data.y)+"]");
 		socket.broadcast.emit('moving', data);
 	}
-}*/
+}
