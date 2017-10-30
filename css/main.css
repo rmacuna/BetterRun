@@ -108,23 +108,15 @@ body {
   align-content: center;
   font-size: 5rem; }
 
-.divider {
-  padding-bottom: 3rem;
-  padding-top: 3rem; }
-
 .flex-center {
   align-items: center;
   height: 50vh;
   display: flex;
+  margin: 0 auto;
   justify-content: center; }
 
 .separated {
   padding-left: 2rem; }
-
-#menuContent {
-  padding-top: 5rem;
-  font-family: "Chivo", sans-serif;
-  font-size: 1.2rem; }
 
 .menuitem {
   padding-bottom: 1.2rem;
@@ -145,14 +137,6 @@ body {
 
 .medium-font {
   font-size: 1.5rem; }
-
-.menu-container {
-  width: 10rem;
-  border: 1px solid #FFF; }
-
-.menu-container {
-  width: 5rem;
-  border: 1px solid #fff; }
 
 .separated-min {
   padding-top: 3rem; }
@@ -200,7 +184,6 @@ img {
   margin: 0 auto;
   margin-right: -50%;
   left: 50%;
-  margin-right: -50%;
   transform: translate(-50%, -50%); }
 
 .c-container {
@@ -226,11 +209,57 @@ img {
     font-weight: bold;
     color: #FFF; }
 
-.inline {
-  display: inline-block; }
-
 .separator {
   padding-bottom: 10px; }
+
+.c-user-card {
+  width: 20rem;
+  height: 25rem;
+  border: 3px solid #FFF;
+  border-radius: 5px; }
+  .c-user-card .user-id {
+    width: 19.6rem;
+    height: 4rem;
+    position: absolute;
+    padding: 10px 10px 10px 10px;
+    top: 0%;
+    font-size: 1.4rem;
+    border-bottom: 3px solid; }
+    .c-user-card .user-id p {
+      align-content: center;
+      align-text: center;
+      margin: 0 auto;
+      position: absolute;
+      left: 50%;
+      top: 60%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%); }
+  .c-user-card .bottom-content {
+    width: 19.6rem;
+    border-top: 3px solid;
+    position: absolute;
+    bottom: 10%;
+    align-content: center; }
+    .c-user-card .bottom-content button {
+      align-content: center;
+      align-text: center;
+      margin: 0 auto;
+      position: absolute;
+      left: 50%;
+      top: 60%;
+      margin-right: -50%;
+      transform: translate(-50%, -50%); }
+
+.bottom-text {
+  position: absolute;
+  margin-right: -50%;
+  bottom: 10%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  left: 50%;
+  align-text: center;
+  align-content: center;
+  font-size: 2rem; }
 
 @keyframes float {
   0% {
