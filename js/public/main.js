@@ -55,7 +55,6 @@ function play() {
     $('#body-content').load('../public/mapselec.html');
 }
 
-
 function selectMap() {
     $('.ui.modal')
         .modal('show');
@@ -81,8 +80,6 @@ function renderHTML(data) {
     mapName.insertAdjacentHTML('beforeend', html_mapname);
     mapURL.insertAdjacentHTML('beforeend', html_mapURL);
 }
-
-
 function showInstructions() {
     $('#modal-ins')
         .modal('show');
@@ -99,18 +96,12 @@ function about(argument) {
 }
 
 function next() {
-
-
     var audio = document.getElementById('audioPassLevel');
     document.getElementById('sound').innerHTML = "";
-
     audio.volume = 0.2;
     audio.load();
     audio.play();
-
-
     // Codigo que añade el efecto de nieve en caso tal de que sea el mapa de hielo
-
     if (lastMap == 3) {
         if (maps[lastMap + 1].name == "Cueva de hielo") {
             document.getElementById('animateScene').innerHTML = "";
@@ -121,8 +112,6 @@ function next() {
             document.getElementById('animateScene').innerHTML = "";
         }
     }
-
-
     if (lastMap == 0 || lastMap < maps.length - 1) {
 
         var url = maps[lastMap + 1].blurImage;
@@ -170,6 +159,26 @@ function next() {
         audio.play();
     }
 }
+
+function loadLobby () {
+    var millisecondsToWait = 2000;
+    $(document).ready(function() {
+        $('body').removeClass('loaded')
+        $('body').addClass('vanish')
+    });
+    setTimeout(function() {
+        $("#body-content").load('../public/lobby.html');
+        $(document).ready(function() {
+            $('body').addClass('visiblePage')
+            $('body').removeClass('vanish')
+            setTimeout(function() {
+                $('body').addClass('loaded')
+                $('body').removeClass('visiblePage')
+            }, 3000);
+        });
+    }, millisecondsToWait);
+}
+
 
 function prev() {
     var audio = document.getElementById('audioPassLevel');

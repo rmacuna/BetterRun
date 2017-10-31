@@ -34,14 +34,34 @@
 </head>
 
 <body id="body-content">
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
     <div class="ui grid container">
         <div class="flex-center">
             <div class="player-status text-white">
                 <div class="ui equal width grid container">
-                    <div id="user1" class="four wide column">
+                    <div class="four wide column">
                         <div class="c-user-card">
                             <div class="user-id">
-                                <p>Username</p>
+                                <p id="username1"></p>
+                            </div>
+                            <div class="c-content">
+                                <img class="ui fluid image" src="../assets/chars/meteorite.png">
+                            </div>
+                            <div class="bottom-content">
+                                <div class="btn-action">
+                                    <button class="ui huge fluid button hoverableSound">Ready</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="four wide column">
+                        <div class="c-user-card">
+                            <div class="user-id">
+                                <p class="username2"></p>
                             </div>
                             <div class="content">
                             </div>
@@ -52,10 +72,10 @@
                             </div>
                         </div>
                     </div>
-                    <div id="user2" class="four wide column">
+                    <div class="four wide column">
                         <div class="c-user-card">
                             <div class="user-id">
-                                <p>Username</p>
+                                <p class="username3"></p>
                             </div>
                             <div class="content">
                             </div>
@@ -66,24 +86,10 @@
                             </div>
                         </div>
                     </div>
-                    <div id="user3" class="four wide column">
+                    <div class="four wide column">
                         <div class="c-user-card">
                             <div class="user-id">
-                                <p>Username</p>
-                            </div>
-                            <div class="content">
-                            </div>
-                            <div class="bottom-content">
-                                <div class="btn-action">
-                                    <button class="ui huge fluid button hoverableSound">Ready</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="user4" class="four wide column">
-                        <div class="c-user-card">
-                            <div class="user-id">
-                                <p>Username</p>
+                                <p class="username4"></p>
                             </div>
                             <div class="content">
                             </div>
@@ -94,13 +100,23 @@
                             </div>
                         </div>
                     </div>
-                    <span class="bottom-text">Wating for other players...</span>
+                    <span id="wating-players" class="bottom-text">Wating for other players...
+                     <div class="ui active inverted inline loader"></div>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
+    <audio id="BetterRun" src="../assets/music/BetterRun.mp3"></audio>
+    <script src="../js/public/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../css/SemanticUI/semantic.min.js"></script>
+    <script type="text/javascript">
+    var audio = document.getElementById("BetterRun");
+    audio.autoplay = true;
+    audio.volume = 0.2;
+    audio.play();
+    </script>
 </body>
 
 </html>

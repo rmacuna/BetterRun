@@ -118,23 +118,6 @@ body {
 .separated {
   padding-left: 2rem; }
 
-.menuitem {
-  padding-bottom: 1.2rem;
-  text-align: center; }
-  .menuitem #gamelogo {
-    font-size: 3rem; }
-
-.btnmenu {
-  align-content: center;
-  align-items: center;
-  text-align: center;
-  padding-right: 1rem; }
-
-.bottom {
-  position: absolute;
-  bottom: 10%;
-  left: 0%; }
-
 .medium-font {
   font-size: 1.5rem; }
 
@@ -159,11 +142,6 @@ img {
 .map-shape:hover {
   border: 3px solid #FFF;
   display: block; }
-
-.block {
-  position: absolute;
-  left: 28%;
-  bottom: 30%; }
 
 .bottom-center {
   align-text: center;
@@ -234,6 +212,17 @@ img {
       top: 60%;
       margin-right: -50%;
       transform: translate(-50%, -50%); }
+  .c-user-card .c-content img {
+    align-content: center;
+    align-items: center;
+    margin: 0 auto;
+    position: absolute;
+    max-height: 100%;
+    max-width: 50%;
+    left: 50%;
+    top: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%); }
   .c-user-card .bottom-content {
     width: 19.6rem;
     border-top: 3px solid;
@@ -260,6 +249,10 @@ img {
   align-text: center;
   align-content: center;
   font-size: 2rem; }
+
+.inline {
+  position: relative;
+  display: inline; }
 
 @keyframes float {
   0% {
@@ -323,7 +316,7 @@ img {
   right: 15px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #f9c922;
+  border-top-color: #AD1457;
   -webkit-animation: spin 1.5s linear infinite;
   animation: spin 1s linear infinite; }
 
@@ -332,7 +325,7 @@ img {
   top: 0;
   width: 51%;
   height: 100%;
-  background: #212121;
+  background: #f9c922;
   z-index: 1000; }
 
 #loader-wrapper .loader-section.section-left {
@@ -396,7 +389,7 @@ img {
   visibility: hidden;
   opacity: 0;
   transition: background 1s ease-out, visibility 0s 1s, opacity 1s ease-out;
-  background: #000; }
+  background: #f9c922; }
 
 #snow {
   background: none;
