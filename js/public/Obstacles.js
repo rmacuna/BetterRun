@@ -45,7 +45,7 @@ function Box(x,y,w,h){
 		rectMode(CENTER);
 		strokeWeight(1);
 		stroke(0);
-		var c = color('#00B300');
+		var c = color('#424242');
 		fill(c);
 		rect(pos.x,pos.y,this.w,this.h);
 		pop();
@@ -90,7 +90,6 @@ function Box(x,y,w,h){
 	}
 
 	this.show = function(){
-
 		push();
 		translate(this.pos.x,this.pos.y);
 		strokeWeight(1);
