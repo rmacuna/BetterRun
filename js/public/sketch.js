@@ -13,8 +13,10 @@ var obstacles = [];
 var id = null;
 var lobby = 1;
 var LOGEDIN = true;
-var circle;
+var player;
 var cooldown = 0;
+var pid;
+var players = [];
 
 //firebase vars
 var database;
@@ -27,14 +29,24 @@ var input;
 var button;
 var moving;
 var canvas;
-var lastpos = {x:0, y:0};
+var p2data;
 
 function setup () {	
 canvas = createCanvas(screen.width, screen.height);
 background = loadImage("forest_level.png");
-
-socket = io.connect('http://10.20.57.116:4000');
+socket = io.connect('http://192.168.0.13:4000');
 socket.on('moving', move);
+socket.on('newplayer', newPlayer);
+socket.on("serverMessage", function(d) {
+	console.log(d);
+	player = new Player(width/2,height/2,20,d);
+	players.push(player);
+});
+socket.on('jumping',jump);
+socket.on('gleft',left);
+socket.on('gright',right);
+socket.on('playersupdate',newupdate);          
+frameRate(60);
 /*
 var config = {
     apiKey: "AIzaSyAQOE_XWSAn7XhLo5eSyCY0LXXVsni_7PQ",
@@ -55,16 +67,12 @@ var config = {
 	//input = createInput();
 	//input.position(20, 560);
 
-	//button = createButton('submit');
+	button = createButton('submit');
 	//button.position(input.x + input.width, 560);
-	//button.mousePressed(logPlayer);
+	button.mousePressed(eupdate);
 
 	//Set World Bounds
 	setWorldBounds();
-	
-	//Create a player
-	circle = new Circle(width/2,height/2,20);
-	obstacles.push(circle);
 
 	//Checks for collison betewen the player and the floor
 	Events.on(engine, 'collisionStart', collision);
@@ -94,23 +102,23 @@ var config = {
 }
 
 function move(data){
-	//image(background, 50,50,width-100,height-100);
-	fill(255);
-	ellipse(data.x,data.y,40);
+	/*for (var i = 0; i < players.length; i++) {
+		if(data.x != null && players[i]!= null){
+		if(players[i].id === data.id){
+			players[i].pos.x = data.x;
+			players[i].pos.y = data.y	
+		}
+	}
+	}*/
+	//p2data = data;
 }
 
 
 //Renders the world
 function draw () {
+	if (player != null) {
 	image(background, 50,50,width-100,height-100);
 	if (LOGEDIN) {
-		var data = {
-		x: Math.floor(circle.pos.x),
-		y: Math.floor(circle.pos.y)
-		}
-		socket.emit('moving',data);
-
-
 	//playerData();
 
 	Engine.update(engine, [delta=16.6666], [correction=1])
@@ -118,17 +126,28 @@ function draw () {
 	if (keyIsDown(UP_ARROW) || keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW) || cooldown == 5) {
 
 	if (keyIsDown(UP_ARROW) && cooldown < 5) {
-		circle.jump();
+		socket.emit('jumping',player.id);
+		player.jump();
 			cooldown++;
 	}
 	if (keyIsDown(LEFT_ARROW)) {
-			circle.left(cooldown);
+		let data = {
+		cd: cooldown,
+		id: player.id
+		}
+		socket.emit('gleft',data);
+			player.left(cooldown);
 	}
 	if (keyIsDown(RIGHT_ARROW)) {
-			circle.right(cooldown);
+		let data = {
+		cd: cooldown,
+		id: player.id
+		}
+		socket.emit('gright',data);
+			player.right(cooldown);
 	}
 }else{
-	circle.stop();
+	player.stop();
 }	
 
 	for (var i = 0; i < obstacles.length; i++) {
@@ -137,6 +156,15 @@ function draw () {
 	for (var i = 0; i < bounds.length; i++) {
 		bounds[i].show();
 	}
+	for (var i = 0; i < players.length; i++) {
+//		console.log(players.length);
+//		console.log(players[i].id);
+		players[i].show();
+	}
+	/*if (p2data != null) {
+		fill(255);
+		ellipse(p2data.x,p2data.y,40);
+	}*/
 	for (var i = 0; i < playerPoss.length; i++) {
 		var pos = playerPoss[i];
 		fill(255);
@@ -144,6 +172,8 @@ function draw () {
 	}
 }
 }
+}
+//end of draw
 
 //Sends the player pos to the database
 function playerData(){
@@ -170,7 +200,7 @@ console.log("The user " + id + " is loged in");
 }
 
 function gotData(data){
-	var players =  data.val();
+	let players =  data.val();
 	var keys = Object.keys(players);
 	var cont = 0;
 	for (var i = 0; i < keys.length; i++) {
@@ -210,4 +240,58 @@ function setWorldBounds(){
 
 function createPlatforms(){
 		console.log("Platforms");
+}
+
+function newPlayer(sc){
+	console.log("new player");
+	newplayer = new Player(width/2,height/2,20,sc);
+	players.push(newplayer);
+}
+function eupdate(){
+	let data = {
+		p: players
+	}
+	socket.emit('playersupdate', data);
+}
+function newupdate(data){
+	console.log(data);
+	/*let sw;
+	for (var i = 0; i < nplayers.length; i++) {
+		sw = false;
+		for (var i = 0; i < players.length; i++) {
+			if (nplayer[i] === players[j]) {
+				let sw = true;
+			}
+		}
+		if (sw = false) {
+			players.add(nplayer[i]);
+		}
+}*/
+}
+
+function jump(id){
+	console.log('jumping');
+	for (var i = 0; i < players.length; i++) {
+		if(players[i].id === id){
+			players[i].jump();
+		}
+	}
+}
+function left(data){
+	let id = data.id;
+	console.log('left');
+	for (var i = 0; i < players.length; i++) {
+		if(players[i].id === id){
+			players[i].left();
+		}
+	}
+}
+function right(data){
+	let id = data.id;
+	console.log('right');
+	for (var i = 0; i < players.length; i++) {
+		if(players[i].id === id){
+			players[i].right();
+		}
+	}
 }

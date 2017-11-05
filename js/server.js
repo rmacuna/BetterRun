@@ -14,10 +14,30 @@ io.sockets.on('connection', newConnection);
 
 function newConnection(socket){
 	console.log("newConnection" + socket.id);
-	socket.on('moving', move);
+	socket.emit("serverMessage",socket.id);
+	socket.broadcast.emit('newplayer',socket.id);
 
+	socket.on('moving', move);
 	function move(data){
-		console.log("["+chalk.blue(data.x) +"-"+ chalk.blue(data.y)+"]");
+		//console.log("["+chalk.blue(data.x) +"-"+ chalk.blue(data.y)+"]");
 		socket.broadcast.emit('moving', data);
+	}
+
+	socket.on('jumping',jump);
+	function jump(id){
+		socket.broadcast.emit('jumping', id);
+	}
+	socket.on('gleft',left);
+	function left(data){
+		socket.broadcast.emit('gleft', data);
+	}
+	socket.on('gright',right);
+	function right(data){
+		socket.broadcast.emit('gright', data);
+	}
+
+	socket.on('playersupdate', newupdate);
+	function newupdate(data){
+		socket.broadcast.emit('playersupdate', data);
 	}
 }

@@ -52,8 +52,9 @@ function Box(x,y,w,h){
 	}
 }
 
-	function Circle(x,y,r){
+	function Player(x,y,r,id){
 		this.r = r;
+		this.id = id;
 		var options = {
 		friction: 0.1,
 		restitution: 0, 
