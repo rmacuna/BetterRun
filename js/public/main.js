@@ -162,13 +162,16 @@ function next() {
 
 function loadLobby () {
     var millisecondsToWait = 2000;
+    document.getElementsByTagName('body')[0].style = "";
     $(document).ready(function() {
         $('body').removeClass('loaded')
         $('body').addClass('vanish')
     });
     setTimeout(function() {
         $("#body-content").load('../public/lobby.html');
+
         $(document).ready(function() {
+            $('body').removeClass('dimmable loaded')
             $('body').addClass('visiblePage')
             $('body').removeClass('vanish')
             setTimeout(function() {
@@ -253,6 +256,7 @@ function playGame() {
             setTimeout(function() {
                 $('body').addClass('loaded')
                 $('body').removeClass('visiblePage')
+
             }, 3000);
         });
     }, millisecondsToWait);

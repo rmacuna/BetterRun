@@ -7,6 +7,26 @@ body {
 .text-black {
   color: #000; }
 
+.lobby body {
+  width: 100%;
+  height: 100vh;
+  align-content: center;
+  align-items: center;
+  padding-top: 5rem;
+  background: linear-gradient(141deg, #f06 0%, #C51162 51%, #880E4F 75%);
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: initial;
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: initial;
+  min-height: 30rem;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  padding-bottom: 2rem;
+  margin-top: 2rem; }
+
 .typing-area {
   padding-top: 12rem;
   display: flex;
