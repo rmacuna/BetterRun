@@ -55,17 +55,20 @@ function Box(x,y,w,h){
 	function Player(x,y,r,id){
 		this.r = r;
 		this.id = id;
+
 		var options = {
 		friction: 0.1,
 		restitution: 0, 
 		density: 1.5
-
 	}
+
 	this.body = Bodies.circle(x, y, r, options);
 	this.body.label = "player";
+
 	//Matter.Body.setInertia(this.body, 1);
 	World.add(world, this.body);
 	this.pos = this.body.position;
+
 	this.jump = function(){
 		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -20});
 //		console.log("Jump");

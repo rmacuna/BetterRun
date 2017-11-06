@@ -9,12 +9,17 @@ console.log("Socket Server runnig");
 
 var socket = require('socket.io');
 var io = socket(server);
+var players = [];
 
 io.sockets.on('connection', newConnection);
 
 function newConnection(socket){
 	console.log("newConnection" + socket.id);
-	socket.emit("serverMessage",socket.id);
+	let data = {
+		id: socket.id,
+		p: players
+	}
+	socket.emit("serverMessage",data);
 	socket.broadcast.emit('newplayer',socket.id);
 
 	socket.on('moving', move);
@@ -35,9 +40,13 @@ function newConnection(socket){
 	function right(data){
 		socket.broadcast.emit('gright', data);
 	}
+	socket.on('stop', stop);
+	function stop(data){
+		socket.broadcast.emit('stop', data);
+	}
 
 	socket.on('playersupdate', newupdate);
-	function newupdate(data){
-		socket.broadcast.emit('playersupdate', data);
+	function newupdate(p){
+		socket.broadcast.emit('playersupdate', p);
 	}
 }

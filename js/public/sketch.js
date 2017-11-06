@@ -38,13 +38,16 @@ socket = io.connect('http://192.168.0.13:4000');
 socket.on('moving', move);
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
-	console.log(d);
-	player = new Player(width/2,height/2,20,d);
+	//console.log(d);
+	player = new Player(width/2,height/2,20,d.id);
+	//console.log(player);
 	players.push(player);
+	
 });
 socket.on('jumping',jump);
 socket.on('gleft',left);
 socket.on('gright',right);
+socket.on('stop', stop);
 socket.on('playersupdate',newupdate);          
 frameRate(60);
 /*
@@ -66,10 +69,6 @@ var config = {
 
 	//input = createInput();
 	//input.position(20, 560);
-
-	button = createButton('submit');
-	//button.position(input.x + input.width, 560);
-	button.mousePressed(eupdate);
 
 	//Set World Bounds
 	setWorldBounds();
@@ -147,6 +146,10 @@ function draw () {
 			player.right(cooldown);
 	}
 }else{
+	let data = {
+		id: player.id
+		}
+	socket.emit('stop',data);
 	player.stop();
 }	
 
@@ -246,31 +249,36 @@ function newPlayer(sc){
 	console.log("new player");
 	newplayer = new Player(width/2,height/2,20,sc);
 	players.push(newplayer);
+	eupdate();
 }
 function eupdate(){
-	let data = {
-		p: players
+	let p = [];
+	for (var i = 0; i < players.length; i++) {
+		p.push(players[i].id)
 	}
-	socket.emit('playersupdate', data);
+	
+	socket.emit('playersupdate', p);
 }
-function newupdate(data){
-	console.log(data);
-	/*let sw;
-	for (var i = 0; i < nplayers.length; i++) {
+function newupdate(p){
+	console.log(p);
+	let sw;
+	for (var i = 0; i < p.length; i++) {
 		sw = false;
-		for (var i = 0; i < players.length; i++) {
-			if (nplayer[i] === players[j]) {
-				let sw = true;
+		for (var j = 0; j < players.length; j++) {
+			if (p[i] === players[j].id) {
+				sw = true;
 			}
 		}
-		if (sw = false) {
-			players.add(nplayer[i]);
+		if (sw == false) {
+			//console.log("We dont have the player with id: " + p[i]);
+			let np = new Player(width/2,height/2,20,p[i]);
+			players.push(np);
 		}
-}*/
+}
 }
 
 function jump(id){
-	console.log('jumping');
+	//console.log('jumping');
 	for (var i = 0; i < players.length; i++) {
 		if(players[i].id === id){
 			players[i].jump();
@@ -279,19 +287,31 @@ function jump(id){
 }
 function left(data){
 	let id = data.id;
-	console.log('left');
+	let coold = data.cd;
+	//console.log('left');
 	for (var i = 0; i < players.length; i++) {
 		if(players[i].id === id){
-			players[i].left();
+			players[i].left(coold);
 		}
 	}
 }
 function right(data){
 	let id = data.id;
-	console.log('right');
+	let coold = data.cd;
+	//console.log('right');
 	for (var i = 0; i < players.length; i++) {
 		if(players[i].id === id){
-			players[i].right();
+			players[i].right(coold);
+		}
+	}
+}
+
+function stop(data){
+	let id = data.id;
+	//console.log('stop');
+	for (var i = 0; i < players.length; i++) {
+		if(players[i].id === id){
+			players[i].stop();
 		}
 	}
 }
