@@ -58,6 +58,26 @@ function play() {
     $('#body-content').load('../public/mapselec.html');
 }
 
+function initGame(){
+    var millisecondsToWait = 2000;
+    $(document).ready(function() {
+        $('body').addClass('vanish')
+    });
+    setTimeout(function() {
+      
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('body').addClass('visiblePage')
+                $('body').removeClass('vanish')
+                 window.location.href = "../js/public/index.html";
+                $('body').addClass('loaded')
+                $('body').removeClass('visiblePage')
+
+            }, 3000);
+            
+        });
+    }, millisecondsToWait);
+}
 
 // Abre el modal y ejecuta la funcion renderHTML que toma el array de mapas y lo escribe en HTML
 function selectMap() {
@@ -117,13 +137,13 @@ function about(argument) {
 
 // Determina el script de conteo regresivo para empezar una partida
 function countdown() {
-    var countdownNumberEl = document.getElementById('countdown-number');
-    var countdown = 3;
-    countdownNumberEl.textContent = countdown;
-    setInterval(function() {
-        countdown = --countdown <= 0 ? 3 : countdown;
-        countdownNumberEl.textContent = countdown;
-    }, 1000);
+    // var countdownNumberEl = document.getElementById('countdown-number');
+    // var countdown = 3;
+    // countdownNumberEl.textContent = countdown;
+    // setInterval(function() {
+    //     countdown = --countdown <= 0 ? 3 : countdown;
+    //     countdownNumberEl.textContent = countdown;
+    // }, 1000);
 }
 
 // Se ejecuta para pasar al siguiente mapa recorriendo el array en formato JSON respectivo.

@@ -70,6 +70,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="four wide column">
                         <div class="c-user-card">
                             <div class="user-id">
@@ -101,7 +102,7 @@
                     <span id="wating-players" class="bottom-text">Wating for other players...
                      <div class="ui active inverted inline loader"></div>
                      <div class="separated-min"></div>
-                     <div class="center"><button id="btn-play" class="ui huge button hoverableSound">A jugar</button></div>
+                     <div class="center"><button onclick="initGame()" id="btn-play" class="ui huge button hoverableSound">A jugar</button></div>
                     </span>
                 </div>
             </div>
@@ -115,6 +116,7 @@
     var audio = document.getElementById("BetterRun");
     audio.autoplay = true;
     audio.volume = 0.2;
+    audio.loop = true;
     audio.play();
     </script>
 </body>
