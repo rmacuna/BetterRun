@@ -53,28 +53,87 @@ var maps = [{
     }
 ];
 
+
+var characterNames = [{
+        "name": "Cid",
+        "img": ""
+    },
+    {
+        "name": "Gladiador",
+        "img": ""
+    },
+    {
+        "name": "Nemesis",
+        "img": ""
+    },
+    {
+        "name": "Brujo",
+        "img": ""
+    },
+];
+
 // Carga por medio de Ajax la pagina mapselec
 function play() {
     $('#body-content').load('../public/mapselec.html');
 }
 
-function initGame(){
+
+
+function logUserToLobbby() {
+    // Tomo el contenido HTML que hay en los tags P con id username1,username2,username3,username4
+    var text_user1 = document.getElementById('username1');
+    var content_user1 = document.getElementById('avatar_img_1');
+
+    var text_user2 = document.getElementById('username2');
+    var content_user2 = document.getElementById('avatar_img_2');
+
+    var text_user3 = document.getElementById('username3');
+    var content_user3 = document.getElementById('avatar_img_3');
+
+    var text_user4 = document.getElementById('username4');
+    var content_user4 = document.getElementById('avatar_img_4');
+
+    // Tomo la lista de usuarios conectados y los guardo en la variable
+    var ids;
+
+    ids.forEach(function(element, index) {
+        avatar_name = characterNames[index].name;
+        route = "<img src=" + characterNames[index].img + ">" + "</img>";
+
+        if (index == 0) {
+            text_user1.insertAdjacentHTML('beforeend', avatar_name);
+            content_user1.insertAdjacentHTML('beforeend', route);
+        } else if (index == 1) {
+            text_user2.insertAdjacentHTML('beforeend', avatar_name);
+            content_user2.insertAdjacentHTML('beforeend', route);
+        } else if (index == 2) {
+            text_user3.insertAdjacentHTML('beforeend', avatar_name);
+            content_user3.insertAdjacentHTML('beforeend', route);
+        } else if (index == 3) {
+            text_user4.insertAdjacentHTML('beforeend', avatar_name);
+            content_user4.insertAdjacentHTML('beforeend', route);
+        }
+    });
+}
+
+
+function initGame() {
     var millisecondsToWait = 2000;
     $(document).ready(function() {
         $('body').addClass('vanish')
     });
     setTimeout(function() {
-      
+
         $(document).ready(function() {
             setTimeout(function() {
                 $('body').addClass('visiblePage')
                 $('body').removeClass('vanish')
-                 window.location.href = "../js/public/index.html";
+                window.location.href = "../js/public/index.html";
                 $('body').addClass('loaded')
                 $('body').removeClass('visiblePage')
 
             }, 3000);
-            
+
         });
     }, millisecondsToWait);
 }
@@ -122,34 +181,15 @@ function showInstructions() {
     $('#modal-ins')
         .modal('show');
 }
-
-// Muestra el modal de configuraciones del juego
-function showSettings() {
-    $('#modal-sts')
-        .modal('show');
-}
-
 // Para mostrar el modal de quienes hicieron el juego
 function about(argument) {
     $('#about')
         .modal('show');
 }
 
-// Determina el script de conteo regresivo para empezar una partida
-function countdown() {
-    // var countdownNumberEl = document.getElementById('countdown-number');
-    // var countdown = 3;
-    // countdownNumberEl.textContent = countdown;
-    // setInterval(function() {
-    //     countdown = --countdown <= 0 ? 3 : countdown;
-    //     countdownNumberEl.textContent = countdown;
-    // }, 1000);
-}
-
 // Se ejecuta para pasar al siguiente mapa recorriendo el array en formato JSON respectivo.
 // Asi mismo ejecuta un sonido de cambio de mapa.
 function next() {
-
     // Tomo el elemento de audio y le vacio el contenido html dentro de el para remover
     // el audio del mapa anterior.
     var audio = document.getElementById('audioPassLevel');
@@ -178,7 +218,7 @@ function next() {
         var miniatura = maps[lastMap + 1].image;
         var src = maps[lastMap + 1].soundEffect;
 
-         // Codigo que añade el efecto de nieve en caso tal de que sea el mapa de hielo
+        // Codigo que añade el efecto de nieve en caso tal de que sea el mapa de hielo
         if (maps[lastMap + 1].name == "Cueva de hielo") {
             document.getElementById('animateScene').innerHTML = "";
             var anim = document.getElementById('animateScene');
