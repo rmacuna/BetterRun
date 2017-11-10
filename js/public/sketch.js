@@ -17,6 +17,7 @@ var player;
 var cooldown = 0;
 var pid;
 var players = [];
+var sw2 = 0;
 
 //firebase vars
 var database;
@@ -30,11 +31,16 @@ var button;
 var moving;
 var canvas;
 var p2data;
+var state;
+var idle = [];
+var running = [];
+var jumping = [];
+var index = 0;
 
 function setup () {	
 canvas = createCanvas(screen.width, screen.height);
 background = loadImage("forest_level.png");
-socket = io.connect('http://192.168.0.13:4000');
+socket = io.connect('http://localhost:4000');
 socket.on('moving', move);
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
@@ -72,6 +78,9 @@ var config = {
 
 	//Set World Bounds
 	setWorldBounds();
+
+	//Loads animations
+	loadAnimations();
 
 	//Checks for collison betewen the player and the floor
 	Events.on(engine, 'collisionStart', collision);
@@ -125,7 +134,8 @@ function draw () {
 	if (keyIsDown(UP_ARROW) || keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW) || cooldown == 5) {
 
 	if (keyIsDown(UP_ARROW) && cooldown < 5) {
-		socket.emit('jumping',player.id);
+		//socket.emit('jumping',player.id);
+		state = {s:jumping};
 		player.jump();
 			cooldown++;
 	}
@@ -134,7 +144,8 @@ function draw () {
 		cd: cooldown,
 		id: player.id
 		}
-		socket.emit('gleft',data);
+		//socket.emit('gleft',data);
+		state = {s:running, d:"L"};
 			player.left(cooldown);
 	}
 	if (keyIsDown(RIGHT_ARROW)) {
@@ -142,16 +153,23 @@ function draw () {
 		cd: cooldown,
 		id: player.id
 		}
-		socket.emit('gright',data);
+		//socket.emit('gright',data);
+		state = {s:running, d:"R"};
 			player.right(cooldown);
 	}
 }else{
 	let data = {
 		id: player.id
 		}
-	socket.emit('stop',data);
+	//socket.emit('stop',data);
+	state = {s:idle};
 	player.stop();
-}	
+}
+	/*let data = {
+		x: player.pos.x
+		y: player.pos.y
+	}	
+	socket.emit.('moving', data);*/
 
 	for (var i = 0; i < obstacles.length; i++) {
 		obstacles[i].show()
@@ -159,11 +177,21 @@ function draw () {
 	for (var i = 0; i < bounds.length; i++) {
 		bounds[i].show();
 	}
+	//console.log(state);
 	for (var i = 0; i < players.length; i++) {
 //		console.log(players.length);
 //		console.log(players[i].id);
-		players[i].show();
+		players[i].show(state, index);
 	}
+	
+	if (sw2 == 0) {
+		index = (index + 1) % state.s.length;
+		sw2=1;
+	}
+	else{
+		sw2=0;
+	}
+
 	/*if (p2data != null) {
 		fill(255);
 		ellipse(p2data.x,p2data.y,40);
@@ -314,4 +342,40 @@ function stop(data){
 			players[i].stop();
 		}
 	}
+}
+
+function loadAnimations(){
+	for (var i = 0; i < 9; i++) {
+		loadImage("Animation/Idle/Idle_00"+i+".png", loadi);
+	}
+	for (var i = 10; i < 31; i++) {
+		loadImage("Animation/Idle/Idle_0"+i+".png", loadi);
+	}
+	function loadi(image){
+		//console.log(image);
+		idle.push(image);
+	}
+
+	for (var i = 0; i < 9; i++) {
+		loadImage("Animation/Run/Running_00"+i+".png", loadr);
+	}
+	for (var i = 10; i < 23; i++) {
+		loadImage("Animation/Run/Running_0"+i+".png", loadr);
+	}
+	function loadr(image){
+		//console.log(image);
+		running.push(image);
+	}
+
+	for (var i = 0; i < 9; i++) {
+		loadImage("Animation/Jump/Jumping_00"+i+".png", loadj);
+	}
+	for (var i = 10; i < 39; i++) {
+		loadImage("Animation/Jump/Jumping_0"+i+".png", loadj);
+	}
+	function loadj(image){
+		//console.log(image);
+		jumping.push(image);
+	}
+
 }

@@ -93,14 +93,28 @@ function Box(x,y,w,h){
 		Matter.Body.setVelocity(this.body, { x: 0, y: 0 });
 	}
 
-	this.show = function(){
+	this.show = function(moving, index){
+		let state = moving.s;
+
 		push();
 		translate(this.pos.x,this.pos.y);
 		strokeWeight(1);
 		stroke(255);
 		var c = color('#00B300');
 		fill(c);
-		ellipse(0,0,this.r*2);
+		//ellipse(0,0,this.r*2);
+
+		if (moving.d != null) {
+			if (moving.d == "L") {
+				scale(-1,1);
+			}
+		}
+
+		if (state[index] != null) {
+		//console.log("state["+index+"]"+state[index]);
+		image(state[index], -100, -130);
+		//image(state[index], 0, 0);
+		}
 		pop();
 	}
  }
