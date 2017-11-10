@@ -30,7 +30,6 @@ function Box(x,y,w,h){
  	var options = {
 		friction: 0.1,
 		isStatic: true 
-
 	}
 	this.body = Bodies.rectangle(x, y, w, h, options);
 	this.body.label = label;
@@ -58,7 +57,7 @@ function Box(x,y,w,h){
 
 		var options = {
 		friction: 0.1,
-		restitution: 0, 
+		restitution: 0.1, 
 		density: 1.5
 	}
 
@@ -77,7 +76,7 @@ function Box(x,y,w,h){
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -1, y: 0});
 		}else{
-			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -10, y: 0});
+			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -6, y: 0});
 //		console.log("left");
 	}
 	}
@@ -85,7 +84,7 @@ function Box(x,y,w,h){
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 1, y: 0});
 		}else{
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 10, y: 0});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 6, y: 0});
 	}
 //		console.log("right");
 	}

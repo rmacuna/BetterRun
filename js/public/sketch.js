@@ -71,7 +71,7 @@ var config = {
  */
 	engine = Engine.create();
 	world = engine.world;
-	world.gravity.y = 2;
+	world.gravity.y = 2.5;
 
 	//input = createInput();
 	//input.position(20, 560);
