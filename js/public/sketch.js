@@ -346,7 +346,7 @@ function stop(data){
 
 function loadAnimations(){
 	for (var i = 0; i < 9; i++) {
-		loadImage("Animation/Idle/Idle_00"+i+".png", loadi);
+		loadImage("../assets/chars/Stick Swordman/PNG/PNG Sequence/Small/Idle/Idle_00"+i+".png", loadi);
 	}
 	for (var i = 10; i < 31; i++) {
 		loadImage("Animation/Idle/Idle_0"+i+".png", loadi);
