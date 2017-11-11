@@ -45,7 +45,7 @@ socket.on('moving', move);
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
 	//console.log(d);
-	player = new Player(width/2,height/2,15,d.id);
+	player = new Player(width/2,height/2,20,d.id);
 	//console.log(player);
 	players.push(player);
 	
@@ -317,7 +317,7 @@ function newupdate(p){
 		}
 		if (sw == false) {
 			//console.log("We dont have the player with id: " + p[i]);
-			let np = new Player(width/2,height/2,15,p[i]);
+			let np = new Player(width/2,height/2,20,p[i]);
 			players.push(np);
 		}
 }
@@ -399,18 +399,17 @@ function loadAnimations(){
 }
 
 function loadPlatforms() {
-	//obstacles.push(new Bound(300,483,100, 10, "bottom"));
-	//obstacles.push(new Bound(300,500,100, 30, "platform"));
-	for (var i = 1; i <= 3; i++) {
-		for (var j = 2; j <= 4; j++) {
-			createPlatform((i*300),(j*120),150);
-		}
-	}
+	createPlatform((150),(250),200);
+	createPlatform((1220),(250),200); 
+	createPlatform((1220),(500),200);
+	createPlatform((150),(500),200);
+	createPlatform((width/2),(height/2),400);
+
 	World.add(world,obstacles);
 	
 }
 
 function createPlatform(x,y,w){
-	obstacles.push(new Bound(x,y-17,w, 10, "bottom"));
-	obstacles.push(new Bound(x,y,w, 30, "platform"));
+	obstacles.push(new Bound(x,y-17,w, 20, "bottom"));
+	obstacles.push(new Bound(x,y,w, 20, "platform"));
 }

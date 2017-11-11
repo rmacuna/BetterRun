@@ -28,7 +28,7 @@ function Box(x,y,w,h){
 
  function Bound(x,y,w,h,label){
  	var options = {
-		friction: 0.1,
+		friction: 0,
 		isStatic: true 
 
 	}
@@ -43,8 +43,7 @@ function Box(x,y,w,h){
 
 		push();
 		rectMode(CENTER);
-		strokeWeight(1);
-		stroke(0);
+		noStroke();
 		var c = color('#424242');
 		fill(c);
 		rect(pos.x,pos.y,this.w,this.h);
@@ -57,13 +56,14 @@ function Box(x,y,w,h){
 		this.id = id;
 
 		var options = {
-		friction: 0.1,
-		restitution: 0, 
+		friction: 0,
+		restitution: 0.1, 
 		density: 1.5
 	}
 
-	this.body = Bodies.circle(x, y, r, options);
+	this.body = Bodies.rectangle(x, y, r*2,r*4, options);
 	this.body.label = "player";
+	Matter.Body.setInertia(this.body,Infinity);
 
 	//Matter.Body.setInertia(this.body, 1);
 	World.add(world, this.body);
@@ -72,7 +72,7 @@ function Box(x,y,w,h){
 	this.index = 0;
 	this.prevstate = "Idle";
 	this.jump = function(){
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -13});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -60});
 		this.state = "jump";
 //		console.log("Jump");
 	}
@@ -80,7 +80,7 @@ function Box(x,y,w,h){
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -1, y: 0});
 		}else{
-			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -3, y: 0});
+			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -6.5, y: 0});
 //		console.log("left");
 	}
 	this.state = "left";
@@ -89,7 +89,7 @@ function Box(x,y,w,h){
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 1, y: 0});
 		}else{
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 3, y: 0});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 6.5, y: 0});
 	}
 	this.state = "right";
 //		console.log("right");
@@ -105,13 +105,16 @@ function Box(x,y,w,h){
 			this.index = 0;
 			this.prevstate = this.state;
 		}
+		let angle = this.body.angle;
 		push();
 		translate(this.pos.x,this.pos.y);
-		strokeWeight(1);
+		strokeWeight(2);
 		stroke(255);
-		var c = color('#00B300');
-		fill(c);
-		ellipse(0,0,this.r*2);
+		//var c = color('#00B300');
+		noFill();
+		rotate(angle);
+		rectMode(CENTER);
+		rect(0,0,this.r*2,this.r*4);
 
 		if (moving.d != null) {
 			if (moving.d == "L") {
@@ -124,7 +127,7 @@ function Box(x,y,w,h){
 			//console.log("true");
 		//console.log("state["+index+"]"+state[index]);
 		//console.log(this.id + "showed");
-		image(state[index], -100, -130);
+		image(state[index], -85, -110);
 		this.index = (index + 1 ) % state.length;
 		//image(state[index], 0, 0);
 		}
