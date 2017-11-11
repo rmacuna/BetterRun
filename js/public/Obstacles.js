@@ -72,7 +72,7 @@ function Box(x,y,w,h){
 	this.index = 0;
 	this.prevstate = "Idle";
 	this.jump = function(){
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -20});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -13});
 		this.state = "jump";
 //		console.log("Jump");
 	}
@@ -80,7 +80,7 @@ function Box(x,y,w,h){
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -1, y: 0});
 		}else{
-			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -10, y: 0});
+			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -3, y: 0});
 //		console.log("left");
 	}
 	this.state = "left";
@@ -89,7 +89,7 @@ function Box(x,y,w,h){
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 1, y: 0});
 		}else{
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 10, y: 0});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 3, y: 0});
 	}
 	this.state = "right";
 //		console.log("right");
@@ -118,10 +118,10 @@ function Box(x,y,w,h){
 				scale(-1,1);
 			}
 		}
-		console.log(index);
-		console.log(state);
+		//console.log(index);
+		//console.log(state);
 		if (state[index] != null) {
-			console.log("true");
+			//console.log("true");
 		//console.log("state["+index+"]"+state[index]);
 		//console.log(this.id + "showed");
 		image(state[index], -100, -130);

@@ -45,7 +45,7 @@ socket.on('moving', move);
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
 	//console.log(d);
-	player = new Player(width/2,height/2,20,d.id);
+	player = new Player(width/2,height/2,15,d.id);
 	//console.log(player);
 	players.push(player);
 	
@@ -82,6 +82,9 @@ var config = {
 	//Loads animations
 	loadAnimations();
 
+	//Loads platformns of the level
+	loadPlatforms();
+
 	//Checks for collison betewen the player and the floor
 	Events.on(engine, 'collisionStart', collision);
 	function collision(event){
@@ -94,8 +97,8 @@ var config = {
 			//console.log(bA.velocity.y);
 		}
 
-		//console.log(bA.label + Math.round(bA.velocity.y));
-		//console.log(bB.label + Math.round(bB.velocity.y));
+		console.log(bA.label + Math.round(bA.velocity.y));
+		console.log(bB.label + Math.round(bB.velocity.y));
 
 		if (bA.label == 'player' && bA.label == 'bottom') {
 			cooldown = 0;
@@ -103,6 +106,7 @@ var config = {
 		if (bB.label == 'player' && bA.label == 'bottom') {
 			cooldown = 0;
 		}
+		player.stop();
 	}
 
 	//createPlatforms();
@@ -155,11 +159,13 @@ function draw () {
 			player.right(cooldown);
 	}
 }else{
+	if (keyIsDown(DOWN_ARROW)) {
 	let data = {
 		id: player.id
 		}
 	socket.emit('stop',data);
 	player.stop();
+}
 }
 	/*let data = {
 		x: player.pos.x
@@ -311,7 +317,7 @@ function newupdate(p){
 		}
 		if (sw == false) {
 			//console.log("We dont have the player with id: " + p[i]);
-			let np = new Player(width/2,height/2,20,p[i]);
+			let np = new Player(width/2,height/2,15,p[i]);
 			players.push(np);
 		}
 }
@@ -358,10 +364,10 @@ function stop(data){
 
 function loadAnimations(){
 	for (var i = 0; i < 9; i++) {
-		loadImage("Animation/Idle/Idle_00"+i+".png", loadi);
+		loadImage("Idle/Idle_00"+i+".png", loadi);
 	}
 	for (var i = 10; i < 31; i++) {
-		loadImage("Animation/Idle/Idle_0"+i+".png", loadi);
+		loadImage("Idle/Idle_0"+i+".png", loadi);
 	}
 	function loadi(image){
 		//console.log(image);
@@ -369,10 +375,10 @@ function loadAnimations(){
 	}
 
 	for (var i = 0; i < 9; i++) {
-		loadImage("Animation/Run/Running_00"+i+".png", loadr);
+		loadImage("Running/Running_00"+i+".png", loadr);
 	}
 	for (var i = 10; i < 23; i++) {
-		loadImage("Animation/Run/Running_0"+i+".png", loadr);
+		loadImage("Running/Running_0"+i+".png", loadr);
 	}
 	function loadr(image){
 		//console.log(image);
@@ -380,14 +386,31 @@ function loadAnimations(){
 	}
 
 	for (var i = 0; i < 9; i++) {
-		loadImage("Animation/Jump/Jumping_00"+i+".png", loadj);
+		loadImage("Jumping/Jumping_00"+i+".png", loadj);
 	}
 	for (var i = 10; i < 39; i++) {
-		loadImage("Animation/Jump/Jumping_0"+i+".png", loadj);
+		loadImage("Jumping/Jumping_0"+i+".png", loadj);
 	}
 	function loadj(image){
 		//console.log(image);
 		jumping.push(image);
 	}
 
+}
+
+function loadPlatforms() {
+	//obstacles.push(new Bound(300,483,100, 10, "bottom"));
+	//obstacles.push(new Bound(300,500,100, 30, "platform"));
+	for (var i = 1; i <= 3; i++) {
+		for (var j = 2; j <= 4; j++) {
+			createPlatform((i*300),(j*120),150);
+		}
+	}
+	World.add(world,obstacles);
+	
+}
+
+function createPlatform(x,y,w){
+	obstacles.push(new Bound(x,y-17,w, 10, "bottom"));
+	obstacles.push(new Bound(x,y,w, 30, "platform"));
 }
