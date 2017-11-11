@@ -40,7 +40,7 @@ var index = 0;
 function setup () {	
 canvas = createCanvas(screen.width, screen.height);
 background = loadImage("forest_level.png");
-socket = io.connect('http://localhost:4000');
+socket = io.connect('http://192.168.0.13:4000');
 socket.on('moving', move);
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
@@ -135,7 +135,6 @@ function draw () {
 
 	if (keyIsDown(UP_ARROW) && cooldown < 5) {
 		socket.emit('jumping',player.id);
-		state = {s:jumping};
 		player.jump();
 			cooldown++;
 	}
@@ -145,7 +144,6 @@ function draw () {
 		id: player.id
 		}
 		socket.emit('gleft',data);
-		state = {s:running, d:"L"};
 			player.left(cooldown);
 	}
 	if (keyIsDown(RIGHT_ARROW)) {
@@ -154,7 +152,6 @@ function draw () {
 		id: player.id
 		}
 		socket.emit('gright',data);
-		state = {s:running, d:"R"};
 			player.right(cooldown);
 	}
 }else{
@@ -162,7 +159,6 @@ function draw () {
 		id: player.id
 		}
 	socket.emit('stop',data);
-	state = {s:idle};
 	player.stop();
 }
 	/*let data = {
@@ -181,11 +177,27 @@ function draw () {
 	for (var i = 0; i < players.length; i++) {
 //		console.log(players.length);
 //		console.log(players[i].id);
+		//console.log(players[i].state);
+		switch(players[i].state) {
+    case "jump":
+        state = {s:jumping};
+        break;
+    case "left":
+        state = {s:running, d:"L"};
+        break;
+   	case "right":
+   		state = {s:running, d:"R"};
+        break;
+    default:
+        state = {s:idle};
+}	
+		//console.log(players[i]);
+		index = players[i].index;
 		players[i].show(state, index);
 	}
 	
 	//if (sw2 == 0) {
-		index = (index + 1) % state.s.length;
+		//index = (index + 1) % state.s.length;
 	//	sw2=1;
 	//}
 	//else{
@@ -346,7 +358,7 @@ function stop(data){
 
 function loadAnimations(){
 	for (var i = 0; i < 9; i++) {
-		loadImage("../assets/chars/Stick Swordman/PNG/PNG Sequence/Small/Idle/Idle_00"+i+".png", loadi);
+		loadImage("Animation/Idle/Idle_00"+i+".png", loadi);
 	}
 	for (var i = 10; i < 31; i++) {
 		loadImage("Animation/Idle/Idle_0"+i+".png", loadi);
