@@ -106,7 +106,6 @@ var config = {
 		if (bB.label == 'player' && bA.label == 'bottom') {
 			cooldown = 0;
 		}
-		player.stop();
 	}
 
 	//createPlatforms();
@@ -159,13 +158,15 @@ function draw () {
 			player.right(cooldown);
 	}
 }else{
-	if (keyIsDown(DOWN_ARROW)) {
+	//if (keyIsDown(DOWN_ARROW)) {
 	let data = {
 		id: player.id
 		}
-	socket.emit('stop',data);
-	player.stop();
-}
+	//socket.emit('stop',data);
+	let s = (player.body.velocity.y);
+	//console.log(s);
+	player.stop(s);
+//}
 }
 	/*let data = {
 		x: player.pos.x
@@ -357,7 +358,8 @@ function stop(data){
 	//console.log('stop');
 	for (var i = 0; i < players.length; i++) {
 		if(players[i].id === id){
-			players[i].stop();
+			let s = (players[i].body.velocity.y);
+			players[i].stop(s);
 		}
 	}
 }

@@ -57,7 +57,7 @@ function Box(x,y,w,h){
 
 		var options = {
 		friction: 0,
-		restitution: 0.1, 
+		restitution: 0, 
 		density: 1.5
 	}
 
@@ -94,8 +94,9 @@ function Box(x,y,w,h){
 	this.state = "right";
 //		console.log("right");
 	}
-	this.stop = function(){
-		Matter.Body.setVelocity(this.body, { x: 0, y: 0 });
+	this.stop = function(s){
+		//Matter.Body.setVelocity(this.body, { x: 0, y: (s+1) });
+		Matter.Body.setVelocity(this.body, { x: 0, y: (s+0.5) });
 		this.state = "stop";
 	}
 
