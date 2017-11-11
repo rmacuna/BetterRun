@@ -134,7 +134,7 @@ function draw () {
 	if (keyIsDown(UP_ARROW) || keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW) || cooldown == 5) {
 
 	if (keyIsDown(UP_ARROW) && cooldown < 5) {
-		//socket.emit('jumping',player.id);
+		socket.emit('jumping',player.id);
 		state = {s:jumping};
 		player.jump();
 			cooldown++;
@@ -144,7 +144,7 @@ function draw () {
 		cd: cooldown,
 		id: player.id
 		}
-		//socket.emit('gleft',data);
+		socket.emit('gleft',data);
 		state = {s:running, d:"L"};
 			player.left(cooldown);
 	}
@@ -153,7 +153,7 @@ function draw () {
 		cd: cooldown,
 		id: player.id
 		}
-		//socket.emit('gright',data);
+		socket.emit('gright',data);
 		state = {s:running, d:"R"};
 			player.right(cooldown);
 	}
@@ -161,7 +161,7 @@ function draw () {
 	let data = {
 		id: player.id
 		}
-	//socket.emit('stop',data);
+	socket.emit('stop',data);
 	state = {s:idle};
 	player.stop();
 }
@@ -184,13 +184,13 @@ function draw () {
 		players[i].show(state, index);
 	}
 	
-	if (sw2 == 0) {
+	//if (sw2 == 0) {
 		index = (index + 1) % state.s.length;
-		sw2=1;
-	}
-	else{
-		sw2=0;
-	}
+	//	sw2=1;
+	//}
+	//else{
+	//	sw2=0;
+	//}
 
 	/*if (p2data != null) {
 		fill(255);
