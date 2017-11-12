@@ -1,6 +1,8 @@
 // Remueve la propiedad de que un imagen pueda ser arrastrada de la pantalla
 window.ondragstart = function() { return false; }
 var lastMap = 0;
+var readyButtons = [];
+
 
 // Creo el formato JSON con la información de cada mapa.
 var maps = [{
@@ -56,19 +58,19 @@ var maps = [{
 
 var characterNames = [{
         "name": "Cid",
-        "img": ""
+        "img": "../assets/chars/drop.png"
     },
     {
         "name": "Gladiador",
-        "img": ""
+        "img": "../assets/chars/ghost.png"
     },
     {
         "name": "Nemesis",
-        "img": ""
+        "img": "../assets/chars/meteorite.png"
     },
     {
         "name": "Brujo",
-        "img": ""
+        "img": "../assets/moon.png"
     },
 ];
 
@@ -118,24 +120,54 @@ function logUserToLobbby() {
 
 
 function initGame() {
-    var millisecondsToWait = 2000;
-    $(document).ready(function() {
-        $('body').addClass('vanish')
-    });
-    setTimeout(function() {
 
-        $(document).ready(function() {
+    // Si hay tres jugadores conectados..
+    if (players.length >= 3) {
+        // Si los tres presionaron jugar..
+        if (readyButtons.length == 3) {
+            var millisecondsToWait = 2000;
+            $(document).ready(function() {
+                $('body').addClass('vanish')
+            });
             setTimeout(function() {
-                $('body').addClass('visiblePage')
-                $('body').removeClass('vanish')
-                window.location.href = "../js/public/index.html";
-                $('body').addClass('loaded')
-                $('body').removeClass('visiblePage')
 
-            }, 3000);
+                $(document).ready(function() {
+                    setTimeout(function() {
+                        $('body').addClass('visiblePage')
+                        $('body').removeClass('vanish')
+                        window.location.href = "../js/public/index.html";
+                        $('body').addClass('loaded')
+                        $('body').removeClass('visiblePage')
 
+                    }, 3000);
+
+                });
+            }, millisecondsToWait);
+        }
+
+
+    } else {
+        // Solo para testear
+        var millisecondsToWait = 2000;
+        $(document).ready(function() {
+            $('body').addClass('vanish')
         });
-    }, millisecondsToWait);
+        setTimeout(function() {
+
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $('body').addClass('visiblePage')
+                    $('body').removeClass('vanish')
+                    window.location.href = "../js/public/index.html";
+                    $('body').addClass('loaded')
+                    $('body').removeClass('visiblePage')
+
+                }, 3000);
+
+            });
+        }, millisecondsToWait);
+    }
+
 }
 
 // Abre el modal y ejecuta la funcion renderHTML que toma el array de mapas y lo escribe en HTML
@@ -265,7 +297,7 @@ function next() {
 }
 
 // Carga el lobby de espera antes de jugar.
-function loadLobby() {
+function loadMapMenu() {
     var millisecondsToWait = 2000;
     // Tomo el style del body y lo pongo en nada, ya que anteriormente esta tenia un fondo de pantalla que no
     // va en el archivo html que será cargado con ajax.
@@ -275,8 +307,7 @@ function loadLobby() {
         $('body').addClass('vanish')
     });
     setTimeout(function() {
-        $("#body-content").load('../public/lobby.html');
-
+        $("#body-content").load('../public/mapselect.html');
         $(document).ready(function() {
             $('body').removeClass('dimmable loaded')
             $('body').addClass('visiblePage')
@@ -356,10 +387,9 @@ function playGame() {
     var millisecondsToWait = 2000;
     $(document).ready(function() {
         $('body').addClass('vanish')
-
     });
     setTimeout(function() {
-        $("#body-content").load('../public/mapselect.html');
+        $("#body-content").load('../public/lobby.html');
         $(document).ready(function() {
             $('body').addClass('visiblePage')
             $('body').removeClass('vanish')
@@ -371,11 +401,18 @@ function playGame() {
         });
     }, millisecondsToWait);
 }
-
 // Funcion generica para mostrar un modal
 function showModal() {
     $('.ui.modal')
         .modal('show');
+}
+
+// Funcion para saber si todos los jugadores le dieron jugar.
+function allTrue(obj) {
+    for (var o in obj)
+        if (!obj[o]) return false;
+
+    return true;
 }
 
 // Toma los elementos con clase hoverableSound y reproduce el respectivo sonido.
