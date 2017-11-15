@@ -38,25 +38,33 @@
         <div class="loader-section section-left"></div>
         <div class="loader-section section-right"></div>
     </div>
+
+    <div id="btnPrev" onclick="prev()" class="move-arrow-left hoverableSound"><i class="arrow left icon"></i></div>
+    <div id="btnNext" onclick="next()" class="move-arrow-right hoverableSound"><i class="arrow right icon"></i></div>
     <div class="ui grid container">
         <div class="flex-center">
-            <div class="player-status text-white">
-                <div class="ui grid container">
-                    <div class="four wide column">
-                        <div class="c-user-card">
-                            <div class="user-id">
-                                <p id="username1"></p>
-                            </div>
-                            <div id="avatar_img_1" class="c-content">
-                            </div>
-                            <div class="bottom-content">
-                                <div class="btn-action">
-                                    <button class="ui huge fluid button hoverableSound">Ready</button>
+            <div class="text-white">
+                <div class="ui equal width centered grid">
+                    <div class="row">
+                        <div class="ui centered column">
+                            <div class="c-user-card">
+                                <div class="user-id">
+                                    <p id="username1"></p>
                                 </div>
+                                <div id="avatar_img_1" class="c-content">
+                                </div>
+                                <!-- <div class="bottom-content">
+                                    <div class="btn-action">
+                                        <button class="ui huge button hoverableSound">Anterior</button>
+                                    </div>
+                                    <div class="btn-action">
+                                        <button class="ui huge button hoverableSound">Siguiente</button>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
-                    <div class="four wide column">
+                    <!--  <div class="four wide column">
                         <div class="c-user-card">
                             <div class="user-id">
                                 <p id="username2"></p>
@@ -70,7 +78,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="four wide column">
                         <div class="c-user-card">
                             <div class="user-id">
@@ -98,11 +105,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <span id="wating-players" class="bottom-text">Wating for other players...
+                    </div> -->
+                    <span id="wating-players" class="bottom-text">Esperando otros jugadores...
                      <div class="ui active inverted inline loader"></div>
                      <div class="separated-min"></div>
-                     <div class="center"><button onclick="initGame()" id="btn-play" class="ui huge button hoverableSound">A jugar</button></div>
+                     <div class="center"><button onclick="loadMapMenu()" id="btn-play" class="ui huge button hoverableSound">A jugar</button></div>
                     </span>
                 </div>
             </div>
@@ -110,14 +117,12 @@
     </div>
     <audio id="BetterRun" src="../assets/music/BetterRun.mp3"></audio>
     <script src="../js/public/main.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../css/SemanticUI/semantic.min.js"></script>
     <script type="text/javascript">
-    var audio = document.getElementById("BetterRun");
-    audio.autoplay = true;
-    audio.volume = 0.2;
-    audio.loop = true;
-    audio.play();
+    // var audio = document.getElementById("BetterRun");
+    // audio.autoplay = true;
+    // audio.volume = 0.2;
+    // audio.loop = true;
+    // audio.play();
     </script>
 </body>
 

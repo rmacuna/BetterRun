@@ -40,7 +40,7 @@ var index = 0;
 function setup () {	
 canvas = createCanvas(screen.width, screen.height);
 background = loadImage("forest_level.png");
-socket = io.connect('http://192.168.0.13:4000');
+socket = io.connect('http://localhost:4000');
 socket.on('moving', move);
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
@@ -100,7 +100,7 @@ var config = {
 		console.log(bA.label + Math.round(bA.velocity.y));
 		console.log(bB.label + Math.round(bB.velocity.y));
 
-		if (bA.label == 'player' && bA.label == 'bottom') {
+		if (bA.label == 'player' && bB.label == 'bottom') {
 			cooldown = 0;
 		}
 		if (bB.label == 'player' && bA.label == 'bottom') {

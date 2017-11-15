@@ -2,7 +2,6 @@ function Box(x,y,w,h){
 	var options = {
 		friction: 0.1,
 		restitution: 1
-
 	}
 	this.body = Bodies.rectangle(x, y, w, h, options);
 	this.w = w;
@@ -28,7 +27,7 @@ function Box(x,y,w,h){
 
  function Bound(x,y,w,h,label){
  	var options = {
-		friction: 0,
+		friction: 0.01,
 		isStatic: true 
 
 	}
@@ -56,9 +55,11 @@ function Box(x,y,w,h){
 		this.id = id;
 
 		var options = {
-		friction: 0,
-		restitution: 0, 
+		friction: 0.06,
+		frictionAir: 0.03,
+		restitution: 0.1, 
 		density: 1.5
+
 	}
 
 	this.body = Bodies.rectangle(x, y, r*2,r*4, options);
@@ -72,7 +73,7 @@ function Box(x,y,w,h){
 	this.index = 0;
 	this.prevstate = "Idle";
 	this.jump = function(){
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -60});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -76});
 		this.state = "jump";
 //		console.log("Jump");
 	}
@@ -80,7 +81,7 @@ function Box(x,y,w,h){
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -1, y: 0});
 		}else{
-			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -6.5, y: 0});
+			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -11, y: 0});
 //		console.log("left");
 	}
 	this.state = "left";
@@ -89,7 +90,7 @@ function Box(x,y,w,h){
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 1, y: 0});
 		}else{
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 6.5, y: 0});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 11, y: 0});
 	}
 	this.state = "right";
 //		console.log("right");

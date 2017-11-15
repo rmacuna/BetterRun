@@ -211,13 +211,13 @@ img {
   padding-bottom: 10px; }
 
 .c-user-card {
-  width: 20rem;
+  width: 50rem;
   height: 25rem;
   border: 3px solid #FFF;
   border-radius: 5px; }
   .c-user-card .user-id {
-    width: 19.6rem;
-    height: 4rem;
+    width: 49.5rem;
+    height: 5rem;
     position: absolute;
     padding: 10px 10px 10px 10px;
     top: 0%;
@@ -244,20 +244,13 @@ img {
     margin-right: -50%;
     transform: translate(-50%, -50%); }
   .c-user-card .bottom-content {
-    width: 19.6rem;
+    width: 49.6rem;
     border-top: 3px solid;
+    display: inline;
+    margin: 0 auto;
     position: absolute;
     bottom: 10%;
     align-content: center; }
-    .c-user-card .bottom-content button {
-      align-content: center;
-      align-text: center;
-      margin: 0 auto;
-      position: absolute;
-      left: 50%;
-      top: 60%;
-      margin-right: -50%;
-      transform: translate(-50%, -50%); }
 
 .bottom-text {
   position: absolute;
