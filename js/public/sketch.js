@@ -162,7 +162,7 @@ function draw () {
 	let data = {
 		id: player.id
 		}
-	//socket.emit('stop',data);
+	socket.emit('stop',data);
 	let s = (player.body.velocity.y);
 	//console.log(s);
 	player.stop(s);
