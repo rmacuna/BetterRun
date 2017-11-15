@@ -5,7 +5,7 @@ var server = app.listen(4000);
 
 
 app.use(express.static('public'));
-app.use( express.static('../assets/chars/Stick Swordman/PNG/PNG Sequences/Small')); 
+app.use( express.static('../assets/chars/Wizard/PNG Sequences')); 
 console.log("Socket Server runnig");
 
 var socket = require('socket.io');

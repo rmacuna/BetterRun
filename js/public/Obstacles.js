@@ -129,7 +129,7 @@ function Box(x,y,w,h){
 			//console.log("true");
 		//console.log("state["+index+"]"+state[index]);
 		//console.log(this.id + "showed");
-		image(state[index], -85, -110);
+		image(state[index], -80, -85);		
 		this.index = (index + 1 ) % state.length;
 		//image(state[index], 0, 0);
 		}
