@@ -325,7 +325,6 @@ function newupdate(p){
 }
 
 function jump(id){
-	//console.log('jumping');
 	for (var i = 0; i < players.length; i++) {
 		if(players[i].id === id){
 			players[i].jump();
