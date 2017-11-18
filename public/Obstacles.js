@@ -1,70 +1,70 @@
-function Box(x,y,w,h){
-	var options = {
-		friction: 0.1,
-		restitution: 1
-	}
-	this.body = Bodies.rectangle(x, y, w, h, options);
-	this.w = w;
-	this.h = h;
-	World.add(world, this.body);
+function Box(x, y, w, h) {
+    var options = {
+        friction: 0.1,
+        restitution: 1
+    }
+    this.body = Bodies.rectangle(x, y, w, h, options);
+    this.w = w;
+    this.h = h;
+    World.add(world, this.body);
 
-	this.show = function(){
-		var pos = this.body.position;
-		var angle = this.body.angle;
+    this.show = function() {
+        var pos = this.body.position;
+        var angle = this.body.angle;
 
-		push();
-		translate(pos.x,pos.y);
-		rectMode(CENTER);
-		rotate(angle);
-		strokeWeight(1);
-		stroke(255);
-		fill(127);
-		rect(0,0,this.w,this.h);
-		pop();
-	}
+        push();
+        translate(pos.x, pos.y);
+        rectMode(CENTER);
+        rotate(angle);
+        strokeWeight(1);
+        stroke(255);
+        fill(127);
+        rect(0, 0, this.w, this.h);
+        pop();
+    }
 
- }
-
- function Bound(x,y,w,h,label){
- 	var options = {
-		friction: 0.01,
-		isStatic: true 
-
-	}
-	this.body = Bodies.rectangle(x, y, w, h, options);
-	this.body.label = label;
-	this.w = w;
-	this.h = h;
-	World.add(world, this.body);
-
-	this.show = function(){
-		var pos = this.body.position;
-
-		push();
-		rectMode(CENTER);
-		noStroke();
-		var c = color('#424242');
-		fill(c);
-		rect(pos.x,pos.y,this.w,this.h);
-		pop();
-	}
 }
 
-	function Player(x,y,r,id){
-		this.r = r;
-		this.id = id;
+function Bound(x, y, w, h, label) {
+    var options = {
+        friction: 0.01,
+        isStatic: true
 
-		var options = {
-		friction: 0.06,
-		frictionAir: 0.03,
-		restitution: 0.1, 
-		density: 1.5
+    }
+    this.body = Bodies.rectangle(x, y, w, h, options);
+    this.body.label = label;
+    this.w = w;
+    this.h = h;
+    World.add(world, this.body);
 
-	}
+    this.show = function() {
+        var pos = this.body.position;
 
-	this.body = Bodies.rectangle(x, y, r*2,r*4, options);
-	this.body.label = "player";
-	Matter.Body.setInertia(this.body,Infinity);
+        push();
+        rectMode(CENTER);
+        noStroke();
+        var c = color('#424242');
+        fill(c);
+        rect(pos.x, pos.y, this.w, this.h);
+        pop();
+    }
+}
+
+function Player(x, y, r, id) {
+    this.r = r;
+    this.id = id;
+
+    var options = {
+        friction: 0.06,
+        frictionAir: 0.03,
+        restitution: 0.1,
+        density: 1.5
+
+    }
+
+    this.body = Bodies.rectangle(x, y, r * 2, r * 4, options);
+    this.body.label = "player";
+    Matter.Body.setInertia(this.body, Infinity);
 
 	//Matter.Body.setInertia(this.body, 1);
 	World.add(world, this.body);
@@ -136,7 +136,7 @@ function Box(x,y,w,h){
 			this.timer = 3;
 		}else{
 			this.timer = this.timer - 1;
-		}		
+		}
 		//image(state[index], 0, 0);
 		}
 		else{

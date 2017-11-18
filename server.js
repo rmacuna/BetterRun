@@ -5,7 +5,7 @@ var server = app.listen(4000);
 
 
 app.use(express.static('public'));
-app.use( express.static('../assets/chars/Wizard/PNG Sequences')); 
+app.use( express.static('../assets/chars/Chibi Smaurai 01 (Conical Hat)/PNG/PNG Sequences/Small/')); 
 console.log("Socket Server runnig");
 
 var socket = require('socket.io');

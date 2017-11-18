@@ -338,7 +338,6 @@ function newupdate(p){
 }
 
 function jump(id){
-	//console.log('jumping');
 	for (var i = 0; i < players.length; i++) {
 		if(players[i].id === id){
 			players[i].jump();
@@ -377,41 +376,88 @@ function stop(data){
 	}
 }
 
+// Para el samurai
+
 function loadAnimations(){
 	for (var i = 0; i < 9; i++) {
 		loadImage("assets/chars/Wizard/PNG Sequences/Idle/Idle_00"+i+".png", loadi);
 	}
 	for (var i = 10; i < 17; i++) {
 		loadImage("assets/chars/Wizard/PNG Sequences/Idle/Idle_0"+i+".png", loadi);
+
 	}
 	function loadi(image){
 		//console.log(image);
-		image.resize(156,0);
+		image.resize(160,0);
 		idle.push(image);
 	}
+
 
 	for (var i = 0; i < 9; i++) {
 		loadImage("assets/chars/Wizard/PNG Sequences/Running/Running_00"+i+".png", loadr);
 	}
 	for (var i = 10; i < 11; i++) {
 		loadImage("assets/chars/Wizard/PNG Sequences/Running/Running_0"+i+".png", loadr);
+
 	}
 	function loadr(image){
 		//console.log(image);
-		image.resize(156,0);
+		image.resize(160,0);
 		running.push(image);
 	}
+
 
 	for (var i = 0; i < 5; i++) {
 		loadImage("assets/chars/Wizard/PNG Sequences/Jump Loop/Jump loop_00"+i+".png", loadj);
 	}
 	function loadj(image){
 		//console.log(image);
-		image.resize(156,0);
+		image.resize(160,0);
 		jumping.push(image);
 	}
 
 }
+
+// Wizard animate
+// function loadAnimations(){
+// 	for (var i = 0; i < 9; i++) {
+// 		loadImage("Idle/Idle_00"+i+".png", loadi);
+// 	}
+// 	for (var i = 10; i < 17; i++) {
+// 		loadImage("Idle/Idle_0"+i+".png", loadi);
+// 	}
+// 	function loadi(image){
+// 		//console.log(image);
+// 		image.resize(160,0);
+// 		idle.push(image);
+// 	}
+
+// 	for (var i = 0; i < 9; i++) {
+// 		loadImage("Running/Running_00"+i+".png", loadr);
+// 	}
+// 	for (var i = 10; i < 11; i++) {
+// 		loadImage("Running/Running_0"+i+".png", loadr);
+// 	}
+// 	function loadr(image){
+// 		//console.log(image);
+// 		image.resize(160,0);
+// 		running.push(image);
+// 	}
+
+// 	for (var i = 0; i < 9; i++) {
+// 		loadImage("Jump Loop/Jump Loop_00"+i+".png", loadj);
+// 	}
+
+// 	function loadj(image){
+// 		//console.log(image);
+// 		image.resize(160,0);
+// 		jumping.push(image);
+// 	}
+
+// }
+
+
+
 
 function loadPlatforms() {
 	createPlatform((150),(250),200);
