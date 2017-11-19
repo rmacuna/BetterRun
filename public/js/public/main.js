@@ -1,8 +1,7 @@
 // Remueve la propiedad de que un imagen pueda ser arrastrada de la pantalla
 window.ondragstart = function() { return false; }
 var lastMap = 0;
-var readyButtons = [];
-
+var lastChar = 0;
 
 // Creo el formato JSON con la información de cada mapa.
 var maps = [{
@@ -55,121 +54,70 @@ var maps = [{
     }
 ];
 
-
 var characterNames = [{
-        "name": "Cid",
-        "img": "../assets/chars/drop.png"
+        "name": "El Samurai",
+        "img": "assets/chars/Chibi Smaurai 01 (Conical Hat)/PNG/PNG Sequences/Small/Idle/Idle_000.png"
     },
     {
-        "name": "Gladiador",
-        "img": "../assets/chars/ghost.png"
+        "name": "El Maton",
+        "img": "assets/chars/Maton/PNG Sequences/Idle/Idle_000.png"
     },
     {
         "name": "Nemesis",
-        "img": "../assets/chars/meteorite.png"
+        "img": "assets/chars/meteorite.png"
     },
     {
         "name": "Brujo",
-        "img": "../assets/moon.png"
-    },
+        "img": "assets/chars/Wizard/PNG Sequences/Idle/Idle_000.png"
+    }
 ];
 
-// Carga por medio de Ajax la pagina mapselec
-function play() {
-    $('#body-content').load('mapselec.html');
+
+function nextChar(){
+    if (lastChar >= 0 && lastChar < characterNames.length-1) {
+        lastChar++;
+        document.getElementById('charImage').src = characterNames[lastChar].img;
+        document.getElementById('username1').innerText = characterNames[lastChar].name;
+    } else if (lastChar == characterNames.length -1){
+        lastChar = 0;
+        document.getElementById('username1').innerText = characterNames[lastChar].name;
+        document.getElementById('charImage').src = characterNames[lastChar].img;
+    }
 }
 
-
-
-function logUserToLobbby() {
-    // Tomo el contenido HTML que hay en los tags P con id username1,username2,username3,username4
-    var text_user1 = document.getElementById('username1');
-    var content_user1 = document.getElementById('avatar_img_1');
-
-    var text_user2 = document.getElementById('username2');
-    var content_user2 = document.getElementById('avatar_img_2');
-
-    var text_user3 = document.getElementById('username3');
-    var content_user3 = document.getElementById('avatar_img_3');
-
-    var text_user4 = document.getElementById('username4');
-    var content_user4 = document.getElementById('avatar_img_4');
-
-    // Tomo la lista de usuarios conectados y los guardo en la variable
-    var ids;
-
-    ids.forEach(function(element, index) {
-        avatar_name = characterNames[index].name;
-        route = "<img src=" + characterNames[index].img + ">" + "</img>";
-
-        if (index == 0) {
-            text_user1.insertAdjacentHTML('beforeend', avatar_name);
-            content_user1.insertAdjacentHTML('beforeend', route);
-        } else if (index == 1) {
-            text_user2.insertAdjacentHTML('beforeend', avatar_name);
-            content_user2.insertAdjacentHTML('beforeend', route);
-        } else if (index == 2) {
-            text_user3.insertAdjacentHTML('beforeend', avatar_name);
-            content_user3.insertAdjacentHTML('beforeend', route);
-        } else if (index == 3) {
-            text_user4.insertAdjacentHTML('beforeend', avatar_name);
-            content_user4.insertAdjacentHTML('beforeend', route);
-        }
-    });
+function prevChar(){
+    if (lastChar == 0) {
+        lastChar = characterNames.length-1;
+        document.getElementById('charImage').src = characterNames[lastChar].img;
+        document.getElementById('username1').innerText = characterNames[lastChar].name;
+        console.log(lastChar)
+    }else if(lastChar >= 1){
+        lastChar--;
+        document.getElementById('charImage').src = characterNames[lastChar].img;
+        document.getElementById('username1').innerText = characterNames[lastChar].name;
+    }
 }
 
 
 function initGame() {
+    var millisecondsToWait = 2000;
+    $(document).ready(function() {
+        $('body').addClass('vanish')
+    });
+    setTimeout(function() {
 
-    // Si hay tres jugadores conectados..
-    //if (players.length >= 3) {
-    if (true) {
-        // Si los tres presionaron jugar..
-        //if (readyButtons.length == 3) {
-            if (true) {
-            var millisecondsToWait = 2000;
-            $(document).ready(function() {
-                $('body').addClass('vanish')
-            });
-            setTimeout(function() {
-
-                $(document).ready(function() {
-                    setTimeout(function() {
-                        $('body').addClass('visiblePage')
-                        $('body').removeClass('vanish')
-                        window.location.href = "game.html";
-                        $('body').addClass('loaded')
-                        $('body').removeClass('visiblePage')
-
-                    }, 3000);
-
-                });
-            }, millisecondsToWait);
-        }
-
-
-    } else {
-        // Solo para testear
-        var millisecondsToWait = 2000;
         $(document).ready(function() {
-            $('body').addClass('vanish')
+            setTimeout(function() {
+                $('body').addClass('visiblePage')
+                $('body').removeClass('vanish')
+                window.location.href = "game.html";
+                $('body').addClass('loaded')
+                $('body').removeClass('visiblePage')
+
+            }, 3000);
+
         });
-        setTimeout(function() {
-
-            $(document).ready(function() {
-                setTimeout(function() {
-                    $('body').addClass('visiblePage')
-                    $('body').removeClass('vanish')
-                    window.location.href = "game.html";
-                    $('body').addClass('loaded')
-                    $('body').removeClass('visiblePage')
-
-                }, 3000);
-
-            });
-        }, millisecondsToWait);
-    }
-
+    }, millisecondsToWait);
 }
 
 // Abre el modal y ejecuta la funcion renderHTML que toma el array de mapas y lo escribe en HTML
@@ -300,6 +248,7 @@ function next() {
 
 // Carga el lobby de espera antes de jugar.
 function loadMapMenu() {
+
     var millisecondsToWait = 2000;
     // Tomo el style del body y lo pongo en nada, ya que anteriormente esta tenia un fondo de pantalla que no
     // va en el archivo html que será cargado con ajax.
@@ -309,7 +258,7 @@ function loadMapMenu() {
         $('body').addClass('vanish')
     });
     setTimeout(function() {
-        $("#body-content").load('mapselect.html');
+        $("#body-content").load('lobby.html');
         $(document).ready(function() {
             $('body').removeClass('dimmable loaded')
             $('body').addClass('visiblePage')
@@ -391,14 +340,14 @@ function playGame() {
         $('body').addClass('vanish')
     });
     setTimeout(function() {
-        $("#body-content").load('lobby.html');
+        $("#body-content").load('mapselect.html');
         $(document).ready(function() {
             $('body').addClass('visiblePage')
             $('body').removeClass('vanish')
             setTimeout(function() {
                 $('body').addClass('loaded')
                 $('body').removeClass('visiblePage')
-                //socket = io.connect('http://localhost:4000');
+                // socket = io.connect('http://192.168.0.9:4000');
             }, 3000);
         });
     }, millisecondsToWait);
