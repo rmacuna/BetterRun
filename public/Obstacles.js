@@ -13,7 +13,6 @@ function Box(x, y, w, h) {
         var angle = this.body.angle;
 
         push();
-
         translate(pos.x, pos.y);
         rectMode(CENTER);
         rotate(angle);
@@ -56,14 +55,14 @@ function Player(x, y, r, id) {
     this.id = id;
 
     var options = {
-        friction: 0.1,
+        friction: 0.06,
         frictionAir: 0.03,
-        restitution: 0.01,
+        restitution: 0.1,
         density: 1.5
 
     }
 
-    this.body = Bodies.rectangle(x, y, r*2, r*4, options);
+    this.body = Bodies.rectangle(x, y, r * 2, r * 4, options);
     this.body.label = "player";
     Matter.Body.setInertia(this.body, Infinity);
 
@@ -75,7 +74,7 @@ function Player(x, y, r, id) {
 	this.timer = 0;
 	this.prevstate = "Idle";
 	this.jump = function(){
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -80});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -76});
 		this.state = "jump";
 //		console.log("Jump");
 	}
@@ -83,7 +82,7 @@ function Player(x, y, r, id) {
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -1, y: 0});
 		}else{
-			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -18, y: 0});
+			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -11, y: 0});
 //		console.log("left");
 	}
 	this.state = "left";
@@ -92,7 +91,7 @@ function Player(x, y, r, id) {
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 1, y: 0});
 		}else{
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 18, y: 0});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 11, y: 0});
 	}
 	this.state = "right";
 //		console.log("right");
@@ -113,12 +112,17 @@ function Player(x, y, r, id) {
 		push();
 		translate(this.pos.x,this.pos.y);
 		strokeWeight(2);
-		stroke(255);
+		
 		//var c = color('#00B300');
 		noFill();
 		rotate(angle);
 		rectMode(CENTER);
-		// rect(0,0,this.r*2,this.r*2);
+
+		stroke(255);
+		rect(0,0,this.r*2,this.r*4);
+
+		// stroke(0);
+		// rect(0,0,130,130);
 
 		if (moving.d != null) {
 			if (moving.d == "L") {
@@ -128,10 +132,10 @@ function Player(x, y, r, id) {
 		//console.log(index);
 		//console.log(state);
 		if (state[index] != null) {
-			//console.log("true")5
+			//console.log("true");
 		//console.log("state["+index+"]"+state[index]);
 		//console.log(this.id + "showed");
-		image(state[index], -65, -65);
+		image(state[index],-65,-65);
 		if (this.timer == 0) {
 			this.index = (index + 1 ) % state.length;
 			this.timer = 3;
