@@ -60,13 +60,11 @@
                      <div class="ui active inverted inline loader"></div>
                      <div class="separated-min"></div>
                      <div class="center">
-                          <div class="ui action input">
+                          <div id="user_input" class="ui action input">
                             <input id="username" type="text" placeholder="Search...">
                             <button  class="ui button hoverableSound" id="btn-play" onclick="pushInformation()" class="ui button">A Jugar</button>
                           </div>
                      </div>
-                   <!--  
-                     <div class="center"><button onclick="pushInformation()" id="btn-play" class="ui huge button hoverableSound">A jugar</button></div> -->
                     </span>
                 </div>
             </div>
@@ -75,11 +73,11 @@
     <audio id="BetterRun" src="../assets/music/BetterRun.mp3"></audio>
     <script src="connection.js"></script>
     <script type="text/javascript">
-    // var audio = document.getElementById("BetterRun");
-    // audio.autoplay = true;
-    // audio.volume = 0.2;
-    // audio.loop = true;
-    // audio.play();
+    var audio = document.getElementById("BetterRun");
+    audio.autoplay = true;
+    audio.volume = 0.2;
+    audio.loop = true;
+    audio.play();
     </script>
 </body>
 
