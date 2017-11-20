@@ -5,7 +5,7 @@ var server = app.listen(4000);
 
 
 app.use(express.static('public'));
-app.use( express.static('assets'));
+app.use(express.static('assets'));
 //app.use( express.static('../assets/chars/Wizard/PNG Sequences'));
 console.log("Socket Server runnig");
 
@@ -14,7 +14,16 @@ var io = socket(server);
 var players = [];
 
 io.sockets.on('connection', newConnection);
+function newConnection(socket) {
+    console.log("newConnection " + socket.id);
+    let data = {
+        id: socket.id,
+        p: players
+    }
+    socket.emit("serverMessage", data);
+    socket.broadcast.emit('newplayer', socket.id);
 
+<<<<<<< HEAD
 function newConnection(socket){
 	console.log("newConnection" + socket.id);
 	let data = {
@@ -52,3 +61,41 @@ function newConnection(socket){
 		socket.broadcast.emit('playersupdate', p);
 	}
 }
+=======
+    socket.on('moving', move);
+
+    function move(data) {
+        //console.log("["+chalk.blue(data.x) +"-"+ chalk.blue(data.y)+"]");
+        socket.broadcast.emit('moving', data);
+    }
+
+    socket.on('jumping', jump);
+
+    function jump(id) {
+        socket.broadcast.emit('jumping', id);
+    }
+    socket.on('gleft', left);
+
+    function left(data) {
+        socket.broadcast.emit('gleft', data);
+    }
+    socket.on('gright', right);
+
+    function right(data) {
+        socket.broadcast.emit('gright', data);
+    }
+    socket.on('stop', stop);
+
+    function stop(data) {
+        socket.broadcast.emit('stop', data);
+    }
+
+    socket.on('playersupdate', newupdate);
+
+    function newupdate(p) {
+        socket.broadcast.emit('playersupdate', p);
+    }
+
+
+}
+>>>>>>> 7d961f8eea49cc0b046779f356627bc073f7fff4

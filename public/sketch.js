@@ -41,7 +41,7 @@ function setup () {
 canvas = createCanvas(screen.width, screen.height);
 background = loadImage("forest_level.png");
 
-socket = io.connect('http://localhost:4000');
+socket = io.connect('http://192.168.0.9:4000');
 socket.on('moving', move);
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
@@ -388,7 +388,7 @@ function loadAnimations(){
 	}
 	function loadi(image){
 		//console.log(image);
-		image.resize(160,0);
+		image.resize(130,0);
 		idle.push(image);
 	}
 
@@ -402,7 +402,7 @@ function loadAnimations(){
 	}
 	function loadr(image){
 		//console.log(image);
-		image.resize(160,0);
+		image.resize(130,0);
 		running.push(image);
 	}
 
@@ -412,7 +412,7 @@ function loadAnimations(){
 	}
 	function loadj(image){
 		//console.log(image);
-		image.resize(160,0);
+		image.resize(130,0);
 		jumping.push(image);
 	}
 
@@ -461,16 +461,16 @@ function loadAnimations(){
 
 function loadPlatforms() {
 	createPlatform((150),(250),200);
-	createPlatform((1220),(250),200); 
-	createPlatform((1220),(500),200);
+	createPlatform((1150),(250),200); 
+	createPlatform((1150),(500),200);
 	createPlatform((150),(500),200);
-	createPlatform((width/2),(height/2),400);
+	createPlatform((width/2),(height/2), 400);
 
 	World.add(world,obstacles);
 	
 }
 
 function createPlatform(x,y,w){
-	obstacles.push(new Bound(x,y-17,w, 20, "bottom"));
-	obstacles.push(new Bound(x,y,w, 20, "platform"));
+	obstacles.push(new Bound(x,y-17,w, 25, "bottom"));
+	obstacles.push(new Bound(x,y,w, 25, "platform"));
 }
