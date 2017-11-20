@@ -50,4 +50,9 @@ function newConnection(socket){
 	function newupdate(p){
 		socket.broadcast.emit('playersupdate', p);
 	}
+
+	socket.on('posupdate', posupdate);
+    function posupdate(data){
+    	socket.broadcast.emit('posupdate',data);
+    }
 }

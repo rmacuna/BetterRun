@@ -41,8 +41,12 @@ function setup () {
 canvas = createCanvas(screen.width, screen.height);
 background = loadImage("forest_level.png");
 
+<<<<<<< HEAD
 socket = io.connect('http://192.168.0.11:4000');
 socket.on('moving', move);
+=======
+socket = io.connect('http://localhost:4000');
+>>>>>>> 5c2bac5c716595c8857941085f54d29bdd1e5083
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
 	//console.log(d);
@@ -55,7 +59,8 @@ socket.on('jumping',jump);
 socket.on('gleft',left);
 socket.on('gright',right);
 socket.on('stop', stop);
-socket.on('playersupdate',newupdate);          
+socket.on('playersupdate',newupdate);
+socket.on('posupdate',posupdate);          
 frameRate(60);
 /*
 var config = {
@@ -114,23 +119,16 @@ var config = {
 		}
 	}
 
-	//createPlatforms();
-	let elem = document;
-	console.log(elem);
-
+	setInterval(function(){
+		let data = {
+			pos: player.pos,
+			id: player.id
+		};
+		socket.emit('posupdate',data);
+	},10000);
 }
 
-function move(data){
-	/*for (var i = 0; i < players.length; i++) {
-		if(data.x != null && players[i]!= null){
-		if(players[i].id === data.id){
-			players[i].pos.x = data.x;
-			players[i].pos.y = data.y	
-		}
-	}
-	}*/
-	//p2data = data;
-}
+
 
 
 //Renders the world
@@ -147,7 +145,7 @@ function draw () {
 	if (keyIsDown(UP_ARROW) && cooldown < 5) {
 		socket.emit('jumping',player.id);
 		player.jump();
-			cooldown++;
+			cooldown++; 
 	}
 	if (keyIsDown(LEFT_ARROW)) {
 		let data = {
@@ -166,7 +164,6 @@ function draw () {
 			player.right(cooldown);
 	}
 }else{
-	//if (keyIsDown(DOWN_ARROW)) {
 	let data = {
 		id: player.id
 		}
@@ -174,26 +171,17 @@ function draw () {
 	let s = (player.body.velocity.y);
 	//console.log(s);
 	player.stop(s);
-//}
 }
-	/*let data = {
-		x: player.pos.x
-		y: player.pos.y
-	}	
-	socket.emit.('moving', data);*/
-
 
 	for (var i = 0; i < obstacles.length; i++) {
 		obstacles[i].show()
 	}
+
 	for (var i = 0; i < bounds.length; i++) {
 		bounds[i].show();
 	}
-	//console.log(state);
+
 	for (var i = 0; i < players.length; i++) {
-//		console.log(players.length);
-//		console.log(players[i].id);
-		//console.log(players[i].state);
 		switch(players[i].state) {
     case "jump":
         state = {s:jumping};
@@ -207,23 +195,10 @@ function draw () {
     default:
         state = {s:idle};
 }	
-		//console.log(players[i]);
 		index = players[i].index;
 		players[i].show(state, index);
 	}
-	
-	//if (sw2 == 0) {
-		//index = (index + 1) % state.s.length;
-	//	sw2=1;
-	//}
-	//else{
-	//	sw2=0;
-	//}
 
-	/*if (p2data != null) {
-		fill(255);
-		ellipse(p2data.x,p2data.y,40);
-	}*/
 	for (var i = 0; i < playerPoss.length; i++) {
 		var pos = playerPoss[i];
 		fill(255);
@@ -309,9 +284,9 @@ function newPlayer(sc){
 	console.log("new player");
 	newplayer = new Player(width/2,height/2,20,sc);
 	players.push(newplayer);
-	eupdate();
+	collectInfo();
 }
-function eupdate(){
+function collectInfo(){
 	let p = [];
 	for (var i = 0; i < players.length; i++) {
 		p.push(players[i].id)
@@ -335,6 +310,17 @@ function newupdate(p){
 			players.push(np);
 		}
 }
+}
+
+function posupdate(data){
+	let id = data.id;
+	let pos = data.pos;
+	for (var i = 0; i < players.length; i++) {
+		if (players[i].id == id) {
+			Matter.Body.setPosition(players[i].body,pos);
+		}
+	}
+
 }
 
 function jump(id){
@@ -417,47 +403,6 @@ function loadAnimations(){
 	}
 
 }
-
-// Wizard animate
-// function loadAnimations(){
-// 	for (var i = 0; i < 9; i++) {
-// 		loadImage("Idle/Idle_00"+i+".png", loadi);
-// 	}
-// 	for (var i = 10; i < 17; i++) {
-// 		loadImage("Idle/Idle_0"+i+".png", loadi);
-// 	}
-// 	function loadi(image){
-// 		//console.log(image);
-// 		image.resize(160,0);
-// 		idle.push(image);
-// 	}
-
-// 	for (var i = 0; i < 9; i++) {
-// 		loadImage("Running/Running_00"+i+".png", loadr);
-// 	}
-// 	for (var i = 10; i < 11; i++) {
-// 		loadImage("Running/Running_0"+i+".png", loadr);
-// 	}
-// 	function loadr(image){
-// 		//console.log(image);
-// 		image.resize(160,0);
-// 		running.push(image);
-// 	}
-
-// 	for (var i = 0; i < 9; i++) {
-// 		loadImage("Jump Loop/Jump Loop_00"+i+".png", loadj);
-// 	}
-
-// 	function loadj(image){
-// 		//console.log(image);
-// 		image.resize(160,0);
-// 		jumping.push(image);
-// 	}
-
-// }
-
-
-
 
 function loadPlatforms() {
 	createPlatform((150),(250),200);
