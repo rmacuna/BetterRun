@@ -1,3 +1,5 @@
+  var finalmap;
+
   var config = {
       apiKey: "AIzaSyAr7Re6XSMbsoFodWhxo4qkN59ycRlcJx8",
       authDomain: "betterrun-23133.firebaseapp.com",
@@ -32,14 +34,16 @@
 
 
   UserConectionRef.on("value", function(snapshot) {
-      if (connectedUsers == 1) {
-          players.once('value', function(snapshot) {
+      if (connectedUsers == 2) {
+          firebase.database().ref('Players/').once('value', function(snapshot) {
             snapshot.forEach(function(childSnapshot) {
-                var value = console.log(childSnapshot.val());
+                var str = JSON.stringify(childSnapshot.val());
+                const json = JSON.parse(str);
+                console.log(json["map"]); //Tomo los datos corresponidentes trabajandolos como objetos json.
             });
           });
-          var users = snapshot.val();
-          initGame();
+          // var users = snapshot.val();
+          // initGame();
       }
   });
 
