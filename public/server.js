@@ -20,7 +20,7 @@ function newConnection(socket){
 	let data = {
 		id: socket.id,
 		p: players
-	}
+	};
 	socket.emit("serverMessage",data);
 	socket.broadcast.emit('newplayer',socket.id);
 

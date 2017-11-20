@@ -147,7 +147,7 @@ function draw () {
 	if (keyIsDown(UP_ARROW) && cooldown < 5) {
 		socket.emit('jumping',player.id);
 		player.jump();
-			cooldown++;
+			cooldown++; 
 	}
 	if (keyIsDown(LEFT_ARROW)) {
 		let data = {
