@@ -41,12 +41,8 @@ function setup () {
 canvas = createCanvas(screen.width, screen.height);
 background = loadImage("forest_level.png");
 
-<<<<<<< HEAD
-socket = io.connect('http://192.168.0.11:4000');
-socket.on('moving', move);
-=======
 socket = io.connect('http://localhost:4000');
->>>>>>> 5c2bac5c716595c8857941085f54d29bdd1e5083
+socket.on('moving', move);
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
 	//console.log(d);

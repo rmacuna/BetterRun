@@ -1,6 +1,10 @@
   var finalmap;
   var selectedmaps = [];
   var usernames = [];
+  var username;
+  var myConection;
+  let json;
+  var inTheGame = false;
 
   var config = {
       apiKey: "AIzaSyAr7Re6XSMbsoFodWhxo4qkN59ycRlcJx8",
@@ -19,53 +23,43 @@
   var players = firebase.database().ref('Players/');
 
   UserConectionRef.on('value', data);
-
   function data(data) {
       connectedUsers = data.val();
       console.log(connectedUsers)
+
   }
   // Deteccion de cambios
   // Funcion que se ejecuta cada cierto tiempo.
 
   // window.setInterval(function() {
+  //     try {
 
-  // }, 2000);
+  //     } catch (e) {
+
+  //         console.log(e);
+  //     }
+  // }, 500);
+
   UserConectionRef.on("value", function(snapshot) {
-      if (connectedUsers == 3) {
-          var counts = {};
+      if (connectedUsers == 1) {
           firebase.database().ref('Players/').once('value', function(snapshot) {
               snapshot.forEach(function(childSnapshot) {
                   var str = JSON.stringify(childSnapshot.val());
-                  const json = JSON.parse(str);
+                  json = JSON.parse(str);
                   selectedmaps.push(json["map"]);
                   usernames.push(json["username"]);
-                  console.log('se conecto ' + json["username"]);
-                  console.log(json["map"]); //Tomo los datos corresponidentes trabajandolos como objetos json.
+                  showConection(json["username"], " se ha unido a la partida");
               });
-              // // for (var i = 0, i < selectedmaps.length; i++) {
-              // //     var map = selectedmaps[i];
-              // //     counts[map] = counts[map] ? counts[map] + 1 : 1; //Cuenta las ocurrencias del mapa
-              // // }
-              // function count(arr) {
-              //     return arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), {})
-              // }
-              // const maps = count(selectedmaps);
-              // console.log(maps.sort(function(a, b){return b-a}));
-              // // maps.forEach(function() {
-
-              // // });
           });
-          finalmap = selectedmaps[Math.floor(Math.random() * selectedmaps.length-1)]; //Un mapa random entre los elegidos
-          console.log('El mapa final escogido fue ' + finalmap);
-          console.log('jugadores ' + usernames);
-          // initGame();
+          finalmap = selectedmaps[Math.floor(Math.random() * selectedmaps.length - 1)]; //Un mapa random entre los elegidos
+          initGame();
       } else {
           players.once("value", function(snapshot) {
               snapshot.forEach(function(childSnapshot) {
                   var str = JSON.stringify(childSnapshot.val());
-                  const json = JSON.parse(str);
+                  json = JSON.parse(str);
                   usernames.push(json["username"]);
-                  console.log('Se conecto ' + json["username"]);
+                  showConection(json["username"], " se ha unido a la partida");
               });
           }, function(errorObject) {
               console.log("Conexion fallida: " + errorObject.code);
@@ -74,15 +68,25 @@
   });
 
 
+  function showConection(user, message) {
+      var snackbar = document.getElementById("snackbar");
+      snackbar.innerText = user + message;
+      snackbar.className = "show";
+      setTimeout(function() { snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+  }
+
 
   function pushInformation() {
-      var username = document.getElementById('username').value;
+      inTheGame = true;
+      username = document.getElementById('username').value;
       $('#user_input').addClass('disabled');
       $('#btn-play').addClass('disabled');
       document.getElementById('btnPrev').disabled = true;
       document.getElementById('btnNext').disabled = true;
-
-      loadInfo(maps[lastMap].image, characterNames[lastChar], username);
+      UserConectionRef.on('value', function(snapshot) {
+          myConection = snapshot.val();
+      })
+      loadInfo(maps[lastMap].name, characterNames[lastChar], username);
   }
 
   function loadInfo(URL, charName, usname) {
@@ -94,5 +98,11 @@
       });
       UserConectionRef.set(connectedUsers);
   }
-
-  // Retrive data from database for
+  //Ahora detectaremos cuando alguien se salga de la sala de espera.
+  window.onbeforeunload = function() {
+      if (inTheGame) {
+          players.child(myConection).remove();
+          connectedUsers--;
+          UserConectionRef.set(connectedUsers);
+      }
+  };

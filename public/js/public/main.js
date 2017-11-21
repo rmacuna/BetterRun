@@ -110,8 +110,8 @@ function initGame() {
             setTimeout(function() {
                 $('body').addClass('visiblePage')
                 $('body').removeClass('vanish')
-                window.location.href = "game.html";
                 $('body').addClass('loaded')
+                window.location.href = "game.html";
                 $('body').removeClass('visiblePage')
 
             }, 3000);
