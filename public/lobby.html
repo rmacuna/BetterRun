@@ -62,7 +62,9 @@
                      <div class="center">
                           <div id="user_input" class="ui action input">
                             <input id="username" type="text" placeholder="Search...">
-                            <button  class="ui button hoverableSound" id="btn-play" onclick="pushInformation()" class="ui button">A Jugar</button>
+                            <div data-tooltip="Pasa la bomba al personaje mas cercano a ti antes de que te explote, ganará el último en pie." class="ui button hoverableSound" id="btn-play" onclick="pushInformation('B')" class="ui button">Bomb Tag</div>
+
+                            <div onclick="pushInformation('F')" data-tooltip="Evita los bloques que caen del cielo o morirás, ganará el último en pie." id="btn-blocks" class="ui button hoverableSound">Falling Blocks</div>
                           </div>
                      </div>
                     </span>
