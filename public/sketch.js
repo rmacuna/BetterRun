@@ -15,9 +15,7 @@ var lobby = 1;
 var LOGEDIN = true;
 var player;
 var cooldown = 0;
-var pid;
 var players = [];
-var sw2 = 0;
 
 //firebase vars
 var database;
@@ -28,21 +26,18 @@ var socket;
 var background;
 var input;
 var button;
-var moving;
-var canvas;
-var p2data;
-var state;
 var idle = [];
 var running = [];
 var jumping = [];
-var index = 0;
+
+//Game vars
+var gamemode = 0;
 
 function setup () {	
-canvas = createCanvas(screen.width, screen.height);
+createCanvas(screen.width, screen.height);
 background = loadImage("forest_level.png");
 
 socket = io.connect('http://localhost:4000');
-socket.on('moving', move);
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
 	//console.log(d);
@@ -91,6 +86,8 @@ var config = {
 
 	//Loads platformns of the level
 	loadPlatforms();
+
+	//Creates falling blocks
 
 	//Checks for collison betewen the player and the floor
 	Events.on(engine, 'collisionStart', collision);
@@ -178,6 +175,7 @@ function draw () {
 	}
 
 	for (var i = 0; i < players.length; i++) {
+		let state;
 		switch(players[i].state) {
     case "jump":
         state = {s:jumping};
@@ -191,7 +189,7 @@ function draw () {
     default:
         state = {s:idle};
 }	
-		index = players[i].index;
+		let index = players[i].index;
 		players[i].show(state, index);
 	}
 
