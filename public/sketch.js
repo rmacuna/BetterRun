@@ -75,17 +75,8 @@ socket.on('dead',function(data){
 	}
 });
 socket.on('playersupdate',newupdate);
-<<<<<<< HEAD
 socket.on('posupdate',posupdate);
 socket.on('gamemode', function(g){gamemode = g});          
-=======
-socket.on('posupdate',posupdate);     
-
-
-
-
-
->>>>>>> 2a7bdee81d657c22c106ca97641a1b21cb954232
 frameRate(60);
  	
 

@@ -3,6 +3,9 @@ function Box(x, y, w, h,label) {
         friction: 0,
         restitution: 0
     }
+    this.texture = loadImage("assets/chars/brick-wall.png",function(image){
+    	image.resize(50,0);
+    });
     this.body = Bodies.rectangle(x, y, w, h, options);
     this.body.label = label;
     this.pos = this.body.position;
@@ -29,6 +32,7 @@ function Box(x, y, w, h,label) {
         stroke(0);
         fill(0);
         rect(0, 0, this.w, this.h);
+        image(this.texture,-25,-25);
         pop();
     }
 
