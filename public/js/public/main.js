@@ -111,9 +111,10 @@ function initGame() {
                 $('body').addClass('visiblePage')
                 $('body').removeClass('vanish')
                 $('body').addClass('loaded')
+                // document.getElementsByTagName('head')[0].style = "";
+                // $('body').load('game.html');
                 window.location.href = "game.html";
                 $('body').removeClass('visiblePage')
-
             }, 3000);
 
         });

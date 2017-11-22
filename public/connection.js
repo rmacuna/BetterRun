@@ -72,6 +72,8 @@
         }
       }
   }
+
+  
   // Este pedazo del codigo escucha cuando hay cambios en los contadores en firebase de quienes han seleccionado
   // Estos mapas. 
   dbRefMapDesert.on('value', dataMapDesert);
@@ -187,6 +189,7 @@
   function pushInformation(modal) {
       if (modal == 'B') {
           username = document.getElementById('username').value;
+          document.cookie = "username="+username;
           if (username.trim().length > 0) {
               inTheGame = true;
               $('#user_input').addClass('disabled');
@@ -204,6 +207,7 @@
 
       } else if (modal == 'F') {
           username = document.getElementById('username').value;
+          document.cookie = "username="+username;
           if (username.trim().length != 0) {
               inTheGame = true;
               $('#user_input').addClass('disabled');

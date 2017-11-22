@@ -13,14 +13,25 @@
   var dbRefGMode = firebase.data().ref('finalModal/');
   var dbRefPlayers = firebase.data().ref('Players/');
 
-  function finalmap(){
-  	dbRef.on('value', function(snapshot){
-  		return snapshot.val();
-  	});
+  function finalmap() {
+      dbRef.on('value', function(snapshot) {
+          return snapshot.val();
+      });
   }
 
   function gameMode() {
-  	dbRefGmode.on('value', function(snapshot){
-  		return snapshot.val();
-  	});
+      dbRefGmode.on('value', function(snapshot) {
+          return snapshot.val();
+      });
+  }
+
+  function getChar(username) {
+      dbRefPlayers.on('value', function(snapshot) {
+          snapshot.forEach(function(childSnapshot) {
+              let json = childSnapshot.val();
+              if (json["username"] == username) {
+                  return json["username"];
+              }
+          });
+      });
   }

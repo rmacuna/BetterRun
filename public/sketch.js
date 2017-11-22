@@ -39,7 +39,7 @@ console.log(screen.width,screen.height);
 createCanvas(screen.width,screen.height);
 background = loadImage("forest_level.png");
 
-socket = io.connect('http://192.168.0.12:4000');
+socket = io.connect('http://192.168.0.10:4000');
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
 	//console.log(d);
@@ -52,6 +52,7 @@ socket.on("serverMessage", function(d) {
 socket.on('jumping',jump);
 socket.on('gleft',left);
 socket.on('gright',right);
+console.log(document.cookie);
 socket.on('stop', stop);
 socket.on('playersupdate',newupdate);
 socket.on('posupdate',posupdate);          
