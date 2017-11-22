@@ -21,6 +21,15 @@
     </style>
 </head>
 <body>
+    <audio id="bombCount" src="assets/sounds/counter.mp3"></audio>
+    <script type="text/javascript">
+         window.onload = function () {
+            var audio = document.getElementById("bombCount");
+            audio.autoplay = true;
+            audio.volume = 0.2;
+            audio.play();
+         }
+    </script>
 </body>
 
 </html>

@@ -127,13 +127,15 @@
   UserConectionRef.on("value", function(snapshot) {
       if (connectedUsers == 2) {
         i = 0;
+        var arr = [];
           firebase.database().ref('Players/').once('value', function(snapshot) {
               snapshot.forEach(function(childSnapshot) {
                   var str = JSON.stringify(childSnapshot.val());
                   json = JSON.parse(str);
                   showConection(json["username"], " se ha unido a la partida");
-                  document.cookie = json["username"]+"-"+json["char"];
+                  arr.push([json["username"], json["char"]]);
               });
+              document.cookie = arr;
           });
 
           firebase.database().ref('selectedMaps').once('value', function(snapshot) {
@@ -274,10 +276,6 @@
           dbRefFallingB.set(countFB);
       }
       UserConectionRef.set(connectedUsers);
-  }
-
-  function getUsName () {
-    return username;
   }
   //Ahora detectaremos cuando alguien se salga de la sala de espera.
   window.onbeforeunload = function() {
