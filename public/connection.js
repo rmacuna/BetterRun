@@ -43,12 +43,23 @@
       connectedUsers = data.val();
       console.log(connectedUsers);
   }
+
+
+  dbRefFinalMap.on('value', function (snapshot) {
+    document.cookie = ("finalmap="+snapshot.val());
+  });
+
+  dbRefFinalMode.on('value', function (snapshot) {
+     document.cookie = ("finalmode="+snapshot.val());
+  });
+
+
   // Escucho cuando alguien selecciona FallingBlocks o BombTag
   dbRefBombTag.on('value', dataMode);
 
   function dataMode(dataMode) {
       countBT = dataMode.val();
-      if (connectedUsers == 3) {
+      if (connectedUsers == 2) {
         if (countBT > countFB) {
           dbRefFinalMode.set('BombTag');
         }else if (countBT == countFB){
@@ -62,7 +73,7 @@
 
   function dataMode2(dataMode2) {
       countFB = dataMode2.val();
-      if (connectedUsers == 3) {
+      if (connectedUsers == 2) {
         if (countFB > countBT) {
           dbRefFinalMode.set('FallingBlocks');
         }else if (countBT == countFB){
@@ -115,11 +126,13 @@
 
   UserConectionRef.on("value", function(snapshot) {
       if (connectedUsers == 2) {
+        i = 0;
           firebase.database().ref('Players/').once('value', function(snapshot) {
               snapshot.forEach(function(childSnapshot) {
                   var str = JSON.stringify(childSnapshot.val());
                   json = JSON.parse(str);
                   showConection(json["username"], " se ha unido a la partida");
+                  document.cookie = json["username"]+"-"+json["char"];
               });
           });
 
@@ -154,7 +167,6 @@
                       firebase.database().ref('finalmap').set("Cementerio");
               }
           });
-
 
           // pushGameInfo(finalmap, usernames, finalModal);
           initGame();

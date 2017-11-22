@@ -41,10 +41,16 @@ world = engine.world;
 world.gravity.y = 2.5;
 background = loadImage("forest_level.png");
 
-
 socket = io.connect('http://192.168.0.12:4000', { query: "id="+document.cookie });
 socket.emit('gamemode', gamemode);
 socket.on('newplayer', newPlayer);
+
+var cookies = document.cookie;
+var splited = cookies.split(";");
+console.log(splited.length);
+// for (var i = 0; splited.length; i++) {
+// 	console.log(splited[i]);
+// }
 
 player = new Player(width/2,height/2,20,document.cookie);
 	console.log(player);
@@ -69,8 +75,17 @@ socket.on('dead',function(data){
 	}
 });
 socket.on('playersupdate',newupdate);
+<<<<<<< HEAD
 socket.on('posupdate',posupdate);
 socket.on('gamemode', function(g){gamemode = g});          
+=======
+socket.on('posupdate',posupdate);     
+
+
+
+
+
+>>>>>>> 2a7bdee81d657c22c106ca97641a1b21cb954232
 frameRate(60);
  	
 
