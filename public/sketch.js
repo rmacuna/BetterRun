@@ -31,7 +31,7 @@ var jumping = [];
 var dying = [];
 
 //Game vars
-var gamemode = 0;
+var gamemode = getGameMode();
 
 function setup () {
 console.log(screen.width,screen.height);	
@@ -39,9 +39,9 @@ createCanvas(screen.width,screen.height);
 engine = Engine.create();
 world = engine.world;
 world.gravity.y = 2.5;
-background = loadImage("forest_level.png");
+background = loadImage(getFinalMap());
 
-socket = io.connect('http://192.168.0.12:4000', { query: "id="+document.cookie });
+socket = io.connect('http://192.168.0.10:4000', { query: "id="+document.cookie });
 socket.emit('gamemode', gamemode);
 socket.on('newplayer', newPlayer);
 
@@ -75,17 +75,9 @@ socket.on('dead',function(data){
 	}
 });
 socket.on('playersupdate',newupdate);
-<<<<<<< HEAD
 socket.on('posupdate',posupdate);
 socket.on('gamemode', function(g){gamemode = g});          
-=======
-socket.on('posupdate',posupdate);     
 
-
-
-
-
->>>>>>> 2a7bdee81d657c22c106ca97641a1b21cb954232
 frameRate(60);
  	
 

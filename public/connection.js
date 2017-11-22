@@ -133,7 +133,7 @@
                   var str = JSON.stringify(childSnapshot.val());
                   json = JSON.parse(str);
                   showConection(json["username"], " se ha unido a la partida");
-                  arr.push([json["username"], json["char"]]);
+                  arr.push(json["username"], json["char"]);
               });
               document.cookie = arr;
           });
