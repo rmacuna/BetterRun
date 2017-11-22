@@ -44,13 +44,12 @@
       console.log(connectedUsers);
   }
 
-
-  dbRefFinalMap.on('value', function (snapshot) {
-    document.cookie = ("finalmap="+snapshot.val());
+  dbRefFinalMap.on('value', function(snapshot) {
+      document.cookie = ("finalmap=" + snapshot.val());
   });
 
-  dbRefFinalMode.on('value', function (snapshot) {
-     document.cookie = ("finalmode="+snapshot.val());
+  dbRefFinalMode.on('value', function(snapshot) {
+      document.cookie = ("finalmode=" + snapshot.val());
   });
 
 
@@ -59,32 +58,32 @@
 
   function dataMode(dataMode) {
       countBT = dataMode.val();
-      if (connectedUsers == 2) {
-        if (countBT > countFB) {
-          dbRefFinalMode.set('BombTag');
-        }else if (countBT == countFB){
-          dbRefFinalMode.set('FallingBlocks');
-        }else if(countBT < countFB){
-          dbRefFinalMode.set('FallingBlocks');
-        }
+      if (connectedUsers == 1) {
+          if (countBT > countFB) {
+              dbRefFinalMode.set('BombTag');
+          } else if (countBT == countFB) {
+              dbRefFinalMode.set('FallingBlocks');
+          } else if (countBT < countFB) {
+              dbRefFinalMode.set('FallingBlocks');
+          }
       }
   }
   dbRefFallingB.on('value', dataMode2);
 
   function dataMode2(dataMode2) {
       countFB = dataMode2.val();
-      if (connectedUsers == 2) {
-        if (countFB > countBT) {
-          dbRefFinalMode.set('FallingBlocks');
-        }else if (countBT == countFB){
-          dbRefFinalMode.set('FallingBlocks');
-        }else if (countFB < countBT){
-          dbRefFinalMode.set('BombTag');
-        }
+      if (connectedUsers == 1) {
+          if (countFB > countBT) {
+              dbRefFinalMode.set('FallingBlocks');
+          } else if (countBT == countFB) {
+              dbRefFinalMode.set('FallingBlocks');
+          } else if (countFB < countBT) {
+              dbRefFinalMode.set('BombTag');
+          }
       }
   }
 
-  
+
   // Este pedazo del codigo escucha cuando hay cambios en los contadores en firebase de quienes han seleccionado
   // Estos mapas. 
   dbRefMapDesert.on('value', dataMapDesert);
@@ -125,51 +124,38 @@
 
 
   UserConectionRef.on("value", function(snapshot) {
-      if (connectedUsers == 2) {
-        i = 0;
-        var arr = [];
+      if (connectedUsers == 1) {
           firebase.database().ref('Players/').once('value', function(snapshot) {
               snapshot.forEach(function(childSnapshot) {
                   var str = JSON.stringify(childSnapshot.val());
                   json = JSON.parse(str);
                   showConection(json["username"], " se ha unido a la partida");
-                  arr.push(json["username"], json["char"]);
               });
-              document.cookie = arr;
           });
+          const smap = [countMapBosque, countMapDesert, countMapCementerio, countMapEspacio, countMapIce, countMapLibertalia];
+          var pos = smap.indexOf(Math.max(...smap));
+          switch (pos) {
+            case 0:
+               firebase.database().ref('finalmap').set("Bosque");
+              break;
+            case 1:
+                firebase.database().ref('finalmap').set("Desierto");
+                break;
+            case 2:
+                firebase.database().ref('finalmap').set("Cementerio");
+                break;
+            case 3: 
+                firebase.database().ref('finalmap').set("Espacio");
+                break;
 
-          firebase.database().ref('selectedMaps').once('value', function(snapshot) {
-              var may = 0;
-              var pos = 0;
-              var i = 0;
-              snapshot.forEach(function(childSnapshot) {
-                  var value = childSnapshot.val();
-                  if (value > may) { 
-                    may = value; 
-                    pos = i;
-                  }
-                  i++;
-              });
-              switch (pos) {
-                  case 0:
-                      firebase.database().ref('finalmap').set("Bosque");
-                      break;
-                  case 1:
-                      firebase.database().ref('finalmap').set("Desierto");
-                      break;
-                  case 2:
-                      firebase.database().ref('finalmap').set("CuevaHielo");
-                      break;
-                  case 3:
-                      firebase.database().ref('finalmap').set("Libertalia");
-                      break;
-                  case 5:
-                       firebase.database().ref('finalmap').set("Luna");
-                  case 6:
-                      firebase.database().ref('finalmap').set("Cementerio");
-              }
-          });
+            case 4:
+                firebase.database().ref('finalmap').set("CuevaHielo");
+                break;
 
+            case 5:
+                firebase.database().ref('finalmap').set("Libertalia");
+                break;
+          }
           // pushGameInfo(finalmap, usernames, finalModal);
           initGame();
       } else {
@@ -222,8 +208,12 @@
 
       } else if (modal == 'F') {
           username = document.getElementById('username').value;
+<<<<<<< HEAD
           document.cookie = "username="+username;
           console.log(document.cookie);
+=======
+          document.cookie = "username=" + username;
+>>>>>>> 4865d12811e109a78a436d7a88641fd77ab2f7a1
           if (username.trim().length != 0) {
               inTheGame = true;
               $('#user_input').addClass('disabled');
@@ -281,7 +271,7 @@
   }
   //Ahora detectaremos cuando alguien se salga de la sala de espera.
   window.onbeforeunload = function() {
-      if (inTheGame && connectedUsers < 2) {
+      if (inTheGame && connectedUsers < 1) {
           players.child(myConection).remove();
           connectedUsers--;
           UserConectionRef.set(connectedUsers);

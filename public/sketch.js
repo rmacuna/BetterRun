@@ -39,7 +39,15 @@ createCanvas(screen.width,screen.height);
 engine = Engine.create();
 world = engine.world;
 world.gravity.y = 2.5;
+<<<<<<< HEAD
 background = loadImage("forest_level.png");
+=======
+background = loadImage(getData());
+
+socket = io.connect('http://192.168.0.10:4000', { query: "id="+document.cookie });
+socket.emit('gamemode', gamemode);
+socket.on('newplayer', newPlayer);
+>>>>>>> 4865d12811e109a78a436d7a88641fd77ab2f7a1
 
 var cookies = document.cookie;
 var splited = cookies.split(";");
