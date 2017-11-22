@@ -15,15 +15,14 @@
 
   let data;
 
-  dbRef.on('value').then(function(snapshot) {
-      data = snapshot.val();
-      console.log(data);
+  dbRef.once('value')
+  .then(function (result) {
+    return snapshot.val();
+    console.log(result.val());
+  })
+  .catch(function (err) {
+    console.log('Error', err.code);
   });
-
-
-  function getData(){
-    return data;
-  }
 
   function gameMode() {
       dbRefGmode.on('value', function(snapshot) {
@@ -31,9 +30,6 @@
       });
   }
 
-  function getChar(username) {
-      dbRefPlayers.once('value', data);
-  }
 
   const maps = [{
           "name": "Bosque",
@@ -104,7 +100,7 @@
 
   function getFinalMap() {
       var browserCookies = document.cookie.split(';');
-      var map = browserCookies[0].split('=')[1];
+      var map = browserCookies[1].split('=')[1];
       for (var k = 0; k < maps.length; k++) {
           if (maps[k].name == map) {
               return maps[k].image;
