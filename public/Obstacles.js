@@ -83,7 +83,9 @@ function Player(x, y, r, id) {
         density: 1.5
 
     }
-
+    this.bombTexture = loadImage("assets/images/bomb.png",function(image){
+    	image.resize(50,0);
+    });
     this.body = Bodies.rectangle(x, y, r * 2, r * 4, options);
     this.body.label = "player";
     this.body.id = id;
@@ -94,6 +96,7 @@ function Player(x, y, r, id) {
 	this.pos = this.body.position;
 	this.alive = true;
 	this.state = "";
+	this.bomb = false;
 	this.index = 0;
 	this.timer = 0;
 	this.prevstate = "Idle";
@@ -177,6 +180,9 @@ function Player(x, y, r, id) {
 					this.timer = this.timer - 1;
 				}
 				//image(state[index], 0, 0);
+				}
+				if (this.bomb == true) {
+					image(this.bombTexture, -20,-80);
 				}
 				//console.log(this.alive);
 				//console.log(this.index);
