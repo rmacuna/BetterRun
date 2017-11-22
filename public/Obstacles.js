@@ -82,13 +82,13 @@ function Player(x, y, r, id) {
 
     this.body = Bodies.rectangle(x, y, r * 2, r * 4, options);
     this.body.label = "player";
+    this.body.id = id;
     Matter.Body.setInertia(this.body, Infinity);
 
 	//Matter.Body.setInertia(this.body, 1);
-	console.log(this.body);
-	console.log(world);
 	World.add(world, this.body);
 	this.pos = this.body.position;
+	this.alive = true;
 	this.state = "";
 	this.index = 0;
 	this.timer = 0;
@@ -98,6 +98,7 @@ function Player(x, y, r, id) {
 		this.state = "jump";
 //		console.log("Jump");
 	}
+
 	this.left = function(cooldown){
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -1, y: 0});
@@ -107,6 +108,7 @@ function Player(x, y, r, id) {
 	}
 	this.state = "left";
 	}
+
 	this.right = function(cooldown){
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 1, y: 0});
@@ -116,6 +118,7 @@ function Player(x, y, r, id) {
 	this.state = "right";
 //		console.log("right");
 	}
+
 	this.stop = function(s){
 		//Matter.Body.setVelocity(this.body, { x: 0, y: (s+1) });
 		Matter.Body.setVelocity(this.body, { x: 0, y: (s+0.5) });
@@ -123,51 +126,61 @@ function Player(x, y, r, id) {
 	}
 
 	this.show = function(moving, index){
+		//let sw = 0;
 		let state = moving.s;
-		if (this.prevstate != this.state) {
-			this.index = 0;
-			this.prevstate = this.state;
-		}
-		let angle = this.body.angle;
-		push();
-		translate(this.pos.x,this.pos.y);
-		strokeWeight(2);
-		
-		//var c = color('#00B300');
-		noFill();
-		rotate(angle);
-		rectMode(CENTER);
-
-		stroke(255);
-		rect(0,0,this.r*2,this.r*4);
-
-		// stroke(0);
-		// rect(0,0,130,130);
-
-		if (moving.d != null) {
-			if (moving.d == "L") {
-				scale(-1,1);
+		//console.log(this.alive);
+			 if (this.alive == false && this.index == 12) {
+			 	this.body.collisionFilter.group = -1;
+			// 	sw = 1;
+			 }
+			// if (sw == 0) {
+			
+			if (this.prevstate != this.state) {
+				this.index = 0;
+				this.prevstate = this.state;
 			}
-		}
-		//console.log(index);
-		//console.log(state);
-		if (state[index] != null) {
-			//console.log("true");
-		//console.log("state["+index+"]"+state[index]);
-		//console.log(this.id + "showed");
-		image(state[index],-65,-65);
-		if (this.timer == 0) {
-			this.index = (index + 1 ) % state.length;
-			this.timer = 3;
-		}else{
-			this.timer = this.timer - 1;
-		}
-		//image(state[index], 0, 0);
-		}
-		else{
-			console.log("false");
-		}
-		pop();
+			let angle = this.body.angle;
+			push();
+				translate(this.pos.x,this.pos.y);
+				strokeWeight(2);
+				
+				//var c = color('#00B300');
+				noFill();
+				rotate(angle);
+				rectMode(CENTER);
+
+				stroke(255);
+				rect(0,0,this.r*2,this.r*4);
+				// stroke(0);
+				// rect(0,0,130,130);
+
+				if (moving.d != null) {
+					if (moving.d == "L") {
+						scale(-1,1);
+					}
+				}
+				//console.log(index);
+				//console.log(state);
+				if (state[index] != null) {
+					//console.log("true");
+				//console.log("state["+index+"]"+state[index]);
+				//console.log(this.id + "showed");
+				image(state[index],-65,-65);
+				if (this.timer == 0) {
+					this.index = (index + 1 ) % state.length;
+					this.timer = 3;
+				}else{
+					this.timer = this.timer - 1;
+				}
+				//image(state[index], 0, 0);
+				}
+				//console.log(this.alive);
+				//console.log(this.index);
+			pop();
+		// }else{
+		// 	translate(this.pos.x,this.pos.y);
+		// 	image(state[12],-65,-65);
+		// }
 	}
  }
 

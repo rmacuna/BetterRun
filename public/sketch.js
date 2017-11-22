@@ -11,8 +11,6 @@ var obstacles = [];
 
 //Player vars
 var id = null;
-var lobby = 1;
-var LOGEDIN = true;
 var player;
 var cooldown = 0;
 var players = [];
@@ -21,6 +19,7 @@ var players = [];
 var database;
 var playerPoss = [];
 var socket;
+var dead = 0;
 
 //looks vars
 var background;
@@ -29,7 +28,7 @@ var button;
 var idle = [];
 var running = [];
 var jumping = [];
-var ground = [];
+var dying = [];
 
 //Game vars
 var gamemode = 0;
@@ -42,7 +41,9 @@ world = engine.world;
 world.gravity.y = 2.5;
 background = loadImage("forest_level.png");
 
+
 socket = io.connect('http://192.168.0.12:4000', { query: "id="+document.cookie });
+socket.emit('gamemode', gamemode);
 socket.on('newplayer', newPlayer);
 
 player = new Player(width/2,height/2,20,document.cookie);
@@ -52,8 +53,24 @@ socket.on('jumping',jump);
 socket.on('gleft',left);
 socket.on('gright',right);
 socket.on('stop', stop);
+socket.on('dead',function(data){
+	console.log(data);
+	let id = data.id;
+	var state = data.state;
+	//console.log('stop');
+	for (var i = 0; i < players.length; i++) {
+		console.log(players[i].id === id);
+		if(players[i].id === id){
+			players[i].alive = false;
+			players[i].state = data.s;
+			console.log(players[i].id + "--" + players[i].s);
+		}
+		
+	}
+});
 socket.on('playersupdate',newupdate);
-socket.on('posupdate',posupdate);          
+socket.on('posupdate',posupdate);
+socket.on('gamemode', function(g){gamemode = g});          
 frameRate(60);
  	
 
@@ -79,7 +96,6 @@ frameRate(60);
 			bB = pairs[i].bodyB;
 			//console.log(bA.velocity.y);
 		}
-
 		//console.log(bA.label + Math.round(bA.velocity.y));
 		//console.log(bB.label + Math.round(bB.velocity.y));
 
@@ -88,6 +104,17 @@ frameRate(60);
 		}
 		if (bB.label == 'player' && bA.label == 'bottom') {
 			cooldown = 0;
+		}
+		//console.log(bA);
+		//console.log(bB);
+		if (bA.label == 'player' && bA.id == player.id && bB.label == 'block') {
+			console.log("dead");
+			 player.alive = false;
+			 
+		}
+		if (bB.label == 'player' && bB.id === player.id && bA.label == 'block') {
+			console.log("dead");
+			 player.alive = false;
 		}
 	}
 
@@ -100,9 +127,9 @@ frameRate(60);
 	},5000);
 
 	var speed = 800;
-	var blocks = 2;
+	var blocks = 1;
 	var winner = false;
-	function setDeceleratingTimeout(callback, factor){
+	function fallingBlocks(callback, factor){
     var internalCallback = function(counter) {
         return function() {
             if (winner == false) {
@@ -111,7 +138,6 @@ frameRate(60);
             	}else{
             		counter = 100;
             	}
-            	console.log(counter);
                 window.setTimeout(internalCallback, counter);
                 callback();
             }
@@ -123,7 +149,7 @@ frameRate(60);
 
 // console.log() requires firebug
 if (gamemode == 1) {    
-setDeceleratingTimeout(function(){
+fallingBlocks(function(){
 		var Xpos = [];
 		for (var i = 0; i < Math.floor(blocks); i++) {
 		let x = (0 + (int)(Math.random() * 26))*50;
@@ -151,6 +177,10 @@ setDeceleratingTimeout(function(){
 
 }
 
+function mousePressed(){
+	obstacles.push(new Box(mouseX,mouseY,50, 50, "block"));
+}
+
 
 
 
@@ -162,11 +192,10 @@ function draw () {
 	scale(1+nw,1+nh);
 	if (player != null) {
 	image(background,0,0,1300,731);
-	if (LOGEDIN) {
 	//playerData();
 
 	Engine.update(engine, [delta=16.6666], [correction=1])
-
+	if (player.alive) {
 	if (keyIsDown(UP_ARROW) || keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW) || cooldown == 5) {
 
 	if (keyIsDown(UP_ARROW) && cooldown < 5) {
@@ -199,6 +228,15 @@ function draw () {
 	//console.log(s);
 	player.stop(s);
 }
+}else{
+	let data = {
+		id: player.id,
+		s: "dead"
+	}
+	socket.emit('dead',data);
+	player.state = "dead";
+
+}
 
 	for (var i = 0; i < bounds.length; i++) {
 		bounds[i].show();
@@ -216,6 +254,7 @@ function draw () {
 
 	for (var i = 0; i < players.length; i++) {
 		let state;
+		//console.log(players[i]);
 		switch(players[i].state) {
     case "jump":
         state = {s:jumping};
@@ -226,10 +265,14 @@ function draw () {
    	case "right":
    		state = {s:running, d:"R"};
         break;
+    case "dead":
+    	state = {s: dying};
+    	break;
     default:
         state = {s:idle};
 }	
 		let index = players[i].index;
+		//console.log(state);
 		players[i].show(state, index);
 	}
 
@@ -238,7 +281,6 @@ function draw () {
 		fill(255);
 		ellipse(pos.x,pos.y,40);
 	}
-}
 }
 }
 //end of draw	
@@ -255,10 +297,6 @@ function setWorldBounds(){
 
 }
 
-function createPlatforms(){
-		console.log("Platforms");
-}
-
 function newPlayer(sc){
 	console.log("new player");
 	newplayer = new Player(width/2,height/2,20,sc);
@@ -268,14 +306,14 @@ function newPlayer(sc){
 function collectInfo(){
 	let p = [];
 	for (var i = 0; i < players.length; i++) {
-		console.log(players[i]);
+		//console.log(players[i]);
 		p.push(players[i].id)
 	}
 	
 	socket.emit('playersupdate', p);
 }
 function newupdate(p){
-	console.log(p);
+	//console.log(p);
 	let sw;
 	for (var i = 0; i < p.length; i++) {
 		sw = false;
@@ -342,6 +380,11 @@ function stop(data){
 	}
 }
 
+function dead(data){
+	console.log("Player "+ data.id + " dead");
+	
+}
+
 // Para el samurai
 
 function loadAnimations(){
@@ -382,6 +425,19 @@ function loadAnimations(){
 		jumping.push(image);
 	}
 
+	for (var i = 0; i < 9; i++) {
+		loadImage("assets/chars/Wizard/PNG Sequences/Dying/Dying_00"+i+".png", loadd);
+	}
+	for (var i = 10; i < 14; i++) {
+		loadImage("assets/chars/Wizard/PNG Sequences/Dying/Dying_0"+i+".png", loadd);
+
+	}
+	function loadd(image){
+		//console.log(image);
+		image.resize(130,0);
+		dying.push(image);
+	}
+
 }
 
 function loadPlatforms() {
@@ -393,16 +449,6 @@ function loadPlatforms() {
 	createPlatform((1300/2),(731/2), 400);
 
 	World.add(world,obstacles);
-
-	for (var i = 1; i < 4; i++) {
-		loadImage("assets/textures/desert/Ground 0"+i+".png", loadg);
-	}
-	function loadg(image){
-		ground.push(image);
-	}
-
-	
-	
 }
 
 function createPlatform(x,y,w){

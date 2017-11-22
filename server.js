@@ -22,16 +22,6 @@ io.use(function(socket, next) {
 io.sockets.on('connection', newConnection);
 function newConnection(socket){
 	console.log("newConnection" + socket.id);
-	let data = {
-		id: socket.id,
-	}
-	
-
-	socket.on('moving', move);
-	function move(data){
-		//console.log("["+chalk.blue(data.x) +"-"+ chalk.blue(data.y)+"]");
-		socket.broadcast.emit('moving', data);
-	}
 
 	socket.on('jumping',jump);
 	function jump(id){
@@ -49,6 +39,11 @@ function newConnection(socket){
 	function stop(data){
 		socket.broadcast.emit('stop', data);
 	}
+	socket.on('dead',dead);
+	function dead(data){
+		console.log("Player "+ data.id + " dead");
+		socket.broadcast.emit('dead',data);
+	}
 
 	socket.on('playersupdate', newupdate);
 	function newupdate(p){
@@ -58,5 +53,10 @@ function newConnection(socket){
 	socket.on('posupdate', posupdate);
     function posupdate(data){
     	socket.broadcast.emit('posupdate',data);
+    }
+
+    socket.on('gamemode', gamemode);
+    function gamemode(gamemode){
+    	socket.broadcast.emit('gamemode',gamemode);
     }
 }
