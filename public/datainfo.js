@@ -38,6 +38,7 @@
                   console.log('roger');
                   str = json["char"];
                   return str;
+
               }
           });
       });

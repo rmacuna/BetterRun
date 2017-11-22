@@ -114,7 +114,7 @@
 
 
   UserConectionRef.on("value", function(snapshot) {
-      if (connectedUsers == 3) {
+      if (connectedUsers == 2) {
           firebase.database().ref('Players/').once('value', function(snapshot) {
               snapshot.forEach(function(childSnapshot) {
                   var str = JSON.stringify(childSnapshot.val());
@@ -189,7 +189,7 @@
   function pushInformation(modal) {
       if (modal == 'B') {
           username = document.getElementById('username').value;
-          document.cookie = "username="+username;
+          document.cookie = username;
           if (username.trim().length > 0) {
               inTheGame = true;
               $('#user_input').addClass('disabled');

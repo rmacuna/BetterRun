@@ -37,29 +37,25 @@ var gamemode = 0;
 function setup () {
 console.log(screen.width,screen.height);	
 createCanvas(screen.width,screen.height);
+engine = Engine.create();
+world = engine.world;
+world.gravity.y = 2.5;
 background = loadImage("forest_level.png");
 
-socket = io.connect('http://192.168.0.10:4000');
+socket = io.connect('http://192.168.0.12:4000', { query: "id="+document.cookie });
 socket.on('newplayer', newPlayer);
-socket.on("serverMessage", function(d) {
-	//console.log(d);
-	//player = new Player(width/2,height/2,20,d.id);
-	player = new Player(width/2,height/2,20,"Roger");
+
+player = new Player(width/2,height/2,20,document.cookie);
 	console.log(player);
 	players.push(player);
-	
-});
 socket.on('jumping',jump);
 socket.on('gleft',left);
 socket.on('gright',right);
-console.log(document.cookie);
 socket.on('stop', stop);
 socket.on('playersupdate',newupdate);
 socket.on('posupdate',posupdate);          
 frameRate(60);
- 	engine = Engine.create();
-	world = engine.world;
-	world.gravity.y = 2.5;
+ 	
 
 	//Set World Bounds
 	setWorldBounds();
@@ -101,7 +97,7 @@ frameRate(60);
 			id: player.id
 		};
 		socket.emit('posupdate',data);
-	},10000);
+	},5000);
 
 	var speed = 800;
 	var blocks = 2;
@@ -412,8 +408,4 @@ function loadPlatforms() {
 function createPlatform(x,y,w){
 	obstacles.push(new Bound(x,y-17,w, 25, "bottom"));
 	obstacles.push(new Bound(x,y,w, 25, "platform"));
-}
-
-function setPlayerID(){
-	id = getUsName();
 }

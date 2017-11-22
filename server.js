@@ -7,13 +7,17 @@ app.use(express.static('public'));
 app.use( express.static('../assets/chars/Chibi Smaurai 01 (Conical Hat)/PNG/PNG Sequences/Small/')); 
 console.log("Socket Server runnig");
 
-var socket = require('socket.io');
-var io = socket(server);
+// var socket = require('socket.io');
+// var io = socket(server);
+var io = require('socket.io')(server);
 
-// setInterval(function(){
-// 		console.log("Falling Block");
-// 		socket.emit("fallingBlock",);
-// 	},1000);
+io.use(function(socket, next) {
+  var handshakeData = socket.request;
+  let id = handshakeData._query['id'];
+  console.log("id:", id);
+  socket.broadcast.emit('newplayer',id);
+  next();
+});
 
 io.sockets.on('connection', newConnection);
 function newConnection(socket){
@@ -21,8 +25,7 @@ function newConnection(socket){
 	let data = {
 		id: socket.id,
 	}
-	socket.emit("serverMessage",data);
-	socket.broadcast.emit('newplayer',socket.id);
+	
 
 	socket.on('moving', move);
 	function move(data){
