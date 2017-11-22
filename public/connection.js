@@ -203,7 +203,8 @@
   function pushInformation(modal) {
       if (modal == 'B') {
           username = document.getElementById('username').value;
-          document.cookie = username;
+          document.cookie = "username="+username;
+          console.log(document.cookie);
           if (username.trim().length > 0) {
               inTheGame = true;
               $('#user_input').addClass('disabled');
@@ -222,6 +223,7 @@
       } else if (modal == 'F') {
           username = document.getElementById('username').value;
           document.cookie = "username="+username;
+          console.log(document.cookie);
           if (username.trim().length != 0) {
               inTheGame = true;
               $('#user_input').addClass('disabled');

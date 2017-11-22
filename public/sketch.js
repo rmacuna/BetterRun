@@ -31,7 +31,7 @@ var jumping = [];
 var dying = [];
 
 //Game vars
-var gamemode = getGameMode();
+var gamemode = 0;
 
 function setup () {
 console.log(screen.width,screen.height);	
@@ -39,22 +39,35 @@ createCanvas(screen.width,screen.height);
 engine = Engine.create();
 world = engine.world;
 world.gravity.y = 2.5;
-background = loadImage(getFinalMap());
-
-socket = io.connect('http://192.168.0.10:4000', { query: "id="+document.cookie });
-socket.emit('gamemode', gamemode);
-socket.on('newplayer', newPlayer);
+background = loadImage("forest_level.png");
 
 var cookies = document.cookie;
 var splited = cookies.split(";");
-console.log(splited.length);
-// for (var i = 0; splited.length; i++) {
-// 	console.log(splited[i]);
-// }
+console.log(splited);
+for (var i = 0; i < splited.length - 1; i++) {
+	let aux = splited[i].split("=");
+	console.log(aux);
+}
+let aux2 = splited[2].split(",");
+for (var i = 0; i < aux2.length; i++) {
+		let id = aux2[i];
+		let skin = aux2[i+1];
+		i++;
+		console.log("id: "+id+" - skin: "+skin);
+	}
 
-player = new Player(width/2,height/2,20,document.cookie);
+	let id = aux2[0];
+	//let id = "Roger"+Math.random();
+	let skin = aux2[1];	
+socket = io.connect('http://192.168.0.12:4000', { query: "id="+id});
+socket.emit('gamemode', gamemode);
+socket.on('newplayer', newPlayer);
+
+	player = new Player(width/2,height/2,20,id);
 	console.log(player);
 	players.push(player);
+// let player2 = new Player(width/2,height/2,20,id+"STEVE");
+// players.push(player2);
 socket.on('jumping',jump);
 socket.on('gleft',left);
 socket.on('gright',right);
@@ -69,14 +82,23 @@ socket.on('dead',function(data){
 		if(players[i].id === id){
 			players[i].alive = false;
 			players[i].state = data.s;
-			console.log(players[i].id + "--" + players[i].s);
+			console.log(players[i].id + "-" + players[i].s);
 		}
 		
 	}
 });
+socket.on('bomb',function(data){
+	console.log(data);
+});
 socket.on('playersupdate',newupdate);
 socket.on('posupdate',posupdate);
-socket.on('gamemode', function(g){gamemode = g});          
+socket.on('gamemode', function(g){gamemode = g});
+socket.on('gameStart',function(id){
+	console.log("GameStart");
+	console.log(id);
+	let p = getPlayerById(id);
+	p.bomb = true;
+})          
 frameRate(60);
  	
 
@@ -111,8 +133,7 @@ frameRate(60);
 		if (bB.label == 'player' && bA.label == 'bottom') {
 			cooldown = 0;
 		}
-		//console.log(bA);
-		//console.log(bB);
+		
 		if (bA.label == 'player' && bA.id == player.id && bB.label == 'block') {
 			console.log("dead");
 			 player.alive = false;
@@ -123,7 +144,49 @@ frameRate(60);
 			 player.alive = false;
 		}
 
-		if (true) {}
+		// console.log(bA);
+		// console.log(bB);
+		if (bA.label == 'player' && bA.id != bB.id && bB.label == 'player') {
+			bA = getPlayerById(bA.id);
+			bB = getPlayerById(bB.id);
+			let c;
+			let s;
+			let sw = true;
+			if (bA.id == player.id){
+				p = bA; 
+				s = bB;
+			}
+				else if(bB == player.id){ 
+					p = bB; 
+					s = bA;
+				}else{
+					console.log("Not mi player");
+					sw = false;
+				}
+				if (sw) {
+			if (bA.bomb == true || bB.bomb == true){
+				console.log("Pass the bomb");
+					if (p.bomb == false){
+						s.bomb = false;
+						p.bomb = true;
+						let data = {
+							id: s.id,
+							b: s.bomb
+						}
+						socket.emit('bomb',data);
+						
+					}else{
+						p.bomb = false;
+						s.bomb = true;
+						let data = {
+							id: s.id,
+							b: s.bomb
+						}
+						socket.emit('bomb',data); 
+					} 
+				}
+			}
+		}
 	}
 
 	setInterval(function(){
@@ -181,7 +244,8 @@ fallingBlocks(function(){
 			obstacles.push(new Box(Xpos[i],0,50, 50, "block"));
 		}
 }, 10);
-}
+}		
+		
 
 }
 
@@ -190,10 +254,14 @@ function mousePressed(){
 }
 
 
-
+var sw5 = 0;
 
 //Renders the world
 function draw () {
+	if (sw5 == 0) {
+		socket.emit('gameStart');
+		sw5 = 1;
+	}
 	let nw = ((((window.innerWidth-1300)/1300).toFixed(2))/1);
 	let nh = ((((window.innerHeight-731)/731).toFixed(2))/1);
 	//console.log("nw: "+(1+nw)+" "+"nh: "+(1+nh));
@@ -462,4 +530,12 @@ function loadPlatforms() {
 function createPlatform(x,y,w){
 	obstacles.push(new Bound(x,y-17,w, 25, "bottom"));
 	obstacles.push(new Bound(x,y,w, 25, "platform"));
+}
+
+function getPlayerById(id){
+	for (var i = 0; i < players.length; i++) {
+		if (players[i].id == id) {
+			return players[i];
+		}
+	}
 }
