@@ -1,15 +1,3 @@
-  var finalmap;
-  var selectedmaps = [];
-  var usernames = [];
-  var username;
-  var myConection;
-  var finalModal;
-  var selectedModals = []; //Los tipos seleccionados por todos los usuarios
-  let json;
-  var inTheGame = false;
-
-
-
   var config = {
       apiKey: "AIzaSyAr7Re6XSMbsoFodWhxo4qkN59ycRlcJx8",
       authDomain: "betterrun-23133.firebaseapp.com",
@@ -20,48 +8,90 @@
   };
   firebase.initializeApp(config);
 
-  // Sending data 
-
-
-  var ocurrencesMap = [];
-  var ocurrencesGameMode = [];
-
+  // Variables locales de apoyo
+  var username;
+  var myConection;
+  let json;
+  var inTheGame = false;
   var connectedUsers;
+  var countMapDesert;
+  var countMapBosque;
+  var countMapEspacio;
+  var countMapLibertalia;
+  var countMapIce;
+  var countMapCementerio;
+  var countFB;
+  var countBT;
+  // Referencias a la base de datos.
   var UserConectionRef = firebase.database().ref('Conections/');
   var players = firebase.database().ref('Players/');
-  var gameinfo = firebase.database().ref('GameInfo/');
+  var dbRefMapDesert = firebase.database().ref('Desierto/');
+  var dbRefMapBosque = firebase.database().ref('Bosque/');
+  var dbRefMapIce = firebase.database().ref('CuevaHielo/');
+  var dbRefMapEspacio = firebase.database().ref('Espacio/');
+  var dbRefMapLibertalia = firebase.database().ref('Libertalia/');
+  var dbRefMapCementerio = firebase.database().ref('Cementerio/');
+  var dbRefFallingB = firebase.database().ref('FallingBlocks/');
+  var dbRefBombTag = firebase.database().ref('BombTag/');
+  var dbRefFinalMap = firebase.database().ref('finalmap/');
+  var dbRefFinalMode = firebase.database().ref('finalmodal/');
 
-// Funcion que escucha cuando cambian datos en los usuarios conectados. 
+  // Funcion que escucha cuando cambian datos en los usuarios conectados. 
   UserConectionRef.on('value', data);
+
   function data(data) {
       connectedUsers = data.val();
       console.log(connectedUsers);
   }
+  // Escucho cuando alguien selecciona FallingBlocks o BombTag
+  dbRefBombTag.on('value', dataMode);
 
-//Funcion que escucha cuando cambian datos en la info del juego
-  gameinfo.on('value', function (snapshot) {
-      snapshot.forEach(function(childSnapshot){
-        var str = JSON.stringify(childSnapshot.val());
-        let info = JSON.parse(str);
-        var mapname = info["map"];
+  function dataMode(dataMode) {
+      countBT = dataMode.val();
+  }
+  dbRefFallingB.on('value', dataMode2);
 
-        var gamemode = info["modal"];
-        ocurrencesMap.push(mapname);
-        ocurrencesGameMode.push(gamemode);
+  function dataMode2(dataMode2) {
+      countFB = dataMode2.val();
+  }
+  // Este pedazo del codigo escucha cuando hay cambios en los contadores en firebase de quienes han seleccionado
+  // Estos mapas. 
+  dbRefMapDesert.on('value', dataMapDesert);
 
-      });
-  });
-  // Deteccion de cambios
-  // Funcion que se ejecuta cada cierto tiempo.
+  function dataMapDesert(dataMapDesert) {
+      countMapDesert = dataMapDesert.val();
+  }
 
-  // window.setInterval(function() {
-  //     try {
+  dbRefMapIce.on('value', dataMapIce);
 
-  //     } catch (e) {
+  function dataMapIce(dataMapIce) {
+      countMapIce = dataMapIce.val();
+  }
 
-  //         console.log(e);
-  //     }
-  // }, 500);
+  dbRefMapBosque.on('value', dataMapBosque);
+
+  function dataMapBosque(dataMapBosque) {
+      countMapBosque = dataMapBosque.val();
+  }
+
+  dbRefMapEspacio.on('value', dataMapEspacio);
+
+  function dataMapEspacio(dataMapEspacio) {
+      countMapEspacio = dataMapEspacio.val();
+  }
+
+  dbRefMapCementerio.on('value', dataMapCementerio);
+
+  function dataMapCementerio(dataMapCementerio) {
+      countMapCementerio = dataMapCementerio.val();
+  }
+
+  dbRefMapLibertalia.on('value', dataMapLibertalia);
+
+  function dataMapLibertalia(dataMapLibertalia) {
+      countMapLibertalia = dataMapLibertalia.val();
+  }
+
 
   UserConectionRef.on("value", function(snapshot) {
       if (connectedUsers == 2) {
@@ -69,11 +99,7 @@
               snapshot.forEach(function(childSnapshot) {
                   var str = JSON.stringify(childSnapshot.val());
                   json = JSON.parse(str);
-                  selectedmaps.push(json["map"]);
-                  selectedModals.push[json["modal"]];
-                  usernames.push(json["username"]);
                   showConection(json["username"], " se ha unido a la partida");
-
               });
           });
           finalModal = selectedModals[Math.floor(Math.random() * selectedModals.length - 1)];
@@ -85,7 +111,6 @@
               snapshot.forEach(function(childSnapshot) {
                   var str = JSON.stringify(childSnapshot.val());
                   json = JSON.parse(str);
-                  usernames.push(json["username"]);
                   showConection(json["username"], " se ha unido a la partida");
               });
           }, function(errorObject) {
@@ -157,19 +182,38 @@
           modal: modality
       });
 
-      firebase.database().ref('GameInfo/' + (connectedUsers)).set({
-        map: URL,
-        modal: modality
-      });
-
+      if (URL == "El bosque") {
+        countMapBosque++;
+        dbRefMapBosque.set(countMapBosque);
+      }else if (URL == "El desierto"){
+        countMapDesert++;
+        dbRefMapDesert.set(countMapDesert);
+      }else if (URL == "Cementerio"){
+        countMapCementerio++;
+        dbRefMapCementerio.set(countMapDesert);
+      }else if (URL == "Base Militar Luna"){
+        countMapEspacio++;
+        dbRefMapEspacio.set(countMapEspacio);
+      }else if (URl == "Cueva de hielo"){
+        countMapIce++;
+        dbRefMapIce.set(countMapEspacio);
+      }else if(URL == "Libertalia"){
+        countMapLibertalia++;
+        dbRefMapLibertalia.set(countMapLibertalia);
+      }
+      if (modality == 'BombTag') {
+          countBT++;
+          dbRefBombTag.set(countBT);
+      } else {
+          countFB++;
+          dbRefFallingB.set(countFB);
+      }
       UserConectionRef.set(connectedUsers);
   }
 
-
-
   //Ahora detectaremos cuando alguien se salga de la sala de espera.
   window.onbeforeunload = function() {
-      if (inTheGame && connectedUsers < 3) {
+      if (inTheGame && connectedUsers < 2) {
           players.child(myConection).remove();
           connectedUsers--;
           UserConectionRef.set(connectedUsers);
