@@ -29,6 +29,7 @@ var button;
 var idle = [];
 var running = [];
 var jumping = [];
+var ground = [];
 
 //Game vars
 var gamemode = 0;
@@ -42,7 +43,8 @@ socket = io.connect('http://192.168.0.12:4000');
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
 	//console.log(d);
-	player = new Player(width/2,height/2,20,d.id);
+	//player = new Player(width/2,height/2,20,d.id);
+	player = new Player(width/2,height/2,20,"Roger");
 	console.log(player);
 	players.push(player);
 	
@@ -54,27 +56,6 @@ socket.on('stop', stop);
 socket.on('playersupdate',newupdate);
 socket.on('posupdate',posupdate);          
 frameRate(60);
-/*
-var config = {
-    apiKey: "AIzaSyAQOE_XWSAn7XhLo5eSyCY0LXXVsni_7PQ",
-    authDomain: "betterrun-de5ad.firebaseapp.com",
-    databaseURL: "https://betterrun-de5ad.firebaseio.com",
-    projectId: "betterrun-de5ad",
-    storageBucket: "betterrun-de5ad.appspot.com",
-    messagingSenderId: "1046055276716"
-  };
-
-  firebase.initializeApp(config);
-  database = firebase.database();
- 
-
-	input = createInput();
-	input.position(20, 560);
-
-	button = createButton('submit');
- 	button.position(input.x + input.width, 560);
- 	button.mousePressed(logPlayer);
-*/
  	engine = Engine.create();
 	world = engine.world;
 	world.gravity.y = 2.5;
@@ -120,6 +101,57 @@ var config = {
 		};
 		socket.emit('posupdate',data);
 	},10000);
+
+	var speed = 800;
+	var blocks = 2;
+	var winner = false;
+	function setDeceleratingTimeout(callback, factor){
+    var internalCallback = function(counter) {
+        return function() {
+            if (winner == false) {
+            	if (counter > 0) {
+            		counter = counter - factor;
+            	}else{
+            		counter = 100;
+            	}
+            	console.log(counter);
+                window.setTimeout(internalCallback, counter);
+                callback();
+            }
+        }
+    }(speed);
+
+    window.setTimeout(internalCallback, factor);
+};
+
+// console.log() requires firebug
+if (gamemode == 1) {    
+setDeceleratingTimeout(function(){
+		var Xpos = [];
+		for (var i = 0; i < Math.floor(blocks); i++) {
+		let x = (0 + (int)(Math.random() * 26))*50;
+		let sw = 0;
+		while(sw == 0){
+			var same = false;
+			for (var j = 0; j < Xpos.length; j++) {
+				if(Xpos[i] == x){
+					same = true;
+				}
+			}
+			if (same) {
+				x = (0 + (int)(Math.random() * 26))*50;
+			}else{
+				sw = 1;
+			}
+		}
+			Xpos.push(x); 
+		}
+		for (var i = 0; i < Xpos.length; i++) {
+			obstacles.push(new Box(Xpos[i],0,50, 50, "block"));
+		}
+}, 10);
+}
+
 }
 
 
@@ -171,12 +203,18 @@ function draw () {
 	player.stop(s);
 }
 
-	for (var i = 0; i < obstacles.length; i++) {
-		obstacles[i].show()
-	}
-
 	for (var i = 0; i < bounds.length; i++) {
 		bounds[i].show();
+	}
+
+	for (var i = 0; i < obstacles.length; i++) {
+		obstacles[i].show();
+		if (obstacles[i].label == "block") {
+			if (obstacles[i].isOfScreen) {
+			obstacles.splice(i,1);
+			i--;
+		}
+		}
 	}
 
 	for (var i = 0; i < players.length; i++) {
@@ -206,64 +244,7 @@ function draw () {
 }
 }
 }
-//end of draw
-
-//Sends the player pos to the database
-function playerData(){
-	var data = {
-		x: Math.floor(circle.pos.x),
-		y: Math.floor(circle.pos.y)
-	}
-	database.ref(lobby+'/' + id).set(data);
-}
-
-function logPlayer(){
-	if(input.value() != ""){
-	id = input.value();
-}
-//console.log(d);
-	player = new Player(width/2,height/2,20,id);
-	//console.log(player);
-	players.push(player);
-database.ref(lobby+'/').once('value', 
-	function(snapshot) { 
-		playerLobby(snapshot.numChildren());
-	}
-);
-var ref = database.ref(lobby+'/');
-ref.on('value', gotData, errData);
-console.log("The user " + id + " is loged in");
-	input.value("");
-}
-
-function gotData(data){
-	let players =  data.val();
-	var keys = Object.keys(players);
-	var cont = 0;
-	for (var i = 0; i < keys.length; i++) {
-		var k = keys[i];
-		var x = players[k].x;
-		var y = players[k].y;
-
-		if (k != id) {
-		playerPoss[cont] = createVector(x, y);
-		cont++;
-	}
-	}
-	cont = 0;
-}
-
-function errData(err){
-	console.log("Error");
-	console.log(err);
-}
-
-function playerLobby(childs){
-	if (childs > 3) {
-		lobby++; 
-	}
-	LOGEDIN = true;
-}	
+//end of draw	
 
 //Sets world bounds
 function setWorldBounds(){
@@ -415,10 +396,23 @@ function loadPlatforms() {
 	createPlatform((1300/2),(731/2), 400);
 
 	World.add(world,obstacles);
+
+	for (var i = 1; i < 4; i++) {
+		loadImage("assets/textures/desert/Ground 0"+i+".png", loadg);
+	}
+	function loadg(image){
+		ground.push(image);
+	}
+
+	
 	
 }
 
 function createPlatform(x,y,w){
 	obstacles.push(new Bound(x,y-17,w, 25, "bottom"));
 	obstacles.push(new Bound(x,y,w, 25, "platform"));
+}
+
+function setPlayerID(){
+	id = getUsName();
 }

@@ -10,8 +10,12 @@ console.log("Socket Server runnig");
 var socket = require('socket.io');
 var io = socket(server);
 
-io.sockets.on('connection', newConnection);
+// setInterval(function(){
+// 		console.log("Falling Block");
+// 		socket.emit("fallingBlock",);
+// 	},1000);
 
+io.sockets.on('connection', newConnection);
 function newConnection(socket){
 	console.log("newConnection" + socket.id);
 	let data = {

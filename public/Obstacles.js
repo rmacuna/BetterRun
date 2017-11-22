@@ -1,24 +1,33 @@
-function Box(x, y, w, h) {
+function Box(x, y, w, h,label) {
     var options = {
-        friction: 0.1,
-        restitution: 1
+        friction: 0,
+        restitution: 0
     }
     this.body = Bodies.rectangle(x, y, w, h, options);
+    this.body.label = label;
+    this.pos = this.body.position;
     this.w = w;
     this.h = h;
+    this.body.collisionFilter.group = -1;
+   	Matter.Body.setInertia(this.body, Infinity);
+
     World.add(world, this.body);
 
+    this.isOfScreen = function(){
+    	return(this.pos.y > height + 100);
+    	Matter.World.remove(world, this.body)
+    }
+
     this.show = function() {
-        var pos = this.body.position;
+        
         var angle = this.body.angle;
 
         push();
-        translate(pos.x, pos.y);
+        translate(this.pos.x, this.pos.y);
         rectMode(CENTER);
         rotate(angle);
-        strokeWeight(1);
-        stroke(255);
-        fill(127);
+        stroke(0);
+        fill(0);
         rect(0, 0, this.w, this.h);
         pop();
     }
@@ -33,19 +42,27 @@ function Bound(x, y, w, h, label) {
     }
     this.body = Bodies.rectangle(x, y, w, h, options);
     this.body.label = label;
+    this.body.collisionFilter.group = -1;
+    this.pos = this.body.position;
     this.w = w;
     this.h = h;
     World.add(world, this.body);
 
-    this.show = function() {
-        var pos = this.body.position;
+    this.show = function(ground) {
+        let texture = ground;
 
         push();
         rectMode(CENTER);
         stroke(0);
         var c = color('#424242');
         fill(c);
-        rect(pos.x, pos.y, this.w, this.h);
+        rect(this.pos.x, this.pos.y, this.w, this.h);
+        //console.log(texture);
+        if (texture != null) {
+        image(texture[0],this.pos.x-100,this.pos.y);
+        //image(texture[1],this.pos.x,this.pos.y);
+        //image(texture[2],this.pos.x+100,this.pos.y);
+    }
         pop();
     }
 }
@@ -149,4 +166,9 @@ function Player(x, y, r, id) {
 		}
 		pop();
 	}
+ }
+
+ function setUsername(a){
+ 	var b = a;
+ 	console.log(a); 
  }
