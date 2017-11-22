@@ -67,7 +67,7 @@ world.gravity.y = 2.5;
  	}
  	console.log(map);
  }
-socket = io.connect('http://192.168.0.12:4000', { query: "id="+id });	
+socket = io.connect('http://192.168.0.10:4000', { query: "id="+id });	
 socket.emit('gamemode', gamemode);
 socket.on('newplayer', newPlayer);
 
@@ -179,6 +179,10 @@ frameRate(60);
 				if (sw) {
 			if (bA.bomb == true || bB.bomb == true){
 				console.log("Pass the bomb");
+					var a = document.getElementById('explotionCounter');
+					a.load();
+					a.volume = 0.02
+					a.play();
 					if (p.bomb == false){
 						s.bomb = false;
 						p.bomb = true;
@@ -186,7 +190,7 @@ frameRate(60);
 							id: s.id,
 							b: s.bomb
 						}
-						socket.emit('bomb',data);
+						// socket.emit('bomb',data);
 						
 					}else{
 						p.bomb = false;
@@ -195,7 +199,7 @@ frameRate(60);
 							id: s.id,
 							b: s.bomb
 						}
-						socket.emit('bomb',data); 
+						// socket.emit('bomb',data); 
 					} 
 				}
 			}
