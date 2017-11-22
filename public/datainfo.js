@@ -30,7 +30,7 @@
           snapshot.forEach(function(childSnapshot) {
               let json = childSnapshot.val();
               if (json["username"] == username) {
-                  return json["username"];
+                  return json["char"];
               }
           });
       });

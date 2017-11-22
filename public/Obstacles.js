@@ -69,6 +69,7 @@ function Bound(x, y, w, h, label) {
 
 function Player(x, y, r, id) {
     this.r = r;
+    console.log(id);
     this.id = id;
 
     var options = {
@@ -84,6 +85,8 @@ function Player(x, y, r, id) {
     Matter.Body.setInertia(this.body, Infinity);
 
 	//Matter.Body.setInertia(this.body, 1);
+	console.log(this.body);
+	console.log(world);
 	World.add(world, this.body);
 	this.pos = this.body.position;
 	this.state = "";
