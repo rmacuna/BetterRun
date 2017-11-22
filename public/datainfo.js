@@ -26,20 +26,6 @@
   }
 
   function getChar(username) {
-      dbRefPlayers.once('value', function(snapshot) {
-          var str;
-          let json;
-          snapshot.forEach(function(childSnapshot) {
-              str = JSON.stringify(childSnapshot.val());
-              json = JSON.parse(str);
-              console.log(json["username"]);
-              console.log(username);
-              if (json["username"] == username) {
-                  console.log('roger');
-                  str = json["char"];
-                  return str;
-
-              }
-          });
-      });
+      dbRefPlayers.once('value', data);
   }
+

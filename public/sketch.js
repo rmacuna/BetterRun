@@ -42,8 +42,15 @@ world = engine.world;
 world.gravity.y = 2.5;
 background = loadImage("forest_level.png");
 
-socket = io.connect('http://192.168.0.12:4000', { query: "id="+document.cookie });
+socket = io.connect('http://192.168.0.10:4000', { query: "id="+document.cookie });
 socket.on('newplayer', newPlayer);
+
+var cookies = document.cookie;
+var splited = cookies.split(";");
+console.log(splited.length);
+// for (var i = 0; splited.length; i++) {
+// 	console.log(splited[i]);
+// }
 
 player = new Player(width/2,height/2,20,document.cookie);
 	console.log(player);
@@ -53,7 +60,12 @@ socket.on('gleft',left);
 socket.on('gright',right);
 socket.on('stop', stop);
 socket.on('playersupdate',newupdate);
-socket.on('posupdate',posupdate);          
+socket.on('posupdate',posupdate);     
+
+
+
+
+
 frameRate(60);
  	
 
