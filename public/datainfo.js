@@ -8,10 +8,10 @@
   };
   firebase.initializeApp(config);
 
-
+  var charname;
   var dbRef = firebase.database().ref('finalmap/');
-  var dbRefGMode = firebase.data().ref('finalModal/');
-  var dbRefPlayers = firebase.data().ref('Players/');
+  var dbRefGMode = firebase.database().ref('finalModal/');
+  var dbRefPlayers = firebase.database().ref('Players/');
 
   function finalmap() {
       dbRef.on('value', function(snapshot) {
@@ -26,11 +26,18 @@
   }
 
   function getChar(username) {
-      dbRefPlayers.on('value', function(snapshot) {
+      dbRefPlayers.once('value', function(snapshot) {
+          var str;
+          let json;
           snapshot.forEach(function(childSnapshot) {
-              let json = childSnapshot.val();
+              str = JSON.stringify(childSnapshot.val());
+              json = JSON.parse(str);
+              console.log(json["username"]);
+              console.log(username);
               if (json["username"] == username) {
-                  return json["username"];
+                  console.log('roger');
+                  str = json["char"];
+                  return str;
               }
           });
       });

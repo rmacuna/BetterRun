@@ -155,7 +155,7 @@
               }
           });
 
-
+          document.cookie = "fmap="
           // pushGameInfo(finalmap, usernames, finalModal);
           initGame();
       } else {
