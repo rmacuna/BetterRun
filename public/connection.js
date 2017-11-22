@@ -211,6 +211,8 @@
           username = document.getElementById('username').value;
           document.cookie = "username="+username;
           console.log(document.cookie);
+
+
           if (username.trim().length != 0) {
               inTheGame = true;
               $('#user_input').addClass('disabled');

@@ -258,8 +258,6 @@ fallingBlocks(function(){
 		}
 }, 10);
 }		
-		
-
 }
 
 var sw5 = 0;
