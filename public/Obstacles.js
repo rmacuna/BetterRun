@@ -42,7 +42,7 @@ function Bound(x, y, w, h, label) {
 
         push();
         rectMode(CENTER);
-        noStroke();
+        stroke(0);
         var c = color('#424242');
         fill(c);
         rect(pos.x, pos.y, this.w, this.h);
@@ -74,7 +74,7 @@ function Player(x, y, r, id) {
 	this.timer = 0;
 	this.prevstate = "Idle";
 	this.jump = function(){
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -76});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 0, y: -85});
 		this.state = "jump";
 //		console.log("Jump");
 	}

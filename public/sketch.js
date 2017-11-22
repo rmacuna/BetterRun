@@ -33,16 +33,17 @@ var jumping = [];
 //Game vars
 var gamemode = 0;
 
-function setup () {	
-createCanvas(screen.width, screen.height);
+function setup () {
+console.log(screen.width,screen.height);	
+createCanvas(screen.width,screen.height);
 background = loadImage("forest_level.png");
 
-socket = io.connect('http://localhost:4000');
+socket = io.connect('http://192.168.0.12:4000');
 socket.on('newplayer', newPlayer);
 socket.on("serverMessage", function(d) {
 	//console.log(d);
 	player = new Player(width/2,height/2,20,d.id);
-	//console.log(player);
+	console.log(player);
 	players.push(player);
 	
 });
@@ -126,8 +127,12 @@ var config = {
 
 //Renders the world
 function draw () {
+	let nw = ((((window.innerWidth-1300)/1300).toFixed(2))/1);
+	let nh = ((((window.innerHeight-731)/731).toFixed(2))/1);
+	//console.log("nw: "+(1+nw)+" "+"nh: "+(1+nh));
+	scale(1+nw,1+nh);
 	if (player != null) {
-	image(background, 50,50,width-100,height-100);
+	image(background,0,0,1300,731);
 	if (LOGEDIN) {
 	//playerData();
 
@@ -262,10 +267,12 @@ function playerLobby(childs){
 
 //Sets world bounds
 function setWorldBounds(){
-	bounds.push(new Bound(width/2,height-100,width, 100, "bottom"));
-	bounds.push(new Bound(width/2,0     ,width ,100, "top"));
-	bounds.push(new Bound(width  ,height/2,     100, height, "right"));
-	bounds.push(new Bound(0    ,height/2,       100, height, "left"));
+	let w = 1300;
+	let h = 731;
+	bounds.push(new Bound(w/2,h+45,w    , 100, "bottom"));
+	bounds.push(new Bound(w/2,-50    ,w    , 100, "top"));
+	bounds.push(new Bound(w+50  ,h/2  ,100  , h, "right"));
+	bounds.push(new Bound(-50  ,h/2  ,100  , h, "left"));
 	World.add(world,bounds);
 
 }
@@ -283,6 +290,7 @@ function newPlayer(sc){
 function collectInfo(){
 	let p = [];
 	for (var i = 0; i < players.length; i++) {
+		console.log(players[i]);
 		p.push(players[i].id)
 	}
 	
@@ -399,11 +407,12 @@ function loadAnimations(){
 }
 
 function loadPlatforms() {
-	createPlatform((150),(250),200);
-	createPlatform((1150),(250),200); 
-	createPlatform((1150),(500),200);
-	createPlatform((150),(500),200);
-	createPlatform((width/2),(height/2), 400);
+	let space = 200;
+	createPlatform(150    ,(731/2)-space   ,300);
+	createPlatform(1150   ,(731/2)-space   ,300);
+	createPlatform(1150   ,(731/2)+space   ,300);
+	createPlatform(150    ,(731/2)+space   ,300);
+	createPlatform((1300/2),(731/2), 400);
 
 	World.add(world,obstacles);
 	

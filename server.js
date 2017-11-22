@@ -3,14 +3,12 @@ var app = express();
 var server = app.listen(4000);
 // const chalk = require('chalk');
 
-
 app.use(express.static('public'));
 app.use( express.static('../assets/chars/Chibi Smaurai 01 (Conical Hat)/PNG/PNG Sequences/Small/')); 
 console.log("Socket Server runnig");
 
 var socket = require('socket.io');
 var io = socket(server);
-var players = [];
 
 io.sockets.on('connection', newConnection);
 
@@ -18,7 +16,6 @@ function newConnection(socket){
 	console.log("newConnection" + socket.id);
 	let data = {
 		id: socket.id,
-		p: players
 	}
 	socket.emit("serverMessage",data);
 	socket.broadcast.emit('newplayer',socket.id);
