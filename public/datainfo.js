@@ -13,10 +13,16 @@
   var dbRefGMode = firebase.database().ref('finalModal/');
   var dbRefPlayers = firebase.database().ref('Players/');
 
-  function finalmap() {
-      dbRef.on('value', function(snapshot) {
-          return snapshot.val();
-      });
+  let data;
+
+  dbRef.on('value').then(function(snapshot) {
+      data = snapshot.val();
+      console.log(data);
+  });
+
+
+  function getData(){
+    return data;
   }
 
   function gameMode() {
@@ -29,86 +35,79 @@
       dbRefPlayers.once('value', data);
   }
 
-const maps = [
-    {
-        "name": "Bosque",
-        "gravity": "estandar",
-        "platformColor": "",
-        "image": "assets/levels/forest_level.png",
-        "music": "assets/music/BetterRun.mp3",
-        "blocks": "assets/chars/brick-wall.png"
-    },
-    {
-        "name": "Desierto",
-        "gravity": "estandar",
-        "platformColor": "",
-        "music": "assets/music/DesertMap.mp3",
-        "image": "assets/levels/Desert_level.png",
-        "blocks": "assets/chars/drop.png"
-    },
-    {
-        "name": "Cementerio",
-        "gravity": "estandar",
-        "platformColor": "",
-        "image": "assets/levels/Cementery_level.png",
-        "blocks": "assets/chars/ghost.png",
-        "music": "assets/music/HalloweenMap.mp3"
-    },
-    {
-        "name": "Luna",
-        "gravity": "1.5",
-        "Fy": "40",
-        "platformColor": "",
-        "music": "assets/music/SpaceMap.mp3",
-        "blocks": "assets/chars/moon.png"
-    },
-    {
-        "name": "CuevaHielo",
-        "gravity": "estandar",
-        "friction": "0.03",
-        "platformColor": "",
-        "image": "assets/levels/ice_level.jpg",
-        "music": "assets/music/DesertMap.mp3"
-    },
-    {
-        "name": "Libertalia",
-        "gravity": "estandar",
-        "platformColor": "",
-        "image": "assets/levels/libertalia_level.jpg",
-        "music": "assets/music/BetterRun.mp3",
-        "blocks": "assets/chars/brick-wall.png"
-    }
-];
+  const maps = [{
+          "name": "Bosque",
+          "gravity": "estandar",
+          "platformColor": "",
+          "image": "assets/levels/forest_level.png",
+          "music": "assets/music/BetterRun.mp3",
+          "blocks": "assets/chars/brick-wall.png"
+      },
+      {
+          "name": "Desierto",
+          "gravity": "estandar",
+          "platformColor": "",
+          "music": "assets/music/DesertMap.mp3",
+          "image": "assets/levels/Desert_level.png",
+          "blocks": "assets/chars/drop.png"
+      },
+      {
+          "name": "Cementerio",
+          "gravity": "estandar",
+          "platformColor": "",
+          "image": "assets/levels/Cementery_level.png",
+          "blocks": "assets/chars/ghost.png",
+          "music": "assets/music/HalloweenMap.mp3"
+      },
+      {
+          "name": "Espacio",
+          "image": "assets/levels/moonland_level.jpg",
+          "gravity": "1.5",
+          "Fy": "40",
+          "platformColor": "",
+          "music": "assets/music/SpaceMap.mp3",
+          "blocks": "assets/chars/moon.png"
+      },
+      {
+          "name": "CuevaHielo",
+          "gravity": "estandar",
+          "friction": "0.03",
+          "platformColor": "",
+          "image": "assets/levels/ice_level.jpg",
+          "music": "assets/music/DesertMap.mp3"
+      },
+      {
+          "name": "Libertalia",
+          "gravity": "estandar",
+          "platformColor": "",
+          "image": "assets/levels/libertalia_level.jpg",
+          "music": "assets/music/BetterRun.mp3",
+          "blocks": "assets/chars/brick-wall.png"
+      }
+  ];
 
-function getGameMode(){
-  var browserCookies = document.cookie.split(';');
-  var mode =  browserCookies[1];
-  if (mode == "BombTag") {
-    return 0;
-  }else if(mode == "FallingBlocks"){
-    return 1;
+  function getGameMode() {
+      var browserCookies = document.cookie.split(';');
+      var mode = browserCookies[1];
+      if (mode == "BombTag") {
+          return 0;
+      } else if (mode == "FallingBlocks") {
+          return 1;
+      }
   }
-}
 
-function getArrOfPlayers () {
-  var browserCookies = document.cookie.split(';');
-  var plyers = browserCookies[2];
-  return plyers;
-}
-
-function getFinalMap(){
-  var browserCookies = document.cookie.split(';');
-  var map = browserCookies[0].split('=')[1];
-  for(var k = 0; k < maps.length; k++){
-    if (maps[k].name == map) {
-      return maps[k].image;
-    }
+  function getArrOfPlayers() {
+      var browserCookies = document.cookie.split(';');
+      var plyers = browserCookies[2];
+      return plyers;
   }
-}
 
-
-
-
-
-
-
+  function getFinalMap() {
+      var browserCookies = document.cookie.split(';');
+      var map = browserCookies[0].split('=')[1];
+      for (var k = 0; k < maps.length; k++) {
+          if (maps[k].name == map) {
+              return maps[k].image;
+          }
+      }
+  }
