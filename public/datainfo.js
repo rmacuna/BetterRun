@@ -107,3 +107,6 @@
           }
       }
   }
+  function getMaps(){
+    return maps;
+  }

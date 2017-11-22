@@ -52,7 +52,7 @@ function newConnection(socket){
 
 	socket.on('bomb',bomb);
 	function bomb(data){
-		socket.brodcast.emit('bomb',data);
+		socket.broadcast.emit('bomb',data);
 	}
 
 	socket.on('gameStart',function(){

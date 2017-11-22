@@ -73,7 +73,6 @@ function Bound(x, y, w, h, label) {
 
 function Player(x, y, r, id) {
     this.r = r;
-    console.log(id);
     this.id = id;
 
     var options = {

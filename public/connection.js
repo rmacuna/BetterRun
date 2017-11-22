@@ -58,7 +58,7 @@
 
   function dataMode(dataMode) {
       countBT = dataMode.val();
-      if (connectedUsers == 1) {
+      if (connectedUsers == 2) {
           if (countBT > countFB) {
               dbRefFinalMode.set('BombTag');
           } else if (countBT == countFB) {
@@ -72,7 +72,7 @@
 
   function dataMode2(dataMode2) {
       countFB = dataMode2.val();
-      if (connectedUsers == 1) {
+      if (connectedUsers == 2) {
           if (countFB > countBT) {
               dbRefFinalMode.set('FallingBlocks');
           } else if (countBT == countFB) {
@@ -124,7 +124,7 @@
 
 
   UserConectionRef.on("value", function(snapshot) {
-      if (connectedUsers == 1) {
+      if (connectedUsers == 2) {
           firebase.database().ref('Players/').once('value', function(snapshot) {
               snapshot.forEach(function(childSnapshot) {
                   var str = JSON.stringify(childSnapshot.val());
@@ -190,6 +190,7 @@
       if (modal == 'B') {
           username = document.getElementById('username').value;
           document.cookie = "username="+username;
+          document.cookie = "char="+ characterNames[lastChar].name;
           console.log(document.cookie);
           if (username.trim().length > 0) {
               inTheGame = true;
@@ -208,12 +209,8 @@
 
       } else if (modal == 'F') {
           username = document.getElementById('username').value;
-<<<<<<< HEAD
           document.cookie = "username="+username;
           console.log(document.cookie);
-=======
-          document.cookie = "username=" + username;
->>>>>>> 4865d12811e109a78a436d7a88641fd77ab2f7a1
           if (username.trim().length != 0) {
               inTheGame = true;
               $('#user_input').addClass('disabled');
@@ -253,7 +250,7 @@
       } else if (URL == "Base Militar Luna") {
           countMapEspacio++;
           dbRefMapEspacio.set(countMapEspacio);
-      } else if (URl == "Cueva de hielo") {
+      } else if (URL == "Cueva de hielo") {
           countMapIce++;
           dbRefMapIce.set(countMapEspacio);
       } else if (URL == "Libertalia") {
@@ -271,7 +268,7 @@
   }
   //Ahora detectaremos cuando alguien se salga de la sala de espera.
   window.onbeforeunload = function() {
-      if (inTheGame && connectedUsers < 1) {
+      if (inTheGame && connectedUsers < 2) {
           players.child(myConection).remove();
           connectedUsers--;
           UserConectionRef.set(connectedUsers);

@@ -39,43 +39,42 @@ createCanvas(screen.width,screen.height);
 engine = Engine.create();
 world = engine.world;
 world.gravity.y = 2.5;
-<<<<<<< HEAD
-background = loadImage("forest_level.png");
-=======
-background = loadImage(getData());
 
-socket = io.connect('http://192.168.0.10:4000', { query: "id="+document.cookie });
-socket.emit('gamemode', gamemode);
-socket.on('newplayer', newPlayer);
->>>>>>> 4865d12811e109a78a436d7a88641fd77ab2f7a1
-
-var cookies = document.cookie;
-var splited = cookies.split(";");
-console.log(splited);
-for (var i = 0; i < splited.length - 1; i++) {
-	let aux = splited[i].split("=");
-	console.log(aux);
-}
-let aux2 = splited[2].split(",");
-for (var i = 0; i < aux2.length; i++) {
-		let id = aux2[i];
-		let skin = aux2[i+1];
-		i++;
-		console.log("id: "+id+" - skin: "+skin);
-	}
-
-	let id = aux2[0];
-	//let id = "Roger"+Math.random();
-	let skin = aux2[1];	
-socket = io.connect('http://192.168.0.12:4000', { query: "id="+id});
+ var cookies = document.cookie;
+ var splited = cookies.split(";");
+ if (splited.length == 5) {
+ 	splited.splice(0,1);
+ }
+ let aux = [];
+ console.log(splited);
+ let id;
+ let char;
+ var map;
+ for (var i = 0; i < splited.length; i++) {
+ 	let aux = splited[i].split("=");
+ 	console.log(aux);
+ 	//console.log(aux[0].trim() == "username");
+ 	if (aux[0].trim() == "username") {
+ 		id = aux[1];
+ 	}
+ 	//console.log(aux[0].trim() == "char");
+ 	if (aux[0].trim == "char") {
+ 		char = aux[1];
+ 	}
+ 	console.log(aux[0].trim());
+ 	if (aux[0].trim() == "finalmap") {
+ 		map = aux[1];
+ 	}
+ 	console.log(map);
+ }
+socket = io.connect('http://192.168.0.12:4000', { query: "id="+id });	
 socket.emit('gamemode', gamemode);
 socket.on('newplayer', newPlayer);
 
 	player = new Player(width/2,height/2,20,id);
 	console.log(player);
 	players.push(player);
-// let player2 = new Player(width/2,height/2,20,id+"STEVE");
-// players.push(player2);
+
 socket.on('jumping',jump);
 socket.on('gleft',left);
 socket.on('gright',right);
@@ -97,6 +96,8 @@ socket.on('dead',function(data){
 });
 socket.on('bomb',function(data){
 	console.log(data);
+	let p = getPlayerById(data.id);
+	p.bomb = data.b;
 });
 socket.on('playersupdate',newupdate);
 socket.on('posupdate',posupdate);
@@ -104,11 +105,15 @@ socket.on('gamemode', function(g){gamemode = g});
 socket.on('gameStart',function(id){
 	console.log("GameStart");
 	console.log(id);
+	for (var i = 0; i < players.length; i++) {
+		players[i].bomb = false;
+	}
 	let p = getPlayerById(id);
 	p.bomb = true;
 })          
 frameRate(60);
- 	
+ 	//Set Background
+ 	loadBackground(map);
 
 	//Set World Bounds
 	setWorldBounds();
@@ -152,8 +157,8 @@ frameRate(60);
 			 player.alive = false;
 		}
 
-		// console.log(bA);
-		// console.log(bB);
+		 //console.log(bA);
+		 //console.log(bB);
 		if (bA.label == 'player' && bA.id != bB.id && bB.label == 'player') {
 			bA = getPlayerById(bA.id);
 			bB = getPlayerById(bB.id);
@@ -164,7 +169,7 @@ frameRate(60);
 				p = bA; 
 				s = bB;
 			}
-				else if(bB == player.id){ 
+				else if(bB.id == player.id){ 
 					p = bB; 
 					s = bA;
 				}else{
@@ -203,7 +208,7 @@ frameRate(60);
 			id: player.id
 		};
 		socket.emit('posupdate',data);
-	},5000);
+	},2000);
 
 	var speed = 800;
 	var blocks = 1;
@@ -257,16 +262,11 @@ fallingBlocks(function(){
 
 }
 
-function mousePressed(){
-	obstacles.push(new Box(mouseX,mouseY,50, 50, "block"));
-}
-
-
 var sw5 = 0;
 
 //Renders the world
 function draw () {
-	if (sw5 == 0) {
+	if (sw5 == 0 && gamemode == 0) {
 		socket.emit('gameStart');
 		sw5 = 1;
 	}
@@ -522,6 +522,20 @@ function loadAnimations(){
 		dying.push(image);
 	}
 
+}
+
+function loadBackground(map){
+	let maps = getMaps();
+	let image;
+	for (var i = 0; i < maps.length; i++) {
+		console.log(maps[i].name);
+		console.log(map);
+			if (maps[i].name == map) {
+				image = maps[i].image;
+			}
+		}	
+	console.log(image);
+	background = loadImage(image);
 }
 
 function loadPlatforms() {
