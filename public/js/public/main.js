@@ -63,8 +63,8 @@ var characterNames = [{
         "img": "assets/chars/Maton/PNG Sequences/Idle/Idle_000.png"
     },
     {
-        "name": "Nemesis",
-        "img": "assets/chars/meteorite.png"
+        "name": "Conejo",
+        "img": "assets/chars/Rabbit/Idle/Idle_000.png"
     },
     {
         "name": "Brujo",

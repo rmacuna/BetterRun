@@ -25,12 +25,12 @@
   // Referencias a la base de datos.
   var UserConectionRef = firebase.database().ref('Conections/');
   var players = firebase.database().ref('Players/');
-  var dbRefMapDesert = firebase.database().ref('Desierto/');
-  var dbRefMapBosque = firebase.database().ref('Bosque/');
-  var dbRefMapIce = firebase.database().ref('CuevaHielo/');
-  var dbRefMapEspacio = firebase.database().ref('Espacio/');
-  var dbRefMapLibertalia = firebase.database().ref('Libertalia/');
-  var dbRefMapCementerio = firebase.database().ref('Cementerio/');
+  var dbRefMapDesert = firebase.database().ref('selectedMaps/Desierto/');
+  var dbRefMapBosque = firebase.database().ref('selectedMaps/Bosque/');
+  var dbRefMapIce = firebase.database().ref('selectedMaps/CuevaHielo/');
+  var dbRefMapEspacio = firebase.database().ref('selectedMaps/Espacio/');
+  var dbRefMapLibertalia = firebase.database().ref('selectedMaps/Libertalia/');
+  var dbRefMapCementerio = firebase.database().ref('selectedMaps/Cementerio/');
   var dbRefFallingB = firebase.database().ref('FallingBlocks/');
   var dbRefBombTag = firebase.database().ref('BombTag/');
   var dbRefFinalMap = firebase.database().ref('finalmap/');
@@ -48,11 +48,29 @@
 
   function dataMode(dataMode) {
       countBT = dataMode.val();
+      if (connectedUsers == 3) {
+        if (countBT > countFB) {
+          dbRefFinalMode.set('BombTag');
+        }else if (countBT == countFB){
+          dbRefFinalMode.set('FallingBlocks');
+        }else if(countBT < countFB){
+          dbRefFinalMode.set('FallingBlocks');
+        }
+      }
   }
   dbRefFallingB.on('value', dataMode2);
 
   function dataMode2(dataMode2) {
       countFB = dataMode2.val();
+      if (connectedUsers == 3) {
+        if (countFB > countBT) {
+          dbRefFinalMode.set('FallingBlocks');
+        }else if (countBT == countFB){
+          dbRefFinalMode.set('FallingBlocks');
+        }else if (countFB < countBT){
+          dbRefFinalMode.set('BombTag');
+        }
+      }
   }
   // Este pedazo del codigo escucha cuando hay cambios en los contadores en firebase de quienes han seleccionado
   // Estos mapas. 
@@ -94,7 +112,7 @@
 
 
   UserConectionRef.on("value", function(snapshot) {
-      if (connectedUsers == 2) {
+      if (connectedUsers == 3) {
           firebase.database().ref('Players/').once('value', function(snapshot) {
               snapshot.forEach(function(childSnapshot) {
                   var str = JSON.stringify(childSnapshot.val());
@@ -102,8 +120,40 @@
                   showConection(json["username"], " se ha unido a la partida");
               });
           });
-          finalModal = selectedModals[Math.floor(Math.random() * selectedModals.length - 1)];
-          console.log(finalmap);
+
+          firebase.database().ref('selectedMaps').once('value', function(snapshot) {
+              var may = 0;
+              var pos = 0;
+              var i = 0;
+              snapshot.forEach(function(childSnapshot) {
+                  var value = childSnapshot.val();
+                  if (value > may) { 
+                    may = value; 
+                    pos = i;
+                  }
+                  i++;
+              });
+              switch (pos) {
+                  case 0:
+                      firebase.database().ref('finalmap').set("Bosque");
+                      break;
+                  case 1:
+                      firebase.database().ref('finalmap').set("Desierto");
+                      break;
+                  case 2:
+                      firebase.database().ref('finalmap').set("CuevaHielo");
+                      break;
+                  case 3:
+                      firebase.database().ref('finalmap').set("Libertalia");
+                      break;
+                  case 5:
+                       firebase.database().ref('finalmap').set("Luna");
+                  case 6:
+                      firebase.database().ref('finalmap').set("Cementerio");
+              }
+          });
+
+
           // pushGameInfo(finalmap, usernames, finalModal);
           initGame();
       } else {
@@ -134,7 +184,6 @@
   }
 
   // Corregir el unload porque cuando se mete al juego nos saca a todos.
-
   function pushInformation(modal) {
       if (modal == 'B') {
           username = document.getElementById('username').value;
@@ -183,23 +232,23 @@
       });
 
       if (URL == "El bosque") {
-        countMapBosque++;
-        dbRefMapBosque.set(countMapBosque);
-      }else if (URL == "El desierto"){
-        countMapDesert++;
-        dbRefMapDesert.set(countMapDesert);
-      }else if (URL == "Cementerio"){
-        countMapCementerio++;
-        dbRefMapCementerio.set(countMapDesert);
-      }else if (URL == "Base Militar Luna"){
-        countMapEspacio++;
-        dbRefMapEspacio.set(countMapEspacio);
-      }else if (URl == "Cueva de hielo"){
-        countMapIce++;
-        dbRefMapIce.set(countMapEspacio);
-      }else if(URL == "Libertalia"){
-        countMapLibertalia++;
-        dbRefMapLibertalia.set(countMapLibertalia);
+          countMapBosque++;
+          dbRefMapBosque.set(countMapBosque);
+      } else if (URL == "El desierto") {
+          countMapDesert++;
+          dbRefMapDesert.set(countMapDesert);
+      } else if (URL == "Cementerio") {
+          countMapCementerio++;
+          dbRefMapCementerio.set(countMapDesert);
+      } else if (URL == "Base Militar Luna") {
+          countMapEspacio++;
+          dbRefMapEspacio.set(countMapEspacio);
+      } else if (URl == "Cueva de hielo") {
+          countMapIce++;
+          dbRefMapIce.set(countMapEspacio);
+      } else if (URL == "Libertalia") {
+          countMapLibertalia++;
+          dbRefMapLibertalia.set(countMapLibertalia);
       }
       if (modality == 'BombTag') {
           countBT++;
@@ -211,6 +260,9 @@
       UserConectionRef.set(connectedUsers);
   }
 
+  function getUsName () {
+    return username;
+  }
   //Ahora detectaremos cuando alguien se salga de la sala de espera.
   window.onbeforeunload = function() {
       if (inTheGame && connectedUsers < 2) {
