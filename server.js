@@ -7,19 +7,35 @@ app.use(express.static('public'));
 app.use( express.static('../assets/chars/Chibi Smaurai 01 (Conical Hat)/PNG/PNG Sequences/Small/')); 
 console.log("Socket Server runnig");
 var ordenIDS = [];
-var index;
+
+var startingPositions = [{x: 120,y: 130},{x: 580,y: 330},{x: 168,y: 710},{x: 1200,y: 530}];
+var test = ["Roger","Roberto","Daniel","Andrea"];
 // var socket = require('socket.io');
 // var io = socket(server);
 var io = require('socket.io')(server);
 var index = 0;
+var players = [];
 io.use(function(socket, next) {
   var handshakeData = socket.request;
   let id = handshakeData._query['id'];
+  //id = test[index];
   ordenIDS[index] = id;
-  index++;
-  console.log(index);
   console.log("id:", id);
-  socket.broadcast.emit('newplayer',id);
+  let data = {	
+  	x: startingPositions[index].x,
+  	y: startingPositions[index].y,
+  	id: id
+  };
+  players.push(data);
+  console.log("32 "+ index);
+  if (index < 3) {
+  	 index++;
+  }
+  setTimeout(function(){
+  	io.sockets.emit('startingPosition',players);
+  },1000);
+  
+  //socket.broadcast.emit('newplayer',data);
   next();
 });
 
@@ -54,14 +70,15 @@ function newConnection(socket){
 	function bomb(data){
 		socket.broadcast.emit('bomb',data);
 	}
+	socket.on('block',block);
+	function block(data){
+		io.sockets.emit('block',data);
+	}
 
 	socket.on('gameStart',function(){
-		if(index > 1){
-			index--
-		};
-		console.log('GameStart');
+		console.log('GameStart' + test);
 		//console.log(ordenIDS[index]);
-		socket.emit('gameStart',ordenIDS[index]);
+		socket.emit('gameStart',"Roger");
 	})
 
 	socket.on('playersupdate', newupdate);
