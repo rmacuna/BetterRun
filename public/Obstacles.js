@@ -109,7 +109,7 @@ function Player(x, y, r, id) {
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -1, y: 0});
 		}else{
-			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -11, y: 0});
+			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: -13, y: 0});
 //		console.log("left");
 	}
 	this.state = "left";
@@ -119,7 +119,7 @@ function Player(x, y, r, id) {
 		if (cooldown == 5) {
 			Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 1, y: 0});
 		}else{
-		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 11, y: 0});
+		Matter.Body.applyForce(this.body, { x: this.pos.x, y: this.pos.y }, {x: 13, y: 0});
 	}
 	this.state = "right";
 //		console.log("right");

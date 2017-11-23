@@ -66,6 +66,50 @@ world.gravity.y = 2.5;
  		map = aux[1];
  	}
  	console.log(map);
+  switch (map) {
+    case "Bosque":
+      var audio = document.getElementById('track');
+      audio.src = "assets/music/BetterRun.mp3";
+      audio.volume = '0.2';
+      audio.loop = true;
+      audio.play();
+      break;
+    case "Desierto":
+      var audio = document.getElementById('track');
+      audio.src = "assets/music/DesertMap.mp3";
+      audio.volume = '0.2';
+      audio.loop = true;
+      audio.play();
+      break;
+    case "Cementerio":
+      var audio = document.getElementById('track');
+      audio.src = "assets/music/HalloweenMap.mp3";
+      audio.loop = true;
+      audio.play();
+      break;
+    case "CuevaHielo":
+    var audio = document.getElementById('track');
+    audio.src = "assets/music/Cave.mp3";
+    audio.volume = '0.2';
+    audio.loop = true;
+    audio.play();
+      break;
+    case "Espacio":
+      var audio = document.getElementById('track');
+      audio.src = "assets/music/SpaceMap.mp3";
+      audio.volume = '0.2';
+      audio.playbackRate = 1.1;
+      audio.loop = true;
+      audio.play();
+      break;
+    case "Libertalia":
+      var audio = document.getElementById('track');
+      audio.src = "assets/music/spaceship.mp3";
+      audio.volume = '0.2';
+      audio.loop = true;
+      audio.play();
+      break;
+  }
  }
 socket = io.connect('http://192.168.0.10:4000', { query: "id="+id });	
 socket.emit('gamemode', gamemode);
@@ -178,11 +222,8 @@ frameRate(60);
 				}
 				if (sw) {
 			if (bA.bomb == true || bB.bomb == true){
-				console.log("Pass the bomb");
-					var a = document.getElementById('explotionCounter');
-					a.load();
-					a.volume = 0.02
-					a.play();
+				 console.log("Pass the bomb");
+					makeBombSoundCounter();
 					if (p.bomb == false){
 						s.bomb = false;
 						p.bomb = true;
@@ -193,6 +234,7 @@ frameRate(60);
 						// socket.emit('bomb',data);
 						
 					}else{
+            makeBombSoundCounter();
 						p.bomb = false;
 						s.bomb = true;
 						let data = {
@@ -205,7 +247,13 @@ frameRate(60);
 			}
 		}
 	}
-
+  
+  function makeBombSoundCounter(){
+    var a = document.getElementById('explotionCounter');
+    a.load();
+    a.volume = 0.02
+    a.play();
+  }
 	setInterval(function(){
 		let data = {
 			pos: player.pos,
