@@ -117,7 +117,7 @@ world.gravity.y = 2.5;
   }
  }
 socket = io.connect('http://192.168.0.12:4000', { query: "id="+id });
-//socket = io.connect('http://192.168.0.12:4000');	
+//socket = io.connect('http://192.168.0.12:4000');
 socket.emit('gamemode', gamemode);
 socket.on('newplayer', newPlayer);
 socket.on('startingPosition',function(data){
@@ -126,7 +126,7 @@ socket.on('startingPosition',function(data){
 	console.log(id);
 	console.log(data.id == "Roger");
 	for (var i = 0; i < data.length; i++) {
-		let current = data[i];		
+		let current = data[i];
 		if (current.id == id) {
 			if (player == null) {
 			player = new Player(current.x,current.y,20,id);
@@ -150,7 +150,7 @@ socket.on('startingPosition',function(data){
 		}
 	}
 });
-	
+
 
 socket.on('jumping',jump);
 socket.on('gleft',left);
@@ -168,7 +168,7 @@ socket.on('dead',function(data){
 			players[i].state = data.s;
 			//console.log(players[i].id + "-" + players[i].s);
 		}
-		
+
 	}
 });
 socket.on('bomb',function(data){
@@ -191,7 +191,7 @@ socket.on('gameStart',function(id){
 	console.log("Player with the bomb" + id);
 	let p = getPlayerById(id);
 	p.bomb = true;
-})          
+})
 frameRate(60);
  	//Set Background
  	loadBackground(map);
@@ -227,11 +227,11 @@ frameRate(60);
 		if (bB.label == 'player' && bA.label == 'bottom') {
 			cooldown = 0;
 		}
-		
+
 		if (bA.label == 'player' && bA.id == player.id && bB.label == 'block') {
 			//console.log("dead");
 			 player.alive = false;
-			 
+
 		}
 		if (bB.label == 'player' && bB.id === player.id && bA.label == 'block') {
 			//console.log("dead");
@@ -247,11 +247,11 @@ frameRate(60);
 			let s;
 			let sw = true;
 			if (bA.id == player.id){
-				p = bA; 
+				p = bA;
 				s = bB;
 			}
-				else if(bB.id == player.id){ 
-					p = bB; 
+				else if(bB.id == player.id){
+					p = bB;
 					s = bA;
 				}else{
 					console.log("Not mi player");
@@ -270,8 +270,8 @@ frameRate(60);
 						setTimeout(function(){
 							socket.emit('bomb',data);
 						},500);
-						 
-						
+
+
 					}else{
             			makeBombSoundCounter();
 						p.bomb = false;
@@ -281,13 +281,13 @@ frameRate(60);
 						}
 						 setTimeout(function(){
 							socket.emit('bomb',data);
-						},500); 
-					} 
+						},500);
+					}
 				}
 			}
 		}
 	}
-  
+
   function makeBombSoundCounter(){
     var a = document.getElementById('explotionCounter');
     a.load();
@@ -331,7 +331,7 @@ frameRate(60);
 
 // console.log() requires firebug
 console.log("Gamemode" + gamemode);
-if (gamemode == 1) {    
+if (gamemode == 1) {
 fallingBlocks(function(){
 		var Xpos = [];
 		for (var i = 0; i < Math.floor(blocks); i++) {
@@ -350,17 +350,17 @@ fallingBlocks(function(){
 				sw = 1;
 			}
 		}
-			Xpos.push(x); 
+			Xpos.push(x);
 		}
 		for (var i = 0; i < Xpos.length; i++) {
 			socket.emit('block',Xpos[i]);
 			//obstacles.push(new Box(Xpos[i],0,50, 50, "block"));
 		}
 }, 10);
-}		
+}
 }
 if (gamemode == 1) {
-	setTimeout(function(){socket.emit('gameStart');},5000);	
+	setTimeout(function(){socket.emit('gameStart');},5000);
 }
 
 
@@ -387,7 +387,7 @@ function draw () {
 	if (keyIsDown(UP_ARROW) && cooldown < 5) {
 		socket.emit('jumping',player.id);
 		player.jump();
-			cooldown++; 
+			cooldown++;
 	}
 	if (keyIsDown(LEFT_ARROW)) {
 		let data = {
@@ -456,14 +456,14 @@ function draw () {
     	break;
     default:
         state = {s:idle};
-}	
+}
 		let index = players[i].index;
 		//console.log(state);
 		players[i].show(state, index);
 	}
  }
 }
-//end of draw	
+//end of draw
 
 //Sets world bounds
 function setWorldBounds(){
@@ -555,7 +555,7 @@ function stop(data){
 
 function dead(data){
 	console.log("Player "+ data.id + " dead");
-	
+
 }
 
 // Para el samurai
@@ -620,7 +620,7 @@ function loadBackground(map){
 			if (maps[i].name == map) {
 				image = maps[i].image;
 			}
-		}	
+		}
 	background = loadImage(image);
 }
 

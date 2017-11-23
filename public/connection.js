@@ -36,10 +36,10 @@
   var dbRefFinalMap = firebase.database().ref('finalmap/');
   var dbRefFinalMode = firebase.database().ref('finalmodal/');
 
-  // Funcion que escucha cuando cambian datos en los usuarios conectados. 
+  // Funcion que escucha cuando cambian datos en los usuarios conectados.
   UserConectionRef.on('value', data);
 
-  
+
   function data(data) {
     connectedUsers = data.val();
     console.log(connectedUsers);
@@ -86,7 +86,7 @@
 
 
   // Este pedazo del codigo escucha cuando hay cambios en los contadores en firebase de quienes han seleccionado
-  // Estos mapas. 
+  // Estos mapas.
   dbRefMapDesert.on('value', dataMapDesert);
 
   function dataMapDesert(dataMapDesert) {
@@ -281,17 +281,8 @@
       UserConectionRef.set(connectedUsers);
     }
   };
-
-
-
-  
   // Manejo de cookies
-
   var d = new Date();
   d.setTime(d.getTime() + (10 * 1000));
   document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + d) + ";path=/"; });
   document.cookie = "finalmap"+"="+d+"; path=/";
-  
-  
-  
-  
