@@ -12,25 +12,6 @@
   var dbRef = firebase.database().ref('finalmap/');
   var dbRefGMode = firebase.database().ref('finalModal/');
   var dbRefPlayers = firebase.database().ref('Players/');
-
-  let data;
-
-  dbRef.once('value')
-  .then(function (result) {
-    return snapshot.val();
-    console.log(result.val());
-  })
-  .catch(function (err) {
-    console.log('Error', err.code);
-  });
-
-  function gameMode() {
-      dbRefGmode.on('value', function(snapshot) {
-          return snapshot.val();
-      });
-  }
-
-
   const maps = [{
           "name": "Bosque",
           "gravity": "estandar",
@@ -91,13 +72,6 @@
           return 1;
       }
   }
-
-  function getArrOfPlayers() {
-      var browserCookies = document.cookie.split(';');
-      var plyers = browserCookies[2];
-      return plyers;
-  }
-
   function getFinalMap() {
       var browserCookies = document.cookie.split(';');
       var map = browserCookies[1].split('=')[1];

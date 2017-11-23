@@ -111,7 +111,7 @@ world.gravity.y = 2.5;
       break;
   }
  }
-socket = io.connect('http://192.168.0.10:4000', { query: "id="+id });	
+socket = io.connect('http://localhost:4000', { query: "id="+id });
 socket.emit('gamemode', gamemode);
 socket.on('newplayer', newPlayer);
 
@@ -241,13 +241,13 @@ frameRate(60);
 							id: s.id,
 							b: s.bomb
 						}
-						// socket.emit('bomb',data); 
-					} 
+						// socket.emit('bomb',data);
+					}
 				}
 			}
 		}
 	}
-  
+
   function makeBombSoundCounter(){
     var a = document.getElementById('explotionCounter');
     a.load();
@@ -284,7 +284,7 @@ frameRate(60);
 };
 
 // console.log() requires firebug
-if (gamemode == 1) {    
+if (gamemode == 1) {
 fallingBlocks(function(){
 		var Xpos = [];
 		for (var i = 0; i < Math.floor(blocks); i++) {
