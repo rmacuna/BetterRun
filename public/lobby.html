@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BetterRun</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    
+    <link rel="stylesheet" type="text/css" href="../css/SemanticUI/semantic.min.css">
+    <style type="text/css">
+    body {
+        width: 100%;
+        height: 100vh;
+        align-content: center;
+        align-items: center;
+        padding-top: 5.0rem;
+        background: linear-gradient(141deg, #f06 0%, #C51162 51%, #880E4F 75%);
+        background-position-x: initial;
+        background-position-y: initial;
+        background-size: initial;
+        background-attachment: initial;
+        background-origin: initial;
+        background-clip: initial;
+        background-color: initial;
+        min-height: 30rem;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        padding-bottom: 2.0rem;
+        margin-top: 2.0rem;
+    }
+    </style>
+</head>
+
+<body id="body-content">
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <button id="btnPrev" onclick="prevChar()" class="move-arrow-left hoverableSound"><i class="arrow left icon"></i></button>
+    <button id="btnNext" onclick="nextChar()" class="move-arrow-right hoverableSound"><i class="arrow right icon"></i></button>
+    <div class="ui grid container">
+        <div class="flex-center">
+            <div class="text-white">
+                <div class="ui equal width centered grid">
+                    <div class="row">
+                        <div class="ui centered column">
+                            <div class="c-user-card">
+                                <div class="user-id">
+                                    <p id="username1">El Samurai</p>
+                                </div>
+                                <div id="avatar_img_1" class="c-content">
+                                    <img class="ui medium image" id="charImage" src="assets/chars/Chibi Smaurai 01 (Conical Hat)/PNG/PNG Sequences/Small/Idle/Idle_000.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span id="wating-players" class="bottom-text">Esperando otros jugadores...
+                     <div class="ui active inverted inline loader"></div>
+                     <div class="separated-min"></div>
+                     <div class="center">
+                          <div id="user_input" class="ui action input">
+                            <input id="username" type="text" placeholder="Search...">
+                            <div data-tooltip="Pasa la bomba al personaje mas cercano a ti antes de que te explote, ganará el último en pie." class="ui button hoverableSound" id="btn-play" onclick="pushInformation('B')" class="ui button">Bomb Tag</div>
+
+                            <div onclick="pushInformation('F')" data-tooltip="Evita los bloques que caen del cielo o morirás, ganará el último en pie." id="btn-blocks" class="ui button hoverableSound">Falling Blocks</div>
+                          </div>
+                     </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div id="snackbar"></div>
+    </div>
+    <audio id="BetterRun" src="../assets/music/BetterRun.mp3"></audio>
+    <script type="text/javascript">
+    // var audio = document.getElementById("BetterRun");
+    // audio.autoplay = true;
+    // audio.volume = 0.2;
+    // audio.loop = true;
+    // audio.play();
+    </script>
+</body>
+
+</html>

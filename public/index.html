@@ -21,21 +21,6 @@
         background-size: cover;
     }
 
-    .text-black {
-        color: black;
-    }
-
-    .text-white {
-        color: #FFF;
-    }
-
-    .flex-center {
-        align-items: center;
-        height: 35vh;
-        display: flex;
-        justify-content: center;
-    }
-
     .button-center {
         display: flex;
         padding-top: 100px;
@@ -61,14 +46,12 @@
                             </div>
                             <div class="c-card-container">
                                 <audio src="../assets/sounds/click.mp3" id="audioPlay"></audio>
-                                <button onclick="playGame()" class="ui hoverableSound fluid orange huge button">Play <i class="separated play icon"></i></button>
+                                <button onclick="playGame()" class="ui hoverableSound fluid orange huge button">Jugar <i class="separated play icon"></i></button>
                                 <div class="separator"></div>
-                                <button onclick="showInstructions()" class="ui hoverableSound fluid orange huge button ">Instruccions</i>
+                                <button onclick="showInstructions()" class="ui hoverableSound fluid orange huge button ">Instrucciones</i>
                                 </button>
                                 <div class="separator"></div>
-                                <button onclick="showSettings()" class="ui hoverableSound fluid orange huge button">Settings</button>
-                                <div class="separator"></div>
-                                <button onclick="about()" class="ui hoverableSound fluid orange huge button">About</button>
+                                <button onclick="about()" class="ui hoverableSound fluid orange huge button">Informacion</button>
                                 <div class="separator"></div>
                                 <span id="type"></span>
                             </div>
@@ -96,7 +79,7 @@
             <div class="description">
                 <div class="ui header text-black">Asi es como funciona el juego.</div>
                 <p class="text-black">Existen dos modalidades de juego, en las que se encuentran Falling Blocks y Bomb Tag.</p>
-                <p class="text-black">Muevete con las flechas de tu teclado y salta con barra espaciadora. En ambos juegos la mecanica es basicamente la misma, mejor corre y asi sobreviviras.</p>
+                <p class="text-black">Muevete con las flechas de tu teclado, en ambos juegos la mecanica es basicamente la misma, mejor corre y asi sobreviviras.</p>
                 <h4 class="text-black">Bomb Tag</h4>
                 <p class="text-black"> Escapa de tus enemigos lo mas lejos que puedas, uno de ellos tiene una bomba encima y te la quiere pasar. En este modo de juego, debes huir del jugador que posee la bomba</p>
                 <h4 class="text-black">Falling Blocks</h4>
@@ -163,18 +146,19 @@
             </div>
         </div>
     </div>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../css/SemanticUI/semantic.min.js"></script>
     <script src="../js/typed.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script src="../js/public/main.js"></script>
+    <script src="connection.js"></script>
     <audio id="BetterRun" src="../assets/music/BetterRun.mp3"></audio>
     <script>
     setTimeout(function() {
         var typed = new Typed('#type', {
-            strings: ['This is a very funny game.',
-                'In BombTag, if another player touch you, try to pass the bomb to the closest player or you will die',
-                'In Falling Blocks, avoid the enemys that falls from the heaven',
-                'Have fun.... :D',
+            strings: [
                 'Este es un juego muy divertido',
                 'En BombTag, si otro jugador te toca, trata de pasarle la bomba a el jugador mas cercano o moriras',
                 'En FallingBlocks, elude a los enemigos que caen del cielo o moriras',
@@ -189,15 +173,17 @@
         });
     }, 2500);
     </script>
-
     <script type="text/javascript">
-         window.onload = function () {
-            var audio = document.getElementById("BetterRun");
-            audio.autoplay = true;
-            audio.volume = 0.2;
-            audio.play();
-         }
+         // window.onload = function () {
+         //    var audio = document.getElementById("BetterRun");
+         //    audio.autoplay = true;
+         //    audio.volume = 0.2;
+         //    audio.loop = true;
+         //    audio.play();
+
+         // }
     </script>
+    <script src="reset.js"></script>
 </body>
 
 

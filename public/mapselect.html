@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/SemanticUI/semantic.min.css">
-    <style>
+    <style id="stylemap">
     body {
         width: 100%;
         align-content: center;
@@ -27,6 +27,7 @@
     </style>
 </head>
 <body id="body-content">
+    <div id="animateScene"></div>
     <div id="loader-wrapper">
         <div id="loader"></div>
         <div class="loader-section section-left"></div>
@@ -58,17 +59,17 @@
                 </div>
             </div>
             <div class="description">
-                <div class="ui header text-black">Asi es como funciona el juego.</div>
                 <div class="c-container" id="mapDescription"></div>
             </div>
         </div>
         <div class="actions">
-            <div class="ui positive right labeled icon button">
-                Ok
+            <div onclick="loadMapMenu()" class="ui positive right labeled icon button">
+                Continuar
                 <i class="checkmark icon"></i>
             </div>
         </div>
     </div>
+
     <div id="sound"></div>
     <audio id="audioPassLevel" src="../assets/sounds/btnpress.mp3"></audio>
     <script src="../js/public/main.js"></script>
@@ -83,7 +84,6 @@
     });
     </script>
     <script type="text/javascript">
-
         document.getElementById('sound').innerHTML = "";
         var sound = document.getElementById('sound')
 
