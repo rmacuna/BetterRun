@@ -1,6 +1,7 @@
 function Box(x, y, w, h,label) {
     var options = {
         friction: 0,
+        frictionAir: 0.2,
         restitution: 0
     }
     this.texture = loadImage("assets/chars/brick-wall.png",function(image){

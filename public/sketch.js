@@ -10,8 +10,8 @@ var bounds = [];
 var obstacles = [];
 
 //Player vars
-var id = null;
-var player;
+var id = "Roger";
+var player = null;
 var cooldown = 0;
 var players = [];
 
@@ -31,10 +31,9 @@ var jumping = [];
 var dying = [];
 
 //Game vars
-var gamemode = 0;
+var gamemode;
 
 function setup () {
-console.log(screen.width,screen.height);	
 createCanvas(screen.width,screen.height);
 engine = Engine.create();
 world = engine.world;
@@ -46,33 +45,39 @@ world.gravity.y = 2.5;
  	splited.splice(0,1);
  }
  let aux = [];
- console.log(splited);
- let id;
  let char;
  var map;
  for (var i = 0; i < splited.length; i++) {
  	let aux = splited[i].split("=");
- 	console.log(aux);
  	//console.log(aux[0].trim() == "username");
  	if (aux[0].trim() == "username") {
  		id = aux[1];
  	}
  	//console.log(aux[0].trim() == "char");
- 	if (aux[0].trim == "char") {
+ 	if (aux[0].trim() == "char") {
  		char = aux[1];
  	}
- 	console.log(aux[0].trim());
  	if (aux[0].trim() == "finalmap") {
  		map = aux[1];
  	}
- 	console.log(map);
+ 	if (aux[0].trim() == "finalmode") {
+ 		let mode = aux[1];
+ 		switch (mode){
+ 			case "BombTag":
+ 			gamemode = 0;
+ 			break;
+ 			case "FallingBlocks":
+ 			gamemode = 1;
+ 			break;
+ 		}
+ 	}
   switch (map) {
     case "Bosque":
-      var audio = document.getElementById('track');
-      audio.src = "assets/music/BetterRun.mp3";
-      audio.volume = '0.2';
-      audio.loop = true;
-      audio.play();
+      // var audio = document.getElementById('track');
+      // //audio.src = "assets/music/BetterRun.mp3";
+      // audio.volume = '0.2';
+      // audio.loop = true;
+      // audio.play();
       break;
     case "Desierto":
       var audio = document.getElementById('track');
@@ -111,50 +116,82 @@ world.gravity.y = 2.5;
       break;
   }
  }
-socket = io.connect('http://localhost:4000', { query: "id="+id });
+socket = io.connect('http://192.168.0.12:4000', { query: "id="+id });
+//socket = io.connect('http://192.168.0.12:4000');
 socket.emit('gamemode', gamemode);
 socket.on('newplayer', newPlayer);
+socket.on('startingPosition',function(data){
+	//id = "Roger";
+	console.log(data);
+	console.log(id);
+	console.log(data.id == "Roger");
+	for (var i = 0; i < data.length; i++) {
+		let current = data[i];
+		if (current.id == id) {
+			if (player == null) {
+			player = new Player(current.x,current.y,20,id);
+			console.log(player);
+			players.push(player);
+			}
+		}else{
+			let sw = 0;
+			for (var i = 0; i < players.length; i++) {
+				if (current.id == players[i].id) {
+					sw = 1;
+				}
+			}
+			if (sw == 1) {
+				console.log("Ya tengo a este jugador");
+			}else{
+				let np = new Player(current.x,current.y,20,current.id);
+				console.log(np);
+				players.push(np);
+			}
+		}
+	}
+});
 
-	player = new Player(width/2,height/2,20,id);
-	console.log(player);
-	players.push(player);
 
 socket.on('jumping',jump);
 socket.on('gleft',left);
 socket.on('gright',right);
 socket.on('stop', stop);
 socket.on('dead',function(data){
-	console.log(data);
+	//console.log(data);
 	let id = data.id;
 	var state = data.state;
 	//console.log('stop');
 	for (var i = 0; i < players.length; i++) {
-		console.log(players[i].id === id);
+		//console.log(players[i].id === id);
 		if(players[i].id === id){
 			players[i].alive = false;
 			players[i].state = data.s;
-			console.log(players[i].id + "-" + players[i].s);
+			//console.log(players[i].id + "-" + players[i].s);
 		}
-		
+
 	}
 });
 socket.on('bomb',function(data){
-	console.log(data);
+	//console.log(data);
 	let p = getPlayerById(data.id);
 	p.bomb = data.b;
+});
+socket.on('block',function(data){
+	obstacles.push(new Box(data,-500,50, 50, "block"));
 });
 socket.on('playersupdate',newupdate);
 socket.on('posupdate',posupdate);
 socket.on('gamemode', function(g){gamemode = g});
 socket.on('gameStart',function(id){
-	console.log("GameStart");
-	console.log(id);
+	// console.log("GameStart");
+	// console.log(id);
 	for (var i = 0; i < players.length; i++) {
 		players[i].bomb = false;
 	}
+	console.log("Player with the bomb" + id);
 	let p = getPlayerById(id);
 	p.bomb = true;
-})          
+})
 frameRate(60);
  	//Set Background
  	loadBackground(map);
@@ -190,14 +227,14 @@ frameRate(60);
 		if (bB.label == 'player' && bA.label == 'bottom') {
 			cooldown = 0;
 		}
-		
+
 		if (bA.label == 'player' && bA.id == player.id && bB.label == 'block') {
-			console.log("dead");
+			//console.log("dead");
 			 player.alive = false;
-			 
+
 		}
 		if (bB.label == 'player' && bB.id === player.id && bA.label == 'block') {
-			console.log("dead");
+			//console.log("dead");
 			 player.alive = false;
 		}
 
@@ -210,11 +247,11 @@ frameRate(60);
 			let s;
 			let sw = true;
 			if (bA.id == player.id){
-				p = bA; 
+				p = bA;
 				s = bB;
 			}
-				else if(bB.id == player.id){ 
-					p = bB; 
+				else if(bB.id == player.id){
+					p = bB;
 					s = bA;
 				}else{
 					console.log("Not mi player");
@@ -222,26 +259,29 @@ frameRate(60);
 				}
 				if (sw) {
 			if (bA.bomb == true || bB.bomb == true){
-				 console.log("Pass the bomb");
+				 //console.log("Pass the bomb");
 					makeBombSoundCounter();
 					if (p.bomb == false){
-						s.bomb = false;
 						p.bomb = true;
 						let data = {
-							id: s.id,
-							b: s.bomb
+							id: p.id,
+							b: p.bomb
 						}
-						// socket.emit('bomb',data);
-						
+						setTimeout(function(){
+							socket.emit('bomb',data);
+						},500);
+
+
 					}else{
-            makeBombSoundCounter();
+            			makeBombSoundCounter();
 						p.bomb = false;
-						s.bomb = true;
 						let data = {
-							id: s.id,
-							b: s.bomb
+							id: p.id,
+							b: p.bomb
 						}
-						// socket.emit('bomb',data);
+						 setTimeout(function(){
+							socket.emit('bomb',data);
+						},500);
 					}
 				}
 			}
@@ -255,7 +295,13 @@ frameRate(60);
     a.play();
   }
 	setInterval(function(){
+		let bomb;
+		//console.log(player.id+ "-" + player.bomb);
+		if (player.bomb != null) {
+			bomb = player.bomb;
+		}
 		let data = {
+			b: player.bomb,
 			pos: player.pos,
 			id: player.id
 		};
@@ -284,6 +330,7 @@ frameRate(60);
 };
 
 // console.log() requires firebug
+console.log("Gamemode" + gamemode);
 if (gamemode == 1) {
 fallingBlocks(function(){
 		var Xpos = [];
@@ -303,28 +350,33 @@ fallingBlocks(function(){
 				sw = 1;
 			}
 		}
-			Xpos.push(x); 
+			Xpos.push(x);
 		}
 		for (var i = 0; i < Xpos.length; i++) {
-			obstacles.push(new Box(Xpos[i],0,50, 50, "block"));
+			socket.emit('block',Xpos[i]);
+			//obstacles.push(new Box(Xpos[i],0,50, 50, "block"));
 		}
 }, 10);
-}		
+}
+}
+if (gamemode == 1) {
+	setTimeout(function(){socket.emit('gameStart');},5000);
 }
 
-var sw5 = 0;
 
 //Renders the world
 function draw () {
-	if (sw5 == 0 && gamemode == 0) {
-		socket.emit('gameStart');
-		sw5 = 1;
-	}
 	let nw = ((((window.innerWidth-1300)/1300).toFixed(2))/1);
 	let nh = ((((window.innerHeight-731)/731).toFixed(2))/1);
 	//console.log("nw: "+(1+nw)+" "+"nh: "+(1+nh));
 	scale(1+nw,1+nh);
-	if (player != null) {
+	// if (player != null) {
+	// 	console.log("Dibujar");
+	// }else{
+	// 	console.log("No dibujar");
+	// }
+
+	 if (player != null) {
 	image(background,0,0,1300,731);
 	//playerData();
 
@@ -335,7 +387,7 @@ function draw () {
 	if (keyIsDown(UP_ARROW) && cooldown < 5) {
 		socket.emit('jumping',player.id);
 		player.jump();
-			cooldown++; 
+			cooldown++;
 	}
 	if (keyIsDown(LEFT_ARROW)) {
 		let data = {
@@ -359,7 +411,7 @@ function draw () {
 		}
 	socket.emit('stop',data);
 	let s = (player.body.velocity.y);
-	//console.log(s);
+	//console.log(s);s
 	player.stop(s);
 }
 }else{
@@ -371,7 +423,7 @@ function draw () {
 	player.state = "dead";
 
 }
-
+	//console.log(player.id+ "-" + player.bomb);
 	for (var i = 0; i < bounds.length; i++) {
 		bounds[i].show();
 	}
@@ -404,20 +456,14 @@ function draw () {
     	break;
     default:
         state = {s:idle};
-}	
+}
 		let index = players[i].index;
 		//console.log(state);
 		players[i].show(state, index);
 	}
-
-	for (var i = 0; i < playerPoss.length; i++) {
-		var pos = playerPoss[i];
-		fill(255);
-		ellipse(pos.x,pos.y,40);
-	}
+ }
 }
-}
-//end of draw	
+//end of draw
 
 //Sets world bounds
 function setWorldBounds(){
@@ -431,34 +477,26 @@ function setWorldBounds(){
 
 }
 
-function newPlayer(sc){
+function newPlayer(data){
 	console.log("new player");
-	newplayer = new Player(width/2,height/2,20,sc);
+	newplayer = new Player(data.x,data.y,20,data.id);
 	players.push(newplayer);
-	collectInfo();
+	socket.emit('playersupdate', players);
 }
-function collectInfo(){
-	let p = [];
-	for (var i = 0; i < players.length; i++) {
-		//console.log(players[i]);
-		p.push(players[i].id)
-	}
-	
-	socket.emit('playersupdate', p);
-}
+
 function newupdate(p){
 	//console.log(p);
 	let sw;
 	for (var i = 0; i < p.length; i++) {
 		sw = false;
 		for (var j = 0; j < players.length; j++) {
-			if (p[i] === players[j].id) {
+			if (p[i].id === players[j].id) {
 				sw = true;
 			}
 		}
 		if (sw == false) {
 			//console.log("We dont have the player with id: " + p[i]);
-			let np = new Player(width/2,height/2,20,p[i]);
+			let np = new Player(p[i].pos.x,p[i].pos.y,p[i].id);
 			players.push(np);
 		}
 }
@@ -470,6 +508,7 @@ function posupdate(data){
 	for (var i = 0; i < players.length; i++) {
 		if (players[i].id == id) {
 			Matter.Body.setPosition(players[i].body,pos);
+			players[i].bomb = data.b;
 		}
 	}
 
@@ -516,7 +555,7 @@ function stop(data){
 
 function dead(data){
 	console.log("Player "+ data.id + " dead");
-	
+
 }
 
 // Para el samurai
@@ -578,13 +617,10 @@ function loadBackground(map){
 	let maps = getMaps();
 	let image;
 	for (var i = 0; i < maps.length; i++) {
-		console.log(maps[i].name);
-		console.log(map);
 			if (maps[i].name == map) {
 				image = maps[i].image;
 			}
-		}	
-	console.log(image);
+		}
 	background = loadImage(image);
 }
 
