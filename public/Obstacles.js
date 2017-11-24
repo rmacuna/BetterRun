@@ -39,7 +39,7 @@ function Box(x, y, w, h,label) {
 
 }
 
-function Bound(x, y, w, h, label) {
+function Bound(x, y, w, h, label, c) {
     var options = {
         friction: 0.01,
         isStatic: true
@@ -51,6 +51,8 @@ function Bound(x, y, w, h, label) {
     this.pos = this.body.position;
     this.w = w;
     this.h = h;
+    //this.c = color('#424242');
+    this.c = c;
     World.add(world, this.body);
 
     this.show = function(ground) {
@@ -58,9 +60,8 @@ function Bound(x, y, w, h, label) {
 
         push();
         rectMode(CENTER);
-        stroke(0);
-        var c = color('#424242');
-        fill(c);
+        noStroke();
+        fill(this.c);
         rect(this.pos.x, this.pos.y, this.w, this.h);
         //console.log(texture);
         if (texture != null) {
@@ -72,7 +73,7 @@ function Bound(x, y, w, h, label) {
     }
 }
 
-function Player(x, y, r, id) {
+function Player(x, y, r, id,char) {
     this.r = r;
     this.id = id;
 
@@ -97,6 +98,7 @@ function Player(x, y, r, id) {
 	this.alive = true;
 	this.state = "";
 	this.bomb = false;
+	this.char = char;
 	this.index = 0;
 	this.timer = 0;
 	this.prevstate = "Idle";
@@ -135,6 +137,38 @@ function Player(x, y, r, id) {
 	this.show = function(moving, index){
 		//let sw = 0;
 		let state = moving.s;
+		let offset = {x: 0, y: 0};
+		switch (this.char) {
+			case "Brujo":
+			state = state[0];
+			offset.x = -65;
+			offset.y = -65;
+			break;
+
+			case "Momia":
+			state = state[1];
+			offset.x = -45;
+			offset.y = -55;
+			break;
+
+			case "Maton":
+			state = state[2];
+			offset.x = -65;
+			offset.y = -65;
+			break;
+
+			case "Samurai":
+			state = state[3];
+			offset.x = -55;
+			offset.y = -51;
+			break;
+
+			default:
+			state = state[0];
+			offset.x = -65;
+			offset.y = -65;
+
+		}
 		//console.log(this.alive);
 			 if (this.alive == false && this.index == 12) {
 			 	this.body.collisionFilter.group = -1;
@@ -157,7 +191,7 @@ function Player(x, y, r, id) {
 				rectMode(CENTER);
 
 				stroke(255);
-				rect(0,0,this.r*2,this.r*4);
+				//rect(0,0,this.r*2,this.r*4);
 				// stroke(0);
 				// rect(0,0,130,130);
 
@@ -168,11 +202,12 @@ function Player(x, y, r, id) {
 				}
 				//console.log(index);
 				//console.log(state);
+				if (state != null) {
 				if (state[index] != null) {
 					//console.log("true");
 				//console.log("state["+index+"]"+state[index]);
 				//console.log(this.id + "showed");
-				image(state[index],-65,-65);
+				image(state[index],offset.x,offset.y);
 				if (this.timer == 0) {
 					this.index = (index + 1 ) % state.length;
 					this.timer = 3;
@@ -181,6 +216,7 @@ function Player(x, y, r, id) {
 				}
 				//image(state[index], 0, 0);
 				}
+			}
 				if (this.bomb == true) {
 					image(this.bombTexture, -20,-80);
 				}

@@ -9,7 +9,7 @@ console.log("Socket Server runnig");
 var ordenIDS = [];
 
 var startingPositions = [{x: 120,y: 130},{x: 580,y: 330},{x: 168,y: 710},{x: 1200,y: 530}];
-var test = ["Roger","Roberto","Daniel","Andrea"];
+//var test = ["Roger","Roberto","Daniel","Andrea"];
 // var socket = require('socket.io');
 // var io = socket(server);
 var io = require('socket.io')(server);
@@ -17,14 +17,18 @@ var index = 0;
 var players = [];
 io.use(function(socket, next) {
   var handshakeData = socket.request;
-  let id = handshakeData._query['id'];
+  let dataU = handshakeData._query['id'];
+  let id = dataU.split("-")[0];
+  let char = dataU.split("-")[1];
+  console.log(char);
   //id = test[index];
   ordenIDS[index] = id;
   console.log("id:", id);
   let data = {	
   	x: startingPositions[index].x,
   	y: startingPositions[index].y,
-  	id: id
+  	id: id,
+  	char: char
   };
   players.push(data);
   console.log("32 "+ index);
@@ -70,15 +74,21 @@ function newConnection(socket){
 	function bomb(data){
 		socket.broadcast.emit('bomb',data);
 	}
+
+	socket.on("newBomb",bomb);
+	function bomb(id){
+		console.log(id);
+	}
+
 	socket.on('block',block);
 	function block(data){
 		io.sockets.emit('block',data);
 	}
 
 	socket.on('gameStart',function(){
-		console.log('GameStart' + test);
+		console.log('GameStart');
 		//console.log(ordenIDS[index]);
-		socket.emit('gameStart',"Roger");
+		socket.emit('gameStart',players[0].id);
 	})
 
 	socket.on('playersupdate', newupdate);

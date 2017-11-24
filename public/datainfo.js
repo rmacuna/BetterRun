@@ -12,29 +12,10 @@
   var dbRef = firebase.database().ref('finalmap/');
   var dbRefGMode = firebase.database().ref('finalModal/');
   var dbRefPlayers = firebase.database().ref('Players/');
-
-  let data;
-
-  dbRef.once('value')
-  .then(function (result) {
-    return snapshot.val();
-    console.log(result.val());
-  })
-  .catch(function (err) {
-    console.log('Error', err.code);
-  });
-
-  function gameMode() {
-      dbRefGmode.on('value', function(snapshot) {
-          return snapshot.val();
-      });
-  }
-
-
   const maps = [{
           "name": "Bosque",
           "gravity": "estandar",
-          "platformColor": "",
+          "platformColor": '#388e3c',
           "image": "assets/levels/forest_level.png",
           "music": "assets/music/BetterRun.mp3",
           "blocks": "assets/chars/brick-wall.png"
@@ -42,7 +23,7 @@
       {
           "name": "Desierto",
           "gravity": "estandar",
-          "platformColor": "",
+          "platformColor": "#fdd835",
           "music": "assets/music/DesertMap.mp3",
           "image": "assets/levels/Desert_level.png",
           "blocks": "assets/chars/drop.png"
@@ -50,7 +31,7 @@
       {
           "name": "Cementerio",
           "gravity": "estandar",
-          "platformColor": "",
+          "platformColor": "#9e9e9e",
           "image": "assets/levels/Cementery_level.png",
           "blocks": "assets/chars/ghost.png",
           "music": "assets/music/HalloweenMap.mp3"
@@ -60,7 +41,7 @@
           "image": "assets/levels/moonland_level.jpg",
           "gravity": "1.5",
           "Fy": "40",
-          "platformColor": "",
+          "platformColor": "#78909c",
           "music": "assets/music/SpaceMap.mp3",
           "blocks": "assets/chars/moon.png"
       },
@@ -68,14 +49,14 @@
           "name": "CuevaHielo",
           "gravity": "estandar",
           "friction": "0.03",
-          "platformColor": "",
+          "platformColor": "#0288d1",
           "image": "assets/levels/ice_level.jpg",
           "music": "assets/music/DesertMap.mp3"
       },
       {
           "name": "Libertalia",
           "gravity": "estandar",
-          "platformColor": "",
+          "platformColor": "#afb42b",
           "image": "assets/levels/libertalia_level.jpg",
           "music": "assets/music/BetterRun.mp3",
           "blocks": "assets/chars/brick-wall.png"
@@ -91,13 +72,6 @@
           return 1;
       }
   }
-
-  function getArrOfPlayers() {
-      var browserCookies = document.cookie.split(';');
-      var plyers = browserCookies[2];
-      return plyers;
-  }
-
   function getFinalMap() {
       var browserCookies = document.cookie.split(';');
       var map = browserCookies[1].split('=')[1];
