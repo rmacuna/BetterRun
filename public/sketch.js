@@ -287,8 +287,6 @@ function setup() {
                     } else {
                         makeBombSoundCounter();
                         p.bomb = false;
-                        clearTimeout(timebomb);
-                        console.log("Player: "+ p.id+"passed the bomb");
                         let data = {
                             id: p.id,
                             b: p.bomb
@@ -404,21 +402,18 @@ function draw() {
     if (player != null) {
         image(background, 0, 0, 1300, 731);
         //playerData();
-        	if (player.bomb == true && sw6 == 0) {
+	if (player.bomb == true && sw6 == 0) {
 		sw6 = 1;
 		timebomb = setTimeout(function(){
         console.log("The time for player: " + player.id + "has ended");
-        player.bomb = false;
         player.alive = false;
-        // let x = Math.floor((0 + (int)(Math.random() * players.length)));
-        // let nextPlayer;
-        // if (players.lenght > 1) {
-        // 	nextPlayer = players[x].id;
-        // }
-        // let pn = player.id;
-        // while(pn == nextPlayer){
-
-        // }
+        let x = Math.floor((0 + (int)(Math.random() * players.length)));
+        let nextPlayer = players[x].id;        
+        while(player.id == nextPlayer){
+        x = Math.floor((0 + (int)(Math.random() * players.length)));
+        nextPlayer = players[x].id;
+        }
+        socket.emit("newBomb", nextPlayer);
         
     }, 10000);
 	}else if(player.bomb == false){
