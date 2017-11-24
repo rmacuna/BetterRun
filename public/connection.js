@@ -22,7 +22,7 @@
   var countMapCementerio;
   var countFB;
   var countBT;
-  var Njugadores = 3;
+  var Njugadores = 1;
   // Referencias a la base de datos.
   var UserConectionRef = firebase.database().ref('Conections/');
   var players = firebase.database().ref('Players/');

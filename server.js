@@ -4,7 +4,7 @@ var server = app.listen(4000);
 // const chalk = require('chalk');
 
 app.use(express.static('public'));
-app.use( express.static('../assets/chars/Chibi Smaurai 01 (Conical Hat)/PNG/PNG Sequences/Small/')); 
+app.use( express.static('../assets/chars/Chibi Smaurai 01 (Conical Hat)/PNG/PNG Sequences/Small/'));
 console.log("Socket Server runnig");
 var ordenIDS = [];
 
@@ -17,16 +17,19 @@ var index = 0;
 var players = [];
 io.use(function(socket, next) {
   var handshakeData = socket.request;
-  let id = handshakeData._query['id'];
-  let quer = handshakeData._query['nom'];
+  let dataU = handshakeData._query['id'];
+  let id = dataU.split("-")[0];
+  let char = dataU.split("-")[1];
+  console.log(char);
   //id = test[index];
   ordenIDS[index] = id;
   console.log("id:", id);
   console.log(quer);
-  let data = {	
+  let data = {
   	x: startingPositions[index].x,
   	y: startingPositions[index].y,
-  	id: id
+  	id: id,
+  	char: char
   };
   players.push(data);
   console.log("32 "+ index);
@@ -36,14 +39,14 @@ io.use(function(socket, next) {
   setTimeout(function(){
   	io.sockets.emit('startingPosition',players);
   },1000);
-  
+
   //socket.broadcast.emit('newplayer',data);
   next();
 });
 
 io.sockets.on('connection', newConnection);
 function newConnection(socket){
-	
+
 	console.log("newConnection" + socket.id);
 
 	socket.on('jumping',jump);
@@ -78,7 +81,7 @@ function newConnection(socket){
 	}
 
 	socket.on('gameStart',function(){
-		console.log('GameStart' + test);
+		console.log('GameStart');
 		//console.log(ordenIDS[index]);
 		socket.emit('gameStart',players[0].id);
 	})
