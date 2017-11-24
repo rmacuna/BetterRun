@@ -116,7 +116,7 @@ world.gravity.y = 2.5;
       break;
   }
  }
-socket = io.connect('http://192.168.0.12:4000', { query: "id="+id });
+socket = io.connect('http://192.168.0.24:4000', { query: "id="+id });
 //socket = io.connect('http://192.168.0.12:4000');
 socket.emit('gamemode', gamemode);
 socket.on('newplayer', newPlayer);
