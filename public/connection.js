@@ -131,13 +131,13 @@
 
   UserConectionRef.on("value", function(snapshot) {
       if (connectedUsers == Njugadores) {
-              firebase.database().ref('Players/').once('value', function(snapshot) {
-                  snapshot.forEach(function(childSnapshot) {
-                      var str = JSON.stringify(childSnapshot.val());
-                      json = JSON.parse(str);
-                      showConection(json["username"], " se ha unido a la partida");
-                  });
+          firebase.database().ref('Players/').once('value', function(snapshot) {
+              snapshot.forEach(function(childSnapshot) {
+                  var str = JSON.stringify(childSnapshot.val());
+                  json = JSON.parse(str);
+                  showConection(json["username"], " se ha unido a la partida");
               });
+          });
           const smap = [countMapBosque, countMapDesert, countMapCementerio, countMapEspacio, countMapIce, countMapLibertalia];
           var pos = smap.indexOf(Math.max(...smap));
           switch (pos) {

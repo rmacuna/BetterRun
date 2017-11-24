@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BetterRun</title>
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/SemanticUI/semantic.min.css">
+    <style>
+    body {
+        background: #03A9F4;
+    }
+
+    .center-w {
+        top: 50%;
+        align-content: center;
+        position: absolute;
+        font-size: 120px;
+        margin: 0 auto;
+        margin-right: -50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .bottom-middle {
+        position: absolute;
+        margin-right: -50%;
+        bottom: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0 auto;
+        left: 50%;
+        align-text: center;
+        align-content: center;
+        font-size: 2.0rem;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="center-w text-white">Winner</div>
+    <div class="bottom-middle"><img class="ui medium image" src="assets/images/chars.png"></div>
+    <span id="wating-players" class=" text-white bottom-text">Esperando otros jugadores...
+                     <div class="ui active inverted inline loader"></div>
+                     <div class="separated-min"></div>
+                     <div class="center">
+                          <!-- div id="user_input" class="ui action input">
+                            <div data-tooltip="Pasa la bomba al personaje mas cercano a ti antes de que te explote, ganará el último en pie." class="ui button hoverableSound" id="btn-play" onclick="pushInformation('B')" class="ui button huge">Bomb Tag</div>
+                            <div onclick="pushInformation('F')" data-tooltip="Evita los bloques que caen del cielo o morirás, ganará el último en pie." id="btn-blocks" class="ui huge button hoverableSound">Falling Blocks</div>
+                          </div> -->
+                          <div class="ui huge button hoverableSound" onclick="repush()">REPETIR</div>
+                     </div>
+    </span>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+    <script src="../css/SemanticUI/semantic.min.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script type="text/javascript" src="../js/public/main.js"></script>
+    <script type="text/javascript" src="reloby.js"></script>
+
+</body>
+
+</html>

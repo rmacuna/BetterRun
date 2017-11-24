@@ -7,10 +7,11 @@
     <script src="addons/p5.dom.min.js"></script>
     <script src="addons/p5.sound.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-   <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
     <script src="datainfo.js"></script>
     <script src="sketch.js"></script>
     <script src="Obstacles.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/SemanticUI/semantic.min.css">
     <style>
     body {
         padding: 0;
@@ -20,22 +21,61 @@
     }
     </style>
 </head>
+
 <body>
-    <div id="gamemode"></div>
-    <audio id="btaudio" src="assets/sounds/btag.mp3"></audio>
-    <audio id="fbaudio" src="assets/sounds/falling.mp3"></audio>
-    <audio id="readyAudio" src="assets/sounds/ready.mp3"></audio>
+
+    <div id="bt" class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">BombTag Evade a Tus Enemigos</div>
+        <div class="image content">
+            <div class="ui medium image">
+                <img src="assets/images/BombTagDesc.png">
+            </div>
+            <div class="description">
+                <div class="ui header">Evita al oponente que tiene la bomba o te la va a pasar</div>
+                <p>Corre por todo el mapa evitando al personaje que tenga la bomba encima</p>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="ui positive right labeled icon button">
+                Listo
+                <i class="checkmark icon"></i>
+            </button>
+        </div>
+    </div>
+    <div id="fb" class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">FallingBlocks evita los bloques</div>
+        <div class="image content">
+            <div class="ui medium image">
+                <img src="assets/images/FallingBDesc.png">
+            </div>
+            <div class="description">
+                <div class="ui header">Evita que te toque cualquier bloque</div>
+                <p>Corre por todo el mapa evitando que te golpee uno de los bloques que caen del cielo o moriras</p>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="ui positive right labeled icon button">
+                Listo
+                <i class="checkmark icon"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../css/SemanticUI/semantic.min.js"></script>
+    <script src="messages.js"></script>
     <audio id="track"></audio>
-    <audio id="backgroundtrack"></audio>
     <audio id="explotionCounter" src="assets/sounds/BombCount.mp3"></audio>
     <audio id="bombCount" src="assets/sounds/counter.mp3"></audio>
     <script type="text/javascript">
-         window.onload = function () {
-            var audio = document.getElementById("bombCount");
-            audio.autoplay = true;
-            audio.volume = 0.2;
-            audio.play();
-         }
+    window.onload = function() {
+        var audio = document.getElementById("bombCount");
+        audio.autoplay = true;
+        audio.volume = 0.1;
+        audio.play();
+    }
     </script>
 </body>
 

@@ -18,9 +18,11 @@ var players = [];
 io.use(function(socket, next) {
   var handshakeData = socket.request;
   let id = handshakeData._query['id'];
+  let quer = handshakeData._query['nom'];
   //id = test[index];
   ordenIDS[index] = id;
   console.log("id:", id);
+  console.log(quer);
   let data = {	
   	x: startingPositions[index].x,
   	y: startingPositions[index].y,
