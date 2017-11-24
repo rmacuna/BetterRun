@@ -12,6 +12,8 @@
   var dbRef = firebase.database().ref('finalmap/');
   var dbRefGMode = firebase.database().ref('finalModal/');
   var dbRefPlayers = firebase.database().ref('Players/');
+  var dbRefWinner = firebase.database().ref('winner/');
+  
   const maps = [{
           "name": "Bosque",
           "gravity": "estandar",

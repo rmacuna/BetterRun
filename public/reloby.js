@@ -9,20 +9,18 @@
   firebase.initializeApp(config);
 
 
-  var dbRef = firebase.database().ref('Conections/');
-  var dbRefFinalMap = firebase.database().ref('finalmap/');
-  var dbRefFinalMode = firebase.database().ref('finalmode/');
-  var dbRefFallingB = firebase.database().ref('FallingBlocks/');
-  var dbRefBombTag = firebase.database().ref('BombTag/');
+  var dbRef = firebase.database().ref('winner/');
+  var winner;
 
-
-
-  dbRef.on('value', function(snapshot) {
-      connectedUsers = snapshot.val();
+  dbRef.on('value', function (snapshot) {
+    winner = snapshot.val();
+    document.getElementById('win').innerText = "El ganador es " + winner;
   });
 
 
-  function repush() {
-  	console.log('sdasd')
-  	initGame();
-  }
+
+
+
+
+  
+
