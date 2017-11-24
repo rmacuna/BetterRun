@@ -75,6 +75,12 @@ function newConnection(socket){
 	function bomb(data){
 		socket.broadcast.emit('bomb',data);
 	}
+
+	socket.on("newBomb",bomb);
+	function bomb(id){
+		console.log(id);
+	}
+
 	socket.on('block',block);
 	function block(data){
 		io.sockets.emit('block',data);
