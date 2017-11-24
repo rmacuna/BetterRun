@@ -125,7 +125,7 @@ function setup() {
     	// console.log(id);
     	// console.log(char);
     	// console.log(gamemode);
-        socket = io.connect('http://10.20.7.39:4000', { query: "id=" + id+"-"+char });
+        socket = io.connect('http://10.20.54.26:4000', { query: "id=" + id+"-"+char });
     }
 
     //socket = io.connect('http://192.168.0.12:4000');
