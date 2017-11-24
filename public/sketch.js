@@ -407,6 +407,7 @@ function draw() {
 		timebomb = setTimeout(function(){
         console.log("The time for player: " + player.id + "has ended");
         player.alive = false;
+        if (players.length > 1) {
         let x = Math.floor((0 + (int)(Math.random() * players.length)));
         let nextPlayer = players[x].id;        
         while(player.id == nextPlayer){
@@ -414,6 +415,7 @@ function draw() {
         nextPlayer = players[x].id;
         }
         socket.emit("newBomb", nextPlayer);
+    }
         
     }, 10000);
 	}else if(player.bomb == false){
