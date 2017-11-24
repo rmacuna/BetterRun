@@ -10,7 +10,7 @@ var bounds = [];
 var obstacles = [];
 
 //Player vars
-var id = "Roger";
+var id;
 var player = null;
 var cooldown = 0;
 var players = [];
@@ -41,6 +41,7 @@ world.gravity.y = 2.5;
 
  var cookies = document.cookie;
  var splited = cookies.split(";");
+ console.log(splited);
  if (splited.length == 5) {
  	splited.splice(0,1);
  }
@@ -116,7 +117,12 @@ world.gravity.y = 2.5;
       break;
   }
  }
-socket = io.connect('http://192.168.0.24:4000', { query: "id="+id });
+ if (id == null) {
+ 	console.log("No tienes id");
+ }else{
+ 	socket = io.connect('http://192.168.0.12:4000', { query: "id="+id });
+ }
+
 //socket = io.connect('http://192.168.0.12:4000');
 socket.emit('gamemode', gamemode);
 socket.on('newplayer', newPlayer);
@@ -124,9 +130,9 @@ socket.on('startingPosition',function(data){
 	//id = "Roger";
 	console.log(data);
 	console.log(id);
-	console.log(data.id == "Roger");
 	for (var i = 0; i < data.length; i++) {
 		let current = data[i];
+		console.log(current.id +" - "+i);
 		if (current.id == id) {
 			if (player == null) {
 			player = new Player(current.x,current.y,20,id);
@@ -135,14 +141,16 @@ socket.on('startingPosition',function(data){
 			}
 		}else{
 			let sw = 0;
-			for (var i = 0; i < players.length; i++) {
-				if (current.id == players[i].id) {
+			for (var j = 0; j < players.length; j++) {
+				console.log(current.id == players[j].id);
+				if (current.id == players[j].id) {
 					sw = 1;
 				}
 			}
 			if (sw == 1) {
 				console.log("Ya tengo a este jugador");
 			}else{
+				console.log("No tengo al jugador con id " + current.id);
 				let np = new Player(current.x,current.y,20,current.id);
 				console.log(np);
 				players.push(np);

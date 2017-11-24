@@ -9,7 +9,7 @@ console.log("Socket Server runnig");
 var ordenIDS = [];
 
 var startingPositions = [{x: 120,y: 130},{x: 580,y: 330},{x: 168,y: 710},{x: 1200,y: 530}];
-var test = ["Roger","Roberto","Daniel","Andrea"];
+//var test = ["Roger","Roberto","Daniel","Andrea"];
 // var socket = require('socket.io');
 // var io = socket(server);
 var io = require('socket.io')(server);
@@ -78,7 +78,7 @@ function newConnection(socket){
 	socket.on('gameStart',function(){
 		console.log('GameStart' + test);
 		//console.log(ordenIDS[index]);
-		socket.emit('gameStart',"Roger");
+		socket.emit('gameStart',players[0].id);
 	})
 
 	socket.on('playersupdate', newupdate);

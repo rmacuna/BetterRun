@@ -22,6 +22,7 @@
   var countMapCementerio;
   var countFB;
   var countBT;
+  var Njugadores = 3;
   // Referencias a la base de datos.
   var UserConectionRef = firebase.database().ref('Conections/');
   var players = firebase.database().ref('Players/');
@@ -63,7 +64,7 @@
 
   function dataMode(dataMode) {
       countBT = dataMode.val();
-      if (connectedUsers == 2) {
+      if (connectedUsers == Njugadores) {
           if (countBT > countFB) {
               dbRefFinalMode.set('BombTag');
           } else if (countBT == countFB) {
@@ -77,7 +78,7 @@
 
   function dataMode2(dataMode2) {
       countFB = dataMode2.val();
-      if (connectedUsers == 2) {
+      if (connectedUsers == Njugadores) {
           if (countFB > countBT) {
               dbRefFinalMode.set('FallingBlocks');
           } else if (countBT == countFB) {
@@ -129,8 +130,7 @@
 
 
   UserConectionRef.on("value", function(snapshot) {
-      if (connectedUsers == 2) {
-          document.cookie =
+      if (connectedUsers == Njugadores) {
               firebase.database().ref('Players/').once('value', function(snapshot) {
                   snapshot.forEach(function(childSnapshot) {
                       var str = JSON.stringify(childSnapshot.val());
@@ -283,7 +283,7 @@
   //     }
   // };
   // Manejo de cookies
-  var d = new Date();
-  d.setTime(d.getTime() + (30 * 1000));
-  document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + d) + ";path=/"; });
-  document.cookie = "finalmap" + "=" + d + "; path=/";
+  // var d = new Date();
+  // d.setTime(d.getTime() + (30 * 1000));
+  // document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + d) + ";path=/"; });
+  // document.cookie = "finalmap" + "=" + d + "; path=/";
