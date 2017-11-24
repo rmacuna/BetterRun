@@ -17,14 +17,18 @@ var index = 0;
 var players = [];
 io.use(function(socket, next) {
   var handshakeData = socket.request;
-  let id = handshakeData._query['id'];
+  let dataU = handshakeData._query['id'];
+  let id = dataU.split("-")[0];
+  let char = dataU.split("-")[1];
+  console.log(char);
   //id = test[index];
   ordenIDS[index] = id;
   console.log("id:", id);
   let data = {	
   	x: startingPositions[index].x,
   	y: startingPositions[index].y,
-  	id: id
+  	id: id,
+  	char: char
   };
   players.push(data);
   console.log("32 "+ index);
@@ -76,7 +80,7 @@ function newConnection(socket){
 	}
 
 	socket.on('gameStart',function(){
-		console.log('GameStart' + test);
+		console.log('GameStart');
 		//console.log(ordenIDS[index]);
 		socket.emit('gameStart',players[0].id);
 	})

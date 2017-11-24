@@ -54,21 +54,22 @@ var maps = [{
     }
 ];
 
-var characterNames = [{
-        "name": "El Samurai",
-        "img": "assets/chars/Chibi Smaurai 01 (Conical Hat)/PNG/PNG Sequences/Small/Idle/Idle_000.png"
-    },
-    {
-        "name": "El Maton",
-        "img": "assets/chars/Maton/PNG Sequences/Idle/Idle_000.png"
-    },
-    {
-        "name": "Conejo",
-        "img": "assets/chars/Rabbit/Idle/Idle_000.png"
-    },
+var characterNames = [
     {
         "name": "Brujo",
         "img": "assets/chars/Wizard/PNG Sequences/Idle/Idle_000.png"
+    },
+    {
+        "name": "Maton",
+        "img": "assets/chars/Maton/PNG Sequences/Idle/Idle_000.png"
+    },
+    {
+        "name": "Momia",
+        "img": "assets/chars/Momia/PNG Sequences/Idle/Idle_000.png"
+    },
+    {
+        "name": "Samurai",
+        "img": "assets/chars/Samurai/PNG/PNG Sequences/Idle/Idle_000.png"
     }
 ];
 
