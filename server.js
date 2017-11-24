@@ -24,7 +24,6 @@ io.use(function(socket, next) {
   //id = test[index];
   ordenIDS[index] = id;
   console.log("id:", id);
-  console.log(quer);
   let data = {
   	x: startingPositions[index].x,
   	y: startingPositions[index].y,
@@ -67,7 +66,7 @@ function newConnection(socket){
 	}
 	socket.on('dead',dead);
 	function dead(data){
-		console.log("Player "+ data.id + " dead");
+		//console.log("Player "+ data.id + " dead");
 		socket.broadcast.emit('dead',data);
 	}
 
@@ -79,6 +78,7 @@ function newConnection(socket){
 	socket.on("newBomb",bomb);
 	function bomb(id){
 		console.log(id);
+		io.sockets.emit('newBomb',id);
 	}
 
 	socket.on('block',block);

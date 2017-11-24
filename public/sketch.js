@@ -188,6 +188,13 @@ function setup() {
         let p = getPlayerById(data.id);
         p.bomb = data.b;
     });
+    socket.on('newBomb', function(id){
+    	let p = getPlayerById(id);
+    	if (p != null) {
+    		p.bomb = true;
+    	}
+    	
+    });
     socket.on('block', function(data) {
         obstacles.push(new Box(data, -500, 50, 50, "block"));
     });
@@ -307,6 +314,21 @@ function setup() {
         a.play();
     }
     setInterval(function() {
+    	console.log(players.length);
+    	if (players.length > 1) {
+    		let cont = 0;
+    		let p;
+    	for (var i = 0; i < players.length; i++) {
+    		if (players[i].alive == true){
+    			cont++;
+    			p = players[i];
+    		}
+    	}
+    	console.log(cont);
+    	if (cont == 1) {
+    		console.log("We have a winner " +p.id);
+    	}
+    }
         let bomb;
         //console.log(player.id+ "-" + player.bomb);
         if (player.bomb != null) {
@@ -407,13 +429,17 @@ function draw() {
 		timebomb = setTimeout(function(){
         console.log("The time for player: " + player.id + "has ended");
         player.alive = false;
+        if (players.length > 1) {
         let x = Math.floor((0 + (int)(Math.random() * players.length)));
         let nextPlayer = players[x].id;        
         while(player.id == nextPlayer){
         x = Math.floor((0 + (int)(Math.random() * players.length)));
         nextPlayer = players[x].id;
-        }
+        console.log("The next player is: "+ nextPlayer);
         socket.emit("newBomb", nextPlayer);
+        }
+        
+    }
         
     }, 10000);
 	}else if(player.bomb == false){
