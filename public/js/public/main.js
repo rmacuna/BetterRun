@@ -56,8 +56,8 @@ var maps = [{
 
 var characterNames = [
     {
-        "name": "Brujo",
-        "img": "assets/chars/Wizard/PNG Sequences/Idle/Idle_000.png"
+        "name": "Samurai",
+        "img": "assets/chars/Samurai/PNG/PNG Sequences/Idle/Idle_000.png"
     },
     {
         "name": "Maton",
@@ -68,8 +68,8 @@ var characterNames = [
         "img": "assets/chars/Momia/PNG Sequences/Idle/Idle_000.png"
     },
     {
-        "name": "Samurai",
-        "img": "assets/chars/Samurai/PNG/PNG Sequences/Idle/Idle_000.png"
+        "name": "Brujo",
+        "img": "assets/chars/Wizard/PNG Sequences/Idle/Idle_000.png"
     }
 ];
 

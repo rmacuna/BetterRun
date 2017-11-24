@@ -75,11 +75,11 @@ function setup() {
         }
         switch (map) {
             case "Bosque":
-                // var audio = document.getElementById('track');
-                // //audio.src = "assets/music/BetterRun.mp3";
-                // audio.volume = '0.2';
-                // audio.loop = true;
-                // audio.play();
+                var audio = document.getElementById('track');
+                audio.src = "assets/music/BetterRun.mp3";
+                audio.volume = '0.2';
+                audio.loop = true;
+                audio.play();
                 break;
             case "Desierto":
                 var audio = document.getElementById('track');
@@ -91,6 +91,7 @@ function setup() {
             case "Cementerio":
                 var audio = document.getElementById('track');
                 audio.src = "assets/music/HalloweenMap.mp3";
+                audio.volume = '0.1'
                 audio.loop = true;
                 audio.play();
                 break;
@@ -119,12 +120,12 @@ function setup() {
         }
     }
     if (id == null) {
-        console.log("No tienes id");
+        // console.log("No tienes id");
     } else {
-    	console.log(id);
-    	console.log(char);
-    	console.log(gamemode);
-        socket = io.connect('http://192.168.1.130:4000', { query: "id=" + id+"-"+char });
+    	// console.log(id);
+    	// console.log(char);
+    	// console.log(gamemode);
+        socket = io.connect('http://192.168.1.73:4000', { query: "id=" + id+"-"+char });
     }
 
     //socket = io.connect('http://192.168.0.12:4000');
@@ -152,9 +153,9 @@ function setup() {
                     }
                 }
                 if (sw == 1) {
-                    console.log("Ya tengo a este jugador");
+                    // console.log("Ya tengo a este jugador");
                 } else {
-                    console.log("No tengo al jugador con id " + current.id);
+                    // console.log("No tengo al jugador con id " + current.id);
                     let np = new Player(current.x, current.y, 20, current.id, current.char);
                     // console.log(np);
                     players.push(np);
@@ -193,7 +194,7 @@ function setup() {
     	if (p != null) {
     		p.bomb = true;
     	}
-    	
+
     });
     socket.on('block', function(data) {
         obstacles.push(new Box(data, -500, 50, 50, "block"));
@@ -207,7 +208,7 @@ function setup() {
         for (var i = 0; i < players.length; i++) {
             players[i].bomb = false;
         }
-        console.log("Player with the bomb" + id);
+        // console.log("Player with the bomb" + id);
         let p = getPlayerById(id);
         p.bomb = true;
     })
@@ -273,7 +274,7 @@ function setup() {
                 p = bB;
                 s = bA;
             } else {
-                console.log("Not mi player");
+                // console.log("Not mi player");
                 sw = false;
             }
             if (sw) {
@@ -314,7 +315,7 @@ function setup() {
         a.play();
     }
     setInterval(function() {
-    	console.log(players.length);
+    	// console.log(players.length);
     	if (players.length > 1) {
     		let cont = 0;
     		let p;
@@ -324,9 +325,12 @@ function setup() {
     			p = players[i];
     		}
     	}
-    	console.log(cont);
+    	// console.log(cont);
     	if (cont == 1) {
-    		console.log("We have a winner " +p.id);
+
+    		// console.log("We have a winner " +p.id);
+            dbRefWinner.set(p.id);
+            window.location.href = "winner.html";
     	}
     }
         let bomb;
@@ -398,7 +402,7 @@ function setup() {
     }
 }
 
-console.log(gamemode);
+// console.log(gamemode);
 
 //Renders the world
 var sw5 = 0;
@@ -431,16 +435,16 @@ function draw() {
         player.alive = false;
         if (players.length > 1) {
         let x = Math.floor((0 + (int)(Math.random() * players.length)));
-        let nextPlayer = players[x].id;        
+        let nextPlayer = players[x].id;
         while(player.id == nextPlayer){
         x = Math.floor((0 + (int)(Math.random() * players.length)));
         nextPlayer = players[x].id;
         console.log("The next player is: "+ nextPlayer);
         socket.emit("newBomb", nextPlayer);
         }
-        
+
     }
-        
+
     }, 10000);
 	}else if(player.bomb == false){
 		sw6 = 0;
@@ -546,7 +550,7 @@ function setWorldBounds(map) {
 }
 
 function newPlayer(data) {
-    console.log("new player");
+    // console.log("new player");
     newplayer = new Player(data.x, data.y, 20, data.id);
     players.push(newplayer);
     socket.emit('playersupdate', players);
@@ -624,7 +628,7 @@ function stop(data) {
 }
 
 function dead(data) {
-    console.log("Player " + data.id + " dead");
+    // console.log("Player " + data.id + " dead");
 
 }
 
@@ -636,7 +640,7 @@ function loadAnimations() {
     let momia = [];
     let maton = [];
     let samurai = [];
-   	//Idle 
+   	//Idle
     //Wizard
     for (var i = 0; i < 9; i++) {
         loadImage("assets/chars/Wizard/PNG Sequences/Idle Blinking/Idle Blinking_00" + i + ".png", function(image) {
@@ -664,7 +668,7 @@ function loadAnimations() {
             momia.push(image);
         });
     }
-    
+
     //Maton
     for (var i = 0; i < 9; i++) {
         loadImage("assets/chars/Maton/PNG Sequences/Idle Blinking/Idle Blinking_00" + i + ".png", function(image) {
@@ -678,7 +682,7 @@ function loadAnimations() {
             maton.push(image);
         });
     }
- 
+
     //samurai
     for (var i = 0; i < 9; i++) {
         loadImage("assets/chars/Samurai/PNG/PNG Sequences/Idle/Idle_00" + i + ".png", function(image) {
@@ -691,14 +695,14 @@ function loadAnimations() {
             image.resize(130, 0);
             samurai.push(image);
         });
-    }   
+    }
     setTimeout(function(){
-    	console.log("Idle");
+    	// console.log("Idle");
     	idle.push(wizard);
     	idle.push(momia);
     	idle.push(maton);
     	idle.push(samurai);
-    	console.log(idle);
+    	// console.log(idle);
     },time);
 
     //Running
@@ -719,7 +723,7 @@ function loadAnimations() {
             wizard2.push(image);
         });
     }
-    
+
     //Momia
     for (var i = 0; i < 9; i++) {
         loadImage("assets/chars/Momia/PNG Sequences/Running/Running_00" + i + ".png", function(image) {
@@ -733,7 +737,7 @@ function loadAnimations() {
             momia2.push(image);
         });
     }
-    
+
     //Maton
     for (var i = 0; i < 9; i++) {
         loadImage("assets/chars/Maton/PNG Sequences/Running/Running_00" + i + ".png", function(image) {
@@ -747,7 +751,7 @@ function loadAnimations() {
             maton2.push(image);
         });
     }
-    
+
     //samurai
     for (var i = 0; i < 9; i++) {
         loadImage("assets/chars/Samurai/PNG/PNG Sequences/Running/Running_00" + i + ".png", function(image) {
@@ -763,12 +767,12 @@ function loadAnimations() {
     }
 
         setTimeout(function(){
-    	console.log("Running");
+    	// console.log("Running");
     	running.push(wizard2);
     	running.push(momia2);
     	running.push(maton2);
     	running.push(samurai2);
-    	console.log(running);
+    	// console.log(running);
     },time);
 
     //Jumping
@@ -783,7 +787,7 @@ function loadAnimations() {
             wizard3.push(image);
         });
     }
-    
+
     //Momia
     for (var i = 0; i < 9; i++) {
         loadImage("assets/chars/Momia/PNG Sequences/Idle/Idle_00" + i + ".png", function(image) {
@@ -791,7 +795,7 @@ function loadAnimations() {
             momia3.push(image);
         });
     }
-    
+
     //Maton
     for (var i = 0; i < 5; i++) {
         loadImage("assets/chars/Maton/PNG Sequences/Jump Loop/Jump Loop_00" + i + ".png", function(image) {
@@ -799,7 +803,7 @@ function loadAnimations() {
             maton3.push(image);
         });
     }
-    
+
     //samurai
     for (var i = 0; i < 9; i++) {
         loadImage("assets/chars/Samurai/PNG/PNG Sequences/Jumping/Jumping_00" + i + ".png", function(image) {
@@ -813,15 +817,15 @@ function loadAnimations() {
             samurai3.push(image);
         });
     }
-    
+
 
     setTimeout(function(){
-    	console.log("Jumping");
+    	// console.log("Jumping");
     	jumping.push(wizard3);
     	jumping.push(momia3);
     	jumping.push(maton3);
     	jumping.push(samurai3);
-    	console.log(jumping);
+    	// console.log(jumping);
     },time);
 	//Dying
 	//Running
@@ -842,7 +846,7 @@ function loadAnimations() {
             wizard4.push(image);
         });
     }
-    
+
     //Momia
     for (var i = 0; i < 9; i++) {
         loadImage("assets/chars/Momia/PNG Sequences/Dying/Dying_00" + i + ".png", function(image) {
@@ -856,7 +860,7 @@ function loadAnimations() {
             momia4.push(image);
         });
     }
-    
+
     //Maton
     for (var i = 0; i < 9; i++) {
         loadImage("assets/chars/Maton/PNG Sequences/Dying/Dying_00" + i + ".png", function(image) {
@@ -870,7 +874,7 @@ function loadAnimations() {
             maton4.push(image);
         });
     }
-    
+
     //samurai
     for (var i = 0; i < 9; i++) {
         loadImage("assets/chars/Samurai/PNG/PNG Sequences/Dying/Dying_00" + i + ".png", function(image) {
@@ -884,14 +888,14 @@ function loadAnimations() {
             samurai4.push(image);
         });
     }
-    
+
         setTimeout(function(){
-    	console.log("Dying");
+    	// console.log("Dying");
     	dying.push(wizard4);
     	dying.push(momia4);
     	dying.push(maton4);
     	dying.push(samurai4);
-    	console.log(dying);
+    	// console.log(dying);
     },time);
 }
 
