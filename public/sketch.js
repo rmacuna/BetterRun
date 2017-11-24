@@ -332,7 +332,8 @@ frameRate(60);
 // console.log() requires firebug
 console.log("Gamemode" + gamemode);
 if (gamemode == 1) {
-fallingBlocks(function(){
+	setTimeout(function(){
+		fallingBlocks(function(){
 		var Xpos = [];
 		for (var i = 0; i < Math.floor(blocks); i++) {
 		let x = (0 + (int)(Math.random() * 26))*50;
@@ -356,10 +357,12 @@ fallingBlocks(function(){
 			socket.emit('block',Xpos[i]);
 			//obstacles.push(new Box(Xpos[i],0,50, 50, "block"));
 		}
-}, 10);
+}, 1);
+	},10000);
+
 }
 }
-if (gamemode == 1) {
+if (gamemode == 1 && players.length == 4) {
 	setTimeout(function(){socket.emit('gameStart');},5000);
 }
 

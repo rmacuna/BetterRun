@@ -59,7 +59,7 @@
 
   function dataMode(dataMode) {
     countBT = dataMode.val();
-    if (connectedUsers == 3) {
+    if (connectedUsers == 4) {
       if (countBT > countFB) {
         dbRefFinalMode.set('BombTag');
       } else if (countBT == countFB) {
@@ -73,7 +73,7 @@
 
   function dataMode2(dataMode2) {
     countFB = dataMode2.val();
-    if (connectedUsers == 3) {
+    if (connectedUsers == 4) {
       if (countFB > countBT) {
         dbRefFinalMode.set('FallingBlocks');
       } else if (countBT == countFB) {
@@ -125,7 +125,7 @@
 
 
   UserConectionRef.on("value", function(snapshot) {
-    if (connectedUsers == 3) {
+    if (connectedUsers == 4) {
       firebase.database().ref('Players/').once('value', function(snapshot) {
         snapshot.forEach(function(childSnapshot) {
           var str = JSON.stringify(childSnapshot.val());
@@ -275,7 +275,7 @@
   }
   //Ahora detectaremos cuando alguien se salga de la sala de espera.
   window.onbeforeunload = function() {
-    if (inTheGame && connectedUsers < 3) {
+    if (inTheGame && connectedUsers < 4) {
       players.child(myConection).remove();
       connectedUsers--;
       UserConectionRef.set(connectedUsers);
