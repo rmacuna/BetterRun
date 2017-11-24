@@ -125,7 +125,7 @@ function setup() {
     	// console.log(id);
     	// console.log(char);
     	// console.log(gamemode);
-        socket = io.connect('http://192.168.1.73:4000', { query: "id=" + id+"-"+char });
+        socket = io.connect('http://10.20.7.39:4000', { query: "id=" + id+"-"+char });
     }
 
     //socket = io.connect('http://192.168.0.12:4000');
@@ -319,19 +319,36 @@ function setup() {
     	if (players.length > 1) {
     		let cont = 0;
     		let p;
+    		let sw7 = 0;
+    		let aux = [];
     	for (var i = 0; i < players.length; i++) {
     		if (players[i].alive == true){
     			cont++;
     			p = players[i];
     		}
     	}
-    	// console.log(cont);
     	if (cont == 1) {
 
     		// console.log("We have a winner " +p.id);
             dbRefWinner.set(p.id);
             window.location.href = "winner.html";
     	}
+    	if (gamemode == 0) {
+    		for (var i = 0; i < players.length; i++) {
+    		if (players[i].bomb == true) {
+    			console.log("Un jugador tiene la bomba");
+    			aux.push(players[i]);
+;    			sw7++;
+    		}
+    	}
+    	if (sw7 != 1) {
+    		socket.emit('gameStart');
+    	}else{
+    		console.log("Dos o mas jugadores tienen la bomba");
+    			socket.emit('newBomb',aux[0].id);
+    	}
+    	}
+    
     }
         let bomb;
         //console.log(player.id+ "-" + player.bomb);
